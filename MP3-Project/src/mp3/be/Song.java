@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author frederik
  */
-public class Songs implements Serializable {
+public class Song implements Serializable {
     
     private final int id;
     private String title;
@@ -19,7 +19,7 @@ public class Songs implements Serializable {
     private String category;
     
     
-    public Songs(int id, String title, String artist, String category){
+    public Song(int id, String title, String artist, String category){
         this.id = id;
         this.title = title;
         this.artist = artist;
