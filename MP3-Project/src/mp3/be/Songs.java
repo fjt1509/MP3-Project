@@ -57,5 +57,9 @@ public class Songs implements Serializable {
         this.category = category;
     }
     
-    
+    @Override
+    public String toString()
+    {
+        return "Songs{" + "id=" + id + ", title=" + title + ", artist=" + artist + ", category=" + category + '}';
+    }
 }
