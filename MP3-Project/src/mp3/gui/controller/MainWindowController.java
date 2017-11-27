@@ -7,26 +7,68 @@ package mp3.gui.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.Slider;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.shape.Circle;
 
 /**
+ * FXML Controller class
  *
- * @author frederik
+ * @author danni
  */
 public class MainWindowController implements Initializable {
-    
+
     @FXML
-    private Label label;
-    
+    private Button NewPlaylistBtn;
     @FXML
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
-    }
-    
+    private Button EditPlaylistBtn;
+    @FXML
+    private Button DeletePlaylistBtn;
+    @FXML
+    private Button MoveDownBtn;
+    @FXML
+    private Button DeleteSongPLBtn;
+    @FXML
+    private Button CloseBtn;
+    @FXML
+    private Button NewSongBtn;
+    @FXML
+    private Button EditSongBtn;
+    @FXML
+    private Button DeleteSongBtn;
+    @FXML
+    private Button MoveUpBtn;
+    @FXML
+    private ListView<?> SongplayListViewer;
+    @FXML
+    private TableView<?> PlaylistsViewer;
+    @FXML
+    private TableView<?> SongsViewer;
+    @FXML
+    private TextField FilterTxtField;
+    @FXML
+    private Slider SliderBar;
+    @FXML
+    private TextField SongPlayerTxtField;
+    @FXML
+    private Button AddSongToPLBtn;
+    @FXML
+    private Button SearchBtn;
+    @FXML
+    private Circle PlayBtn;
+    @FXML
+    private Circle BackBtn;
+    @FXML
+    private Circle NextBtn;
+
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
