@@ -1,3 +1,5 @@
 /MP3-Project/nbproject/private/
 /MP3-Project/dist/
 /MP3-Project/build/
+!sqljdbc42.jar
+!jfoenix.jar

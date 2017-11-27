@@ -35,8 +35,6 @@ public class MP3Project extends Application {
      */
     public static void main(String[] args) throws IOException, SQLException {
         
-        SongDAL songdal = new SongDAL();
-        songdal.createSong("SutDenSlap", "Taylor Swift", "meow");
         launch(args);
     }
     
