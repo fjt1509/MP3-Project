@@ -5,11 +5,13 @@
  */
 package mp3.be;
 
+import java.io.Serializable;
+
 /**
  *
  * @author frederik
  */
-public class Songs {
+public class Songs implements Serializable {
     
     private final int id;
     private String title;
@@ -22,5 +24,38 @@ public class Songs {
         this.title = title;
         this.artist = artist;
         this.category = category;
+    
     }
+
+    public String getTitle()
+    {
+        return title;
+    }
+
+    public void setTitle(String title)
+    {
+        this.title = title;
+    }
+
+    public String getArtist()
+    {
+        return artist;
+    }
+
+    public void setArtist(String artist)
+    {
+        this.artist = artist;
+    }
+
+    public String getCategory()
+    {
+        return category;
+    }
+
+    public void setCategory(String category)
+    {
+        this.category = category;
+    }
+    
+    
 }
