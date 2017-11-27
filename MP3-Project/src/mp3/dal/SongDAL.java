@@ -32,7 +32,7 @@ public class SongDAL
     {
         try (Connection con = dbConnector.getConnection())
         {
-            String sql = "INSERT INTO Company VALUES (?, ?, ?);";
+            String sql = "INSERT INTO Songs VALUES (?, ?, ?);";
 
             PreparedStatement statement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 

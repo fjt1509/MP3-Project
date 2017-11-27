@@ -5,11 +5,14 @@
  */
 package mp3.project;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import mp3.dal.SongDAL;
 
 /**
  *
@@ -30,7 +33,10 @@ public class MP3Project extends Application {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, SQLException {
+        
+        SongDAL songdal = new SongDAL();
+        songdal.createSong("SutDenSlap", "Taylor Swift", "meow");
         launch(args);
     }
     
