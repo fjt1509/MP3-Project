@@ -5,10 +5,42 @@
  */
 package mp3.dal;
 
-/**
- *
- * @author frederik
- */
-public class DataBaseConnector {
-    
+import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+import java.io.IOException;
+import java.sql.Connection;
+
+public class DataBaseConnector
+{
+        private SQLServerDataSource dataSource;
+
+        
+    public DataBaseConnector() throws IOException
+    {
+       
+        dataSource = new SQLServerDataSource();
+
+        dataSource.setServerName("EASV-DB2");
+        dataSource.setPortNumber(1433);
+        dataSource.setDatabaseName("MyTunes_LiquidGold");
+        dataSource.setUser("CS2017A_5_java");
+        dataSource.setPassword("javajava");
+        
+    }
+        
+        
+    public Connection getConnection() throws SQLServerException
+    {
+        return dataSource.getConnection();
+    }
+        
+
 }
+
+
+
+    
+
+
+
+
