@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mp3.gui.view.MainWindowController">
    <top>
       <Label text="Mytunes Audio Player" BorderPane.alignment="CENTER" />
    </top>
