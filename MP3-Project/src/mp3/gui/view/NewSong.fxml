@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mp3.gui.controller.NewSongController">
    <left>
       <AnchorPane prefHeight="400.0" prefWidth="86.0" BorderPane.alignment="CENTER">
@@ -25,18 +24,18 @@
    <center>
       <AnchorPane prefHeight="74.0" prefWidth="113.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField layoutY="60.0" prefHeight="26.0" prefWidth="170.0" text="...Name of the track" />
-            <TextField layoutY="97.0" prefHeight="26.0" prefWidth="172.0" text="...Name of the artist" />
+            <TextField layoutY="60.0" prefHeight="26.0" prefWidth="170.0" promptText="...Name of the track" />
+            <TextField layoutY="97.0" prefHeight="26.0" prefWidth="172.0" promptText="...Name of the artist" />
             <SplitMenuButton layoutY="138.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="95.0" text="...Category">
               <items>
                 <MenuItem mnemonicParsing="false" text="Action 1" />
                 <MenuItem mnemonicParsing="false" text="Action 2" />
               </items>
             </SplitMenuButton>
-            <TextField layoutX="1.0" layoutY="180.0" prefHeight="26.0" prefWidth="94.0" text="...Length of the track" />
-            <TextField layoutX="1.0" layoutY="221.0" prefHeight="26.0" prefWidth="250.0" text="...File path" />
+            <TextField layoutX="1.0" layoutY="180.0" prefHeight="26.0" prefWidth="94.0" />
+            <TextField fx:id="txtFieldFilePath" layoutX="1.0" layoutY="221.0" prefHeight="26.0" prefWidth="250.0" />
             <Button layoutX="100.0" layoutY="138.0" mnemonicParsing="false" text="More..." />
-            <Button layoutX="269.0" layoutY="222.0" mnemonicParsing="false" text="Choose..." />
+            <Button layoutX="269.0" layoutY="222.0" mnemonicParsing="false" onAction="#eventChooseFileBtn" text="Choose..." />
             <Button layoutX="275.0" layoutY="340.0" mnemonicParsing="false" text="Cancel" />
             <Button layoutX="369.0" layoutY="340.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="60.0" text="Save" />
          </children>

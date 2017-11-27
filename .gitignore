@@ -4,3 +4,4 @@
 .gitignore
 !sqljdbc42.jar
 !jfoenix.jar
+/TestMP3/nbproject/private/

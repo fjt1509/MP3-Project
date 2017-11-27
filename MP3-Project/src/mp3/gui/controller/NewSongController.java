@@ -5,9 +5,15 @@
  */
 package mp3.gui.controller;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 /**
  * FXML Controller class
@@ -17,6 +23,9 @@ import javafx.fxml.Initializable;
 public class NewSongController implements Initializable
 {
 
+    @FXML
+    private TextField txtFieldFilePath;
+
     /**
      * Initializes the controller class.
      */
@@ -25,5 +34,19 @@ public class NewSongController implements Initializable
     {
         // TODO
     }    
+
+    @FXML
+    private void eventChooseFileBtn(ActionEvent event) 
+    {
+        FileChooser fc = new FileChooser();
+        //fc.getExtensionFilters().addAll(new ExtensionFilter("mp3"));
+        File selectedFile = fc.showOpenDialog(null);
+        
+        if (selectedFile !=null)
+        {
+            txtFieldFilePath.setText(selectedFile.getAbsolutePath());
+            System.out.println(selectedFile.getAbsolutePath());
+        }
+    }
     
 }

@@ -29,7 +29,7 @@
             <Button fx:id="DeleteSongPLBtn" layoutX="370.0" layoutY="11.0" mnemonicParsing="false" text="Delete" />
             <Button fx:id="CloseBtn" layoutX="753.0" layoutY="14.0" mnemonicParsing="false" text="Close.." />
             <Button fx:id="NewSongBtn" layoutX="495.0" layoutY="11.0" mnemonicParsing="false" text="New.." />
-            <Button fx:id="EditSongBtn" layoutX="565.0" layoutY="11.0" mnemonicParsing="false" text="Edit" />
+            <Button fx:id="EditSongBtn" layoutX="565.0" layoutY="11.0" mnemonicParsing="false" onAction="#eventEditSongBtn" text="Edit" />
             <Button fx:id="DeleteSongBtn" layoutX="634.0" layoutY="11.0" mnemonicParsing="false" text="Delete" />
             <Button fx:id="MoveUpBtn" graphicTextGap="1.0" layoutX="222.0" layoutY="11.0" mnemonicParsing="false" text="/\">
                <font>
