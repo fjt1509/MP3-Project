@@ -11,4 +11,16 @@ package mp3.be;
  */
 public class Songs {
     
+    private final int id;
+    private String title;
+    private String artist;
+    private String category;
+    
+    
+    public Songs(int id, String title, String artist, String category){
+        this.id = id;
+        this.title = title;
+        this.artist = artist;
+        this.category = category;
+    }
 }
