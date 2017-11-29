@@ -24,9 +24,9 @@
    <center>
       <AnchorPane prefHeight="74.0" prefWidth="113.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField layoutY="60.0" prefHeight="26.0" prefWidth="170.0" promptText="...Name of the track" />
-            <TextField layoutY="97.0" prefHeight="26.0" prefWidth="172.0" promptText="...Name of the artist" />
-            <SplitMenuButton layoutY="138.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="95.0" text="...Category">
+            <TextField fx:id="txtFieldTitle" layoutY="60.0" prefHeight="26.0" prefWidth="170.0" promptText="...Name of the track" />
+            <TextField fx:id="txtFieldArtist" layoutY="97.0" prefHeight="26.0" prefWidth="172.0" promptText="...Name of the artist" />
+            <SplitMenuButton fx:id="comboCategory" layoutY="138.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="95.0" text="...Category">
               <items>
                 <MenuItem mnemonicParsing="false" text="POP" />
                 <MenuItem mnemonicParsing="false" text="ROCK" />
@@ -39,7 +39,7 @@
             <Button layoutX="100.0" layoutY="138.0" mnemonicParsing="false" text="More..." />
             <Button layoutX="269.0" layoutY="222.0" mnemonicParsing="false" onAction="#eventChooseFileBtn" text="Choose..." />
             <Button layoutX="275.0" layoutY="340.0" mnemonicParsing="false" text="Cancel" />
-            <Button layoutX="369.0" layoutY="340.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="60.0" text="Save" />
+            <Button fx:id="saveSongbtn" layoutX="369.0" layoutY="340.0" mnemonicParsing="false" onAction="#eventSaveSongBtn" prefHeight="26.0" prefWidth="60.0" text="Save" />
          </children>
       </AnchorPane>
    </center>

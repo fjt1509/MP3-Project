@@ -22,6 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import mp3.be.Song;
 
 /**
  * FXML Controller class
@@ -35,7 +36,7 @@ public class MainWindowController implements Initializable {
     @FXML
     private TableView<?> PlaylistsViewer;
     @FXML
-    private TableView<?> SongsViewer;
+    private TableView<Song> SongsViewer;
     @FXML
     private TextField FilterTxtField;
     @FXML
