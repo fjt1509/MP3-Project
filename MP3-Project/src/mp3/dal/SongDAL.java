@@ -12,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import mp3.be.Song;
 
 /**
@@ -54,6 +56,42 @@ public class SongDAL
             throw new RuntimeException("Can't create company");
         }
     }
+
+    
+    public List<Song> getAllSongs() throws SQLException
+    {
+        try (Connection con = dbConnector.getConnection()) //I create a connection as a resource using my DatabaseConnector object:
+        {
+            String sql = "SELECT * FROM Songs"; // I prepare my SQL
+
+            Statement st = con.createStatement(); //I create a statement object
+            ResultSet rs = st.executeQuery(sql); //I execute my SQL and receive a ResultSet
+
+            List<Song> allSongs = new ArrayList<>(); // I Prepare a list for holding my returned companies
+            while (rs.next()) //While there are companies (rows) in the result set:
+            {
+                Song song = getSongFromResultSetRow(rs);
+                allSongs.add(song);
+            }
+            //I return all the found companies:
+            return allSongs;
+        }
+        //The connection to the database i automatically closed by the "try with resources"..
+        //The connection to the database i automatically closed by the "try with resources"..
+    }
     
     
+    private Song getSongFromResultSetRow(ResultSet rs) throws SQLException
+    {
+        //I extract the data from the current row in the resultset:
+        int id = rs.getInt("Id");
+        String title = rs.getString("Title");
+        String artist = rs.getString("Artist");
+        String category = rs.getString("Category");
+        String fileName = rs.getString("FileName");
+
+        //I create the company object and add it to my list of results:
+        Song song = new Song(id, title, artist, category, fileName);
+        return song;
+    }
 }

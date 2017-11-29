@@ -7,6 +7,7 @@ package mp3.gui.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,6 +24,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import mp3.be.Song;
+import mp3.gui.model.MP3model;
 
 /**
  * FXML Controller class
@@ -30,9 +32,13 @@ import mp3.be.Song;
  * @author danni
  */
 public class MainWindowController implements Initializable {
+    
+    
+    private MP3model mp3model;
+
 
     @FXML
-    private ListView<?> SongplayListViewer;
+    private ListView<Song> SongplayListViewer;
     @FXML
     private TableView<?> PlaylistsViewer;
     @FXML
@@ -43,37 +49,30 @@ public class MainWindowController implements Initializable {
     private Slider SliderBar;
     @FXML
     private TextField SongPlayerTxtField;
-    @FXML
-    private Button NewPlaylistBtn;
-    @FXML
-    private Button EditPlaylistBtn;
-    @FXML
-    private Button DeletePlaylistBtn;
-    @FXML
-    private Button MoveDownBtn;
-    @FXML
-    private Button DeleteSongPLBtn;
-    @FXML
-    private Button CloseBtn;
-    @FXML
-    private Button NewSongBtn;
-    @FXML
-    private Button EditSongBtn;
-    @FXML
-    private Button DeleteSongBtn;
-    @FXML
-    private Button MoveUpBtn;
-    @FXML
-    private Button AddSongToPLBtn;
-    @FXML
-    private Button SearchBtn;
+ 
 
-    /**
-     * Initializes the controller class.
-     */
+
+     @FXML
+    private TableView<Song> SongsplayListView;
+    
+    
+    public MainWindowController() throws  IOException, SQLException
+    {
+     
+      mp3model = new MP3model();
+     
+    }
+    
+    
+    
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
+       SongplayListViewer.setItems(mp3model.getAllSongs());
+
+        
     }    
 
     @FXML
