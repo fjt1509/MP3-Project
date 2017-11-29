@@ -42,10 +42,13 @@ public class NewSongController implements Initializable
         //fc.getExtensionFilters().addAll(new ExtensionFilter("mp3"));
         File selectedFile = fc.showOpenDialog(null);
         
+        
         if (selectedFile !=null)
         {
             txtFieldFilePath.setText(selectedFile.getAbsolutePath());
             System.out.println(selectedFile.getAbsolutePath());
+            String fileName = selectedFile.getName();
+            System.out.println(fileName);
         }
     }
     
