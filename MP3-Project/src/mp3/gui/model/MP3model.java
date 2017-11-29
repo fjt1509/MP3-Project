@@ -17,10 +17,10 @@ import mp3.bll.SongManager;
  */
 public class MP3model {
     
-        public void createSong(String title, String artist, String category) throws SQLServerException, SQLException, IOException
+        public void createSong(String title, String artist, String category, String fileName) throws SQLServerException, SQLException, IOException
         {
             SongManager songmanager = new SongManager();
-            songmanager.createSong(title, artist, category);
+            songmanager.createSong(title, artist, category, fileName);
         }
 
     

@@ -17,9 +17,9 @@ import mp3.dal.SongDAL;
  */
 public class SongManager {
     
-        public void createSong(String title, String artist, String category) throws SQLServerException, SQLException, IOException{
+        public void createSong(String title, String artist, String category, String fileName) throws SQLServerException, SQLException, IOException{
             SongDAL songdal = new SongDAL();
-            songdal.createSong(title, artist, category);
+            songdal.createSong(title, artist, category, fileName);
         }
                 
                 

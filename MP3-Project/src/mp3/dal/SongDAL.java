@@ -28,17 +28,18 @@ public class SongDAL
         dbConnector = new DataBaseConnector();
     }
 
-    public Song createSong(String title, String artist, String category) throws SQLServerException, SQLException
+    public Song createSong(String title, String artist, String category, String fileName) throws SQLServerException, SQLException
     {
         try (Connection con = dbConnector.getConnection())
         {
-            String sql = "INSERT INTO Songs VALUES (?, ?, ?);";
+            String sql = "INSERT INTO Songs VALUES (?, ?, ?, ?);";
 
             PreparedStatement statement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             statement.setString(1, title);
             statement.setString(2, artist);
             statement.setString(3, category);
+            statement.setString(4, fileName);
 
 
             if (statement.executeUpdate() == 1)
@@ -47,7 +48,7 @@ public class SongDAL
                 ResultSet rs = statement.getGeneratedKeys();
                 rs.next();
                 int id = rs.getInt(1);
-                Song c = new Song(id, title, artist, category);
+                Song c = new Song(id, title, artist, category, fileName);
                 return c;
             }
             throw new RuntimeException("Can't create company");

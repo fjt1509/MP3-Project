@@ -17,15 +17,31 @@ public class Song implements Serializable {
     private String title;
     private String artist;
     private String category;
+    private String fileName;
     
     
-    public Song(int id, String title, String artist, String category){
+    public Song(int id, String title, String artist, String category, String fileName){
         this.id = id;
         this.title = title;
         this.artist = artist;
         this.category = category;
+        this.fileName = fileName;
     
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+    
+    
     
     /**
      * Get the title
