@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mp3.gui.controller.NewPlaylistController">
    <top>
       <Label text="New Playlist" BorderPane.alignment="CENTER">
@@ -26,9 +25,9 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField layoutX="14.0" layoutY="96.0" text="Name of the playlist" />
-            <Button layoutX="111.0" layoutY="162.0" mnemonicParsing="false" text="Cancel" />
-            <Button layoutX="200.0" layoutY="162.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="61.0" text="Save" />
+            <TextField fx:id="playlistName" layoutX="14.0" layoutY="96.0" text="Name of the playlist" />
+            <Button layoutX="111.0" layoutY="162.0" mnemonicParsing="false" onAction="#eventCancelPlaylistBtn" text="Cancel" />
+            <Button layoutX="200.0" layoutY="162.0" mnemonicParsing="false" onAction="#eventSavePlaylistBtn" prefHeight="26.0" prefWidth="61.0" text="Save" />
          </children>
       </AnchorPane>
    </center>

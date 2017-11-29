@@ -30,26 +30,6 @@ import javafx.stage.Stage;
 public class MainWindowController implements Initializable {
 
     @FXML
-    private Button NewPlaylistBtn;
-    @FXML
-    private Button EditPlaylistBtn;
-    @FXML
-    private Button DeletePlaylistBtn;
-    @FXML
-    private Button MoveDownBtn;
-    @FXML
-    private Button DeleteSongPLBtn;
-    @FXML
-    private Button CloseBtn;
-    @FXML
-    private Button NewSongBtn;
-    @FXML
-    private Button EditSongBtn;
-    @FXML
-    private Button DeleteSongBtn;
-    @FXML
-    private Button MoveUpBtn;
-    @FXML
     private ListView<?> SongplayListViewer;
     @FXML
     private TableView<?> PlaylistsViewer;
@@ -61,10 +41,6 @@ public class MainWindowController implements Initializable {
     private Slider SliderBar;
     @FXML
     private TextField SongPlayerTxtField;
-    @FXML
-    private Button AddSongToPLBtn;
-    @FXML
-    private Button SearchBtn;
     @FXML
     private Circle PlayBtn;
     @FXML
@@ -107,6 +83,51 @@ public class MainWindowController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(new Scene(root1)); 
         stage.show();  
+    }
+
+    @FXML
+    private void eventEditPlaylistBtn(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void eventDeletePlaylistBtn(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void eventMoveDownBtn(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void eventDeletePlayListSongBtn(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void eventCloseBtn(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void eventDeleteSongBtn(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void eventMoveUpBtn(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void eventAddSongToPLBtn(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void eventSearchBtn(ActionEvent event)
+    {
     }
     
 }

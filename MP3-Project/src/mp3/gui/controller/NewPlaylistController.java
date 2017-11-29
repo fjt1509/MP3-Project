@@ -7,7 +7,10 @@ package mp3.gui.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -17,6 +20,9 @@ import javafx.fxml.Initializable;
 public class NewPlaylistController implements Initializable
 {
 
+    @FXML
+    private TextField playlistName;
+
     /**
      * Initializes the controller class.
      */
@@ -25,5 +31,16 @@ public class NewPlaylistController implements Initializable
     {
         // TODO
     }    
+
+    @FXML
+    private void eventCancelPlaylistBtn(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void eventSavePlaylistBtn(ActionEvent event)
+    {
+        
+    }
     
 }
