@@ -19,6 +19,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
@@ -42,11 +43,35 @@ public class MainWindowController implements Initializable {
     @FXML
     private TextField SongPlayerTxtField;
     @FXML
-    private Circle PlayBtn;
+    private Button NewPlaylistBtn;
     @FXML
-    private Circle BackBtn;
+    private Button EditPlaylistBtn;
     @FXML
-    private Circle NextBtn;
+    private Button DeletePlaylistBtn;
+    @FXML
+    private Button MoveDownBtn;
+    @FXML
+    private Button DeleteSongPLBtn;
+    @FXML
+    private Button CloseBtn;
+    @FXML
+    private Button NewSongBtn;
+    @FXML
+    private Button EditSongBtn;
+    @FXML
+    private Button DeleteSongBtn;
+    @FXML
+    private Button MoveUpBtn;
+    @FXML
+    private Button AddSongToPLBtn;
+    @FXML
+    private Button SearchBtn;
+    @FXML
+    private ImageView playBtn;
+    @FXML
+    private ImageView backBtn;
+    @FXML
+    private ImageView nextBtn;
 
     /**
      * Initializes the controller class.
@@ -85,49 +110,5 @@ public class MainWindowController implements Initializable {
         stage.show();  
     }
 
-    @FXML
-    private void eventEditPlaylistBtn(ActionEvent event)
-    {
-    }
-
-    @FXML
-    private void eventDeletePlaylistBtn(ActionEvent event)
-    {
-    }
-
-    @FXML
-    private void eventMoveDownBtn(ActionEvent event)
-    {
-    }
-
-    @FXML
-    private void eventDeletePlayListSongBtn(ActionEvent event)
-    {
-    }
-
-    @FXML
-    private void eventCloseBtn(ActionEvent event)
-    {
-    }
-
-    @FXML
-    private void eventDeleteSongBtn(ActionEvent event)
-    {
-    }
-
-    @FXML
-    private void eventMoveUpBtn(ActionEvent event)
-    {
-    }
-
-    @FXML
-    private void eventAddSongToPLBtn(ActionEvent event)
-    {
-    }
-
-    @FXML
-    private void eventSearchBtn(ActionEvent event)
-    {
-    }
     
 }
