@@ -67,12 +67,6 @@ public class MainWindowController implements Initializable {
     private Button AddSongToPLBtn;
     @FXML
     private Button SearchBtn;
-    @FXML
-    private ImageView playBtn;
-    @FXML
-    private ImageView backBtn;
-    @FXML
-    private ImageView nextBtn;
 
     /**
      * Initializes the controller class.
