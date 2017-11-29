@@ -83,13 +83,30 @@ public class MainWindowController implements Initializable {
     @FXML
     private void eventEditSongBtn(ActionEvent event) throws IOException {
  
+             
+        
+        
+    }
+
+    @FXML
+    private void eventNewSongBtn(ActionEvent event) throws IOException
+    {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mp3/gui/view/NewSong.fxml"));
         Parent root1 = (Parent) fxmlLoader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root1)); 
-        stage.show();        
+        stage.show();  
         
-        
+    }
+
+    @FXML
+    private void eventNewPlaylistBtn(ActionEvent event) throws IOException
+    {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mp3/gui/view/NewPlaylist.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root1)); 
+        stage.show();  
     }
     
 }
