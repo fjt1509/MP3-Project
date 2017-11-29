@@ -56,8 +56,6 @@ public class NewSongController implements Initializable
     @FXML
     private void eventChooseFileBtn(ActionEvent event) 
     {
-        
-        
         FileChooser fc = new FileChooser();
         //fc.getExtensionFilters().addAll(new ExtensionFilter("mp3"));
         File selectedFile = fc.showOpenDialog(null);
@@ -69,7 +67,7 @@ public class NewSongController implements Initializable
             fileName = selectedFile.getName();
 
         }
-        
+    
 
         
         
@@ -91,6 +89,13 @@ public class NewSongController implements Initializable
         stage.close();
         
         
+    }
+    @FXML private javafx.scene.control.Button CancelBtn2;
+    @FXML
+    private void HandleCancelSongBtn(ActionEvent event)
+    {
+        Stage stage = (Stage) CancelBtn2.getScene().getWindow();
+        stage.close();
     }
     
 }

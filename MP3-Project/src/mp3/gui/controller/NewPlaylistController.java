@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -31,10 +32,12 @@ public class NewPlaylistController implements Initializable
     {
         // TODO
     }    
-
+    @FXML private javafx.scene.control.Button CancelBtn;
     @FXML
     private void eventCancelPlaylistBtn(ActionEvent event)
     {
+        Stage stage = (Stage) CancelBtn.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
