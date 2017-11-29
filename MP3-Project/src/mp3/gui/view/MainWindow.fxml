@@ -74,7 +74,7 @@
             <Label layoutX="495.0" layoutY="96.0" text="Songs" />
             <ImageView fitHeight="49.0" fitWidth="52.0" layoutX="87.0" layoutY="3.0">
                <image>
-                  <Image url="@https://image.freepik.com/free-icon/play-button_318-42541.jpg" />
+                  <Image url="@../../../../../play.png" />
                </image>
             </ImageView>
          </children>
