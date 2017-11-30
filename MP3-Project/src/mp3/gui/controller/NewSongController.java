@@ -15,7 +15,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
@@ -38,26 +37,19 @@ public class NewSongController implements Initializable
     private TextField txtFieldTitle;
     @FXML
     private TextField txtFieldArtist;
+    @FXML
     private SplitMenuButton comboCategory;
     @FXML
     private Button saveSongbtn;
-    @FXML
-    private ComboBox comboBox;
-    
 
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-    
-    
-    
-        
-    comboBox.getItems().removeAll(comboBox.getItems());
-    comboBox.getItems().addAll("POP", "ROCK", "JAZZ", "KLASSISK");
-    comboBox.getSelectionModel().select("POP");
-}
+    public void initialize(URL url, ResourceBundle rb)
+    {
+        // TODO
+    }    
     
   
     
