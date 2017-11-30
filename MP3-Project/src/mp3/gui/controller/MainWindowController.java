@@ -132,25 +132,22 @@ public class MainWindowController implements Initializable {
         double songDuration = musicFile.getDuration().toSeconds();
         mediaplayer = new MediaPlayer(musicFile);
         mediaplayer.setVolume(0.9);  
-        System.out.println();
-                
         
-        if (!isPlaying)
-        {
-            mediaplayer.play();
-            isPlaying = true;
-        }
-        else if (isPlaying)
-        {
-            mediaplayer.pause();
-            isPlaying = false;
-        }
+        mediaplayer.play();
     }
     
     @FXML
     private void eventPausebtn(ActionEvent event)
     {
+        mediaplayer.pause();
     }
+
+    @FXML
+    private void eventStopbtn(ActionEvent event) 
+    {
+        mediaplayer.stop();
+    }
+    
 
 
     
