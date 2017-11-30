@@ -18,9 +18,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import mp3.be.Song;
@@ -35,6 +40,10 @@ public class MainWindowController implements Initializable {
     
     
     private MP3model mp3model;
+    private MediaPlayer mediaplayer;
+    private Song song;
+    private boolean isPlaying;
+    
 
 
     @FXML
@@ -50,11 +59,15 @@ public class MainWindowController implements Initializable {
     @FXML
     private TextField SongPlayerTxtField;
  
+    @FXML
+    private TableColumn<Song, String> tableColumnTitle;
+    @FXML
+    private TableColumn<Song, String> tableColumnArtist;
+    @FXML
+    private TableColumn<Song, String> tableColumnCategory;
+    @FXML
+    private TableColumn<Song, String> tableColumnTime;
 
-
-     @FXML
-    private TableView<Song> SongsplayListView;
-    
     
     public MainWindowController() throws  IOException, SQLException
     {
@@ -64,23 +77,25 @@ public class MainWindowController implements Initializable {
     }
     
     
-    
-    
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-       SongplayListViewer.setItems(mp3model.getAllSongs());
+        tableColumnTitle.setCellValueFactory(new PropertyValueFactory("title"));
+        tableColumnArtist.setCellValueFactory(new PropertyValueFactory("artist"));
+        tableColumnCategory.setCellValueFactory(new PropertyValueFactory("category"));
+        
+        SongsViewer.setItems(mp3model.getAllSongs());
+        isPlaying = false;
+        
+      
+        
 
         
     }    
 
     @FXML
-    private void eventEditSongBtn(ActionEvent event) throws IOException {
- 
-             
-        
-        
+    private void eventEditSongBtn(ActionEvent event) throws IOException 
+    {   
     }
 
     @FXML
@@ -102,6 +117,32 @@ public class MainWindowController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(new Scene(root1)); 
         stage.show();  
+    }
+
+    @FXML
+    private void eventPlayPausebtn(ActionEvent event) 
+    {
+        
+        Song selectedSong = SongsViewer.getSelectionModel().getSelectedItem();
+        String fileName = selectedSong.getFileName();
+        
+        String path = "file:///C:/Users/frederik/Desktop/Songs/"+fileName;
+        Media musicFile = new Media(path);
+
+        mediaplayer = new MediaPlayer(musicFile);
+        mediaplayer.setVolume(0.9);  
+                
+        
+        if (!isPlaying)
+        {
+            mediaplayer.play();
+            isPlaying = true;
+        }
+        else if (isPlaying)
+        {
+            mediaplayer.pause();
+            isPlaying = false;
+        }
     }
 
     
