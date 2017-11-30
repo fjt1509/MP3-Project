@@ -56,8 +56,6 @@ public class MainWindowController implements Initializable {
     private TextField FilterTxtField;
     @FXML
     private Slider SliderBar;
-    @FXML
-    private TextField SongPlayerTxtField;
  
     @FXML
     private TableColumn<Song, String> tableColumnTitle;
@@ -70,8 +68,6 @@ public class MainWindowController implements Initializable {
 
 
 
-     @FXML
-    private TableView<Song> SongsplayListView;
     
     
     public MainWindowController() throws  IOException, SQLException
@@ -152,19 +148,10 @@ public class MainWindowController implements Initializable {
     }
     
     @FXML
-    private void eventPlayBtn(ActionEvent event)
+    private void eventPausebtn(ActionEvent event)
     {
     }
 
-    @FXML
-    private void eventNextBtn(ActionEvent event)
-    {
-    }
-
-    @FXML
-    private void eventPreviousBtn(ActionEvent event)
-    {
-    }
 
     
 }
