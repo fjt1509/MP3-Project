@@ -7,11 +7,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mp3.gui.controller.MainWindowController">
@@ -70,14 +67,12 @@
                   <Font size="10.0" />
                </font>
             </Button>
-            <Circle fill="WHITE" layoutX="114.0" layoutY="27.0" radius="22.0" stroke="BLACK" strokeType="INSIDE" />
             <Label layoutX="495.0" layoutY="96.0" text="Songs" />
-            <ImageView fitHeight="49.0" fitWidth="52.0" layoutX="87.0" layoutY="3.0">
-               <image>
-                  <Image url="@../../../../../play.png" />
-               </image>
-            </ImageView>
             <Button layoutX="158.0" layoutY="15.0" mnemonicParsing="false" onAction="#eventPlayPausebtn" text="Play/Pause" />
+
+            <Button layoutX="95.0" layoutY="4.0" mnemonicParsing="false" onAction="#eventPlayBtn" prefHeight="42.0" prefWidth="38.0" text="Play" />
+            <Button layoutX="149.0" layoutY="20.0" mnemonicParsing="false" onAction="#eventNextBtn" prefHeight="26.0" prefWidth="70.0" text="Next&gt;&gt;" />
+            <Button layoutX="1.0" layoutY="20.0" mnemonicParsing="false" onAction="#eventPreviousBtn" prefHeight="26.0" prefWidth="78.0" text="&lt;&lt;Previous" />
          </children>
       </AnchorPane>
    </center>
