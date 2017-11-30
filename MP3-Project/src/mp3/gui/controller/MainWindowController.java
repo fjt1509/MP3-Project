@@ -133,9 +133,10 @@ public class MainWindowController implements Initializable {
         
         String path = "file:///C:/Users/frederik/Desktop/Songs/"+fileName;
         Media musicFile = new Media(path);
-
+        double songDuration = musicFile.getDuration().toSeconds();
         mediaplayer = new MediaPlayer(musicFile);
         mediaplayer.setVolume(0.9);  
+        System.out.println();
                 
         
         if (!isPlaying)
