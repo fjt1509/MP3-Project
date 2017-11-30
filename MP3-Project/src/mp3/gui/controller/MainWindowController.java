@@ -71,29 +71,7 @@ public class MainWindowController implements Initializable {
 
 
      @FXML
-    private Button NewPlaylistBtn;
-    @FXML
-    private Button EditPlaylistBtn;
-    @FXML
-    private Button DeletePlaylistBtn;
-    @FXML
-    private Button MoveDownBtn;
-    @FXML
-    private Button DeleteSongPLBtn;
-    @FXML
-    private Button CloseBtn;
-    @FXML
-    private Button NewSongBtn;
-    @FXML
-    private Button EditSongBtn;
-    @FXML
-    private Button DeleteSongBtn;
-    @FXML
-    private Button MoveUpBtn;
-    @FXML
-    private Button AddSongToPLBtn;
-    @FXML
-    private Button SearchBtn;
+    private TableView<Song> SongsplayListView;
     
     
     public MainWindowController() throws  IOException, SQLException
