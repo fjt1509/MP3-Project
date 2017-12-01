@@ -55,7 +55,7 @@
                   <ListView fx:id="SongplayListViewer" layoutX="286.0" layoutY="112.0" prefHeight="514.0" prefWidth="192.0" style="-fx-background-color: LIGHTGREY;" />
                   <TableView fx:id="PlaylistsViewer" layoutX="14.0" layoutY="112.0" prefHeight="514.0" prefWidth="264.0" style="-fx-background-color: LIGHTGREY;">
                     <columns>
-                      <TableColumn prefWidth="157.60000324249268" style="-fx-background-color: LIGHTGREY;" text="Name" />
+                      <TableColumn fx:id="tableColumnName" prefWidth="157.60000324249268" style="-fx-background-color: LIGHTGREY;" text="Name" />
                       <TableColumn prefWidth="39.200042724609375" style="-fx-background-color: LIGHTGREY;" text="Songs" />
                         <TableColumn prefWidth="68.80000305175781" style="-fx-background-color: LIGHTGREY;" text="Time" />
                     </columns>
