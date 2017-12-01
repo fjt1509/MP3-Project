@@ -53,6 +53,7 @@ public class NewSongController implements Initializable
         comboBox.getItems().removeAll(comboBox.getItems());
         comboBox.getItems().addAll("POP", "ROCK", "JAZZ", "KLASSISK");
         comboBox.getSelectionModel().select("POP");
+        
     }    
     
   

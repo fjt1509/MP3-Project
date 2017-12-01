@@ -28,6 +28,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import mp3.be.Playlist;
 import mp3.be.Song;
 import mp3.gui.model.MP3model;
 
@@ -49,7 +50,7 @@ public class MainWindowController implements Initializable {
     @FXML
     private ListView<Song> SongplayListViewer;
     @FXML
-    private TableView<?> PlaylistsViewer;
+    private TableView<Playlist> PlaylistsViewer;
     @FXML
     private TableView<Song> SongsViewer;
     @FXML
@@ -65,6 +66,8 @@ public class MainWindowController implements Initializable {
     private TableColumn<Song, String> tableColumnCategory;
     @FXML
     private TableColumn<Song, String> tableColumnTime;
+    @FXML
+    private TableColumn<Playlist, String> tableColumnName;
 
 
 
@@ -86,6 +89,10 @@ public class MainWindowController implements Initializable {
         tableColumnCategory.setCellValueFactory(new PropertyValueFactory("category"));
         
         SongsViewer.setItems(mp3model.getAllSongs());
+        
+        tableColumnName.setCellValueFactory(new PropertyValueFactory("name"));
+        
+        PlaylistsViewer.setItems(mp3model.getAllPlaylist());
         isPlaying = false;
         
       

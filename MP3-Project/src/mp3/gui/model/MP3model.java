@@ -10,8 +10,11 @@ import java.io.IOException;
 import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import mp3.be.Playlist;
 import mp3.be.Song;
+import mp3.bll.PlaylistManager;
 import mp3.bll.SongManager;
+import mp3.dal.PlaylistDAL;
 import mp3.dal.SongDAL;
 
 /**
@@ -22,15 +25,20 @@ public class MP3model {
     
     
     private final ObservableList<Song> SongsInView;
+    private final ObservableList<Playlist> PlaylistsInView;
     private SongDAL songDAL = new SongDAL();
+    private PlaylistDAL playlistDAL = new PlaylistDAL();
     private SongManager songmanager = new SongManager();
+    
 
     
     public MP3model() throws IOException, SQLException
     {
-       this.SongsInView = FXCollections.observableArrayList(); 
-       
+       this.SongsInView = FXCollections.observableArrayList();        
        SongsInView.addAll(songDAL.getAllSongs());
+       
+       this.PlaylistsInView = FXCollections.observableArrayList();
+       PlaylistsInView.addAll(playlistDAL.getAllPlaylists());
         
     }
     
@@ -39,6 +47,11 @@ public class MP3model {
     {
         return SongsInView;
     }
+    
+    public ObservableList<Playlist> getAllPlaylist()
+    {
+        return PlaylistsInView;
+    }
             
   
     
@@ -46,6 +59,12 @@ public class MP3model {
         {
             SongManager songmanager = new SongManager();
             songmanager.createSong(title, artist, category, fileName);
+        }
+        
+        public void createPlaylist(String playlistName) throws SQLException, SQLServerException, IOException
+        {
+            PlaylistManager playlistmanager = new PlaylistManager();
+            playlistmanager.createPlaylist(playlistName);
         }
         
         
