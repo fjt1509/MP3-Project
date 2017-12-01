@@ -23,6 +23,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -122,17 +123,7 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private void eventPlayPausebtn(ActionEvent event) 
-    {
-        
-        Song selectedSong = SongsViewer.getSelectionModel().getSelectedItem();
-        String fileName = selectedSong.getFileName();
-        
-        String path = "file:///C:/Users/frederik/Desktop/Songs/"+fileName;
-        Media musicFile = new Media(path);
-        double songDuration = musicFile.getDuration().toSeconds();
-        mediaplayer = new MediaPlayer(musicFile);
-        mediaplayer.setVolume(0.9);  
-        
+    {        
         mediaplayer.play();
     }
     
@@ -146,6 +137,22 @@ public class MainWindowController implements Initializable {
     private void eventStopbtn(ActionEvent event) 
     {
         mediaplayer.stop();
+    }
+
+    @FXML
+    private void eventMouseSelectclk(MouseEvent event) 
+    {
+                
+        Song selectedSong = SongsViewer.getSelectionModel().getSelectedItem();
+        String fileName = selectedSong.getFileName();
+        System.out.println(fileName);
+        
+        String path = "file:///C:/Users/frederik/Desktop/Songs/"+fileName;
+        Media musicFile = new Media(path);
+        // double songDuration = musicFile.getDuration().toSeconds();
+        mediaplayer = new MediaPlayer(musicFile);
+        mediaplayer.setVolume(0.9);  
+        
     }
     
 

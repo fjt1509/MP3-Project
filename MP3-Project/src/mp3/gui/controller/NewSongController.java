@@ -61,10 +61,10 @@ public class NewSongController implements Initializable
     private void eventChooseFileBtn(ActionEvent event) 
     {
         FileChooser fc = new FileChooser();
-        //fc.getExtensionFilters().addAll(new ExtensionFilter("mp3"));
+        fc.getExtensionFilters().addAll(new ExtensionFilter("AUDIO FILES", "*.mp3", "*.wav"));
         File selectedFile = fc.showOpenDialog(null);
         if (selectedFile !=null)
-        {
+        {   
             txtFieldFilePath.setText(selectedFile.getAbsolutePath());
             System.out.println(selectedFile.getAbsolutePath());
             fileName = selectedFile.getName();
