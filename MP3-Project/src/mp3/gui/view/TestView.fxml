@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mp3.gui.view.TestViewController">
+   <top>
+      <TextField fx:id="SearchField" onKeyReleased="#SearchSong" promptText="Search" BorderPane.alignment="CENTER" />
+   </top>
+   <center>
+      <TableView fx:id="TableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="TitleColumn" prefWidth="150.0" text="Title" />
+          <TableColumn fx:id="ArtistColumn" prefWidth="150.0" text="Artist" />
+            <TableColumn fx:id="ColumnCategory" prefWidth="150.0" text="Category" />
+            <TableColumn prefWidth="150.0" text="Time" />
+        </columns>
+      </TableView>
+   </center>
+</BorderPane>

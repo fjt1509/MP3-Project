@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +26,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -78,7 +82,7 @@ public class MainWindowController implements Initializable {
     {
      
       mp3model = new MP3model();
-     
+      
     }
     
     
@@ -96,11 +100,14 @@ public class MainWindowController implements Initializable {
         PlaylistsViewer.setItems(mp3model.getAllPlaylist());
         isPlaying = false;
         
+        
+        
       
         
 
         
     }    
+    
 
     @FXML
     private void eventEditSongBtn(ActionEvent event) throws IOException 
@@ -162,7 +169,30 @@ public class MainWindowController implements Initializable {
         
     }
     
-
-
     
+    @FXML
+    private void eventSearchSong(KeyEvent event) 
+    {
+        FilteredList filter = new FilteredList(SongsViewer.getItems(),e ->true);
+        FilterTxtField.textProperty().addListener((observable, oldValue, newValue) -> {
+            
+            filter.setPredicate((Predicate<? super Song>) (Song song) -> {
+                
+                
+                if(newValue.isEmpty() || newValue==null) {
+                    return true;
+                }
+                else if (song.getTitle().contains(newValue)) {
+                    return true;
+                }
+                
+                return false;
+            });
+            SortedList sort= new SortedList(filter);
+            sort.comparatorProperty().bind(SongsViewer.comparatorProperty());
+            SongsViewer.setItems(sort);
+        });
+        
+    }
 }
+

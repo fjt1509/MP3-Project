@@ -68,7 +68,7 @@
                         <TableColumn fx:id="tableColumnTime" prefWidth="70.4000244140625" style="-fx-background-color: LIGHTGREY;" text="Time" />
                     </columns>
                   </TableView>
-                  <TextField fx:id="FilterTxtField" layoutX="722.0" layoutY="82.0" promptText="Filter" style="-fx-background-color: LIGHTGREY;" />
+                  <TextField fx:id="FilterTxtField" layoutX="722.0" layoutY="82.0" onKeyReleased="#eventSearchSong" promptText="Filter" style="-fx-background-color: LIGHTGREY;" />
                   <Slider fx:id="SliderBar" layoutX="44.0" layoutY="58.0" />
                   <Label layoutX="14.0" layoutY="95.0" text="Playlists" />
                   <Label layoutX="286.0" layoutY="95.0" text="Songs on Playlist" />
