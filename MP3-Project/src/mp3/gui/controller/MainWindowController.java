@@ -216,9 +216,9 @@ public class MainWindowController implements Initializable {
     {
         
         Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Look, a Confirmation Dialog");
-        alert.setContentText("Are you ok with this?");
+        alert.setTitle("Confirmation ");
+        alert.setHeaderText("Delete confirmation");
+        alert.setContentText("Are you sure you want to delete this song?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK)
