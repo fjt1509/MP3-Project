@@ -176,9 +176,10 @@ public class MainWindowController implements Initializable {
     
     @FXML
     private void eventSearchSong(KeyEvent event) 
-    {
+    {   
         FilteredList filter = new FilteredList(SongsViewer.getItems(),e ->true);
         FilterTxtField.textProperty().addListener((observable, oldValue, newValue) -> {
+            
             
             filter.setPredicate((Predicate<? super Song>) (Song song) -> {
                 
@@ -186,7 +187,14 @@ public class MainWindowController implements Initializable {
                 if(newValue.isEmpty() || newValue==null) {
                     return true;
                 }
-                else if (song.getTitle().contains(newValue)) {
+                else if (song.getTitle().toLowerCase().contains(newValue.toLowerCase())|| 
+                        
+                     song.getArtist().toLowerCase().contains(newValue.toLowerCase()) ||
+                     song.getCategory().toLowerCase().contains(newValue.toLowerCase())
+                        
+                        
+                        ) {
+                    
                     return true;
                 }
                 
