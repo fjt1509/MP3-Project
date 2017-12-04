@@ -16,29 +16,35 @@ import mp3.dal.SongDAL;
  *
  * @author frederik
  */
-public class SongManager    
+public class SongManager
+{
+
+    private SongDAL songDAL;
+
+    public SongManager() throws IOException
     {
-        private SongDAL songDAL;
-    
-        public void createSong(String title, String artist, String category, String fileName) throws SQLServerException, SQLException, IOException
-        {    
-            SongDAL songdal = new SongDAL();
-            songdal.createSong(title, artist, category, fileName);
-        }
-        
+        songDAL = new SongDAL();
+    }
+
+    public void createSong(String title, String artist, String category, String fileName) throws SQLServerException, SQLException, IOException
+    {
+        songDAL.createSong(title, artist, category, fileName);
+    }
+
     public List<Song> getAllSongs() throws MP3Exception
     {
         try
         {
-          return songDAL.getAllSongs();
+            return songDAL.getAllSongs();
         } catch (SQLException ex)
         {
             throw new MP3Exception(ex);
         }
     }
-                
-                
 
-    
-    
+    public void remove(Song song)
+    {
+        songDAL.remove(song);
+    }
+
 }

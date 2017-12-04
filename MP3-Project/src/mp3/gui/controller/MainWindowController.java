@@ -206,5 +206,13 @@ public class MainWindowController implements Initializable {
         });
         
     }
+
+    @FXML
+    private void eventDeleteSongBtn(ActionEvent event)
+    {
+        
+        Song selectedSong = SongsViewer.getSelectionModel().getSelectedItem();
+        mp3model.remove(selectedSong);
+    }
 }
 

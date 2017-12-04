@@ -21,57 +21,50 @@ import mp3.dal.SongDAL;
  *
  * @author frederik
  */
-public class MP3model {
-    
-    
+public class MP3model
+{
+
     private final ObservableList<Song> SongsInView;
     private final ObservableList<Playlist> PlaylistsInView;
     private SongDAL songDAL = new SongDAL();
     private PlaylistDAL playlistDAL = new PlaylistDAL();
     private SongManager songmanager = new SongManager();
-    
 
-    
     public MP3model() throws IOException, SQLException
     {
-       this.SongsInView = FXCollections.observableArrayList();        
-       SongsInView.addAll(songDAL.getAllSongs());
-       
-       this.PlaylistsInView = FXCollections.observableArrayList();
-       PlaylistsInView.addAll(playlistDAL.getAllPlaylists());
-        
+        this.SongsInView = FXCollections.observableArrayList();
+        SongsInView.addAll(songDAL.getAllSongs());
+
+        this.PlaylistsInView = FXCollections.observableArrayList();
+        PlaylistsInView.addAll(playlistDAL.getAllPlaylists());
+
     }
-    
-    
+
     public ObservableList<Song> getAllSongs()
     {
         return SongsInView;
     }
-    
+
     public ObservableList<Playlist> getAllPlaylist()
     {
         return PlaylistsInView;
     }
-            
-  
-    
-        public void createSong(String title, String artist, String category, String fileName) throws SQLServerException, SQLException, IOException
-        {
-            SongManager songmanager = new SongManager();
-            songmanager.createSong(title, artist, category, fileName);
-        }
-        
-        public void createPlaylist(String playlistName) throws SQLException, SQLServerException, IOException
-        {
-            PlaylistManager playlistmanager = new PlaylistManager();
-            playlistmanager.createPlaylist(playlistName);
-        }
-        
-        
 
-        
-        
+    public void createSong(String title, String artist, String category, String fileName) throws SQLServerException, SQLException, IOException
+    {
+        songmanager.createSong(title, artist, category, fileName);
+    }
 
-    
-    
+    public void createPlaylist(String playlistName) throws SQLException, SQLServerException, IOException
+    {
+        PlaylistManager playlistmanager = new PlaylistManager();
+        playlistmanager.createPlaylist(playlistName);
+    }
+
+    public void remove(Song selectedSong)
+    {
+        songmanager.remove(selectedSong);
+        SongsInView.remove(selectedSong);
+    }
+
 }

@@ -14,6 +14,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import mp3.be.Song;
 
 /**
@@ -93,5 +95,20 @@ public class SongDAL
         //I create the company object and add it to my list of results:
         Song song = new Song(id, title, artist, category, fileName);
         return song;
+    }
+    
+    
+    public void remove(Song song) 
+    {
+        try (Connection con = dbConnector.getConnection();)
+        {
+            Statement stmt = con.createStatement();
+            stmt.execute("DELETE FROM Songs WHERE id="+song.getId());
+            
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(SongDAL.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
