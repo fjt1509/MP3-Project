@@ -10,6 +10,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 import javafx.collections.transformation.FilteredList;
@@ -20,7 +21,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
@@ -211,8 +215,22 @@ public class MainWindowController implements Initializable {
     private void eventDeleteSongBtn(ActionEvent event)
     {
         
-        Song selectedSong = SongsViewer.getSelectionModel().getSelectedItem();
-        mp3model.remove(selectedSong);
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Look, a Confirmation Dialog");
+        alert.setContentText("Are you ok with this?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK)
+        {
+            Song selectedSong = SongsViewer.getSelectionModel().getSelectedItem();
+            mp3model.remove(selectedSong);
+        } else 
+        {
+            
+        }
+        
+
     }
 }
 
