@@ -6,7 +6,9 @@
 package mp3.gui.controller;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
@@ -154,15 +156,17 @@ public class MainWindowController implements Initializable {
     }
 
     @FXML
-    private void eventMouseSelectclk(MouseEvent event) 
+    private void eventMouseSelectclk(MouseEvent event) throws MalformedURLException 
     {
                 
         Song selectedSong = SongsViewer.getSelectionModel().getSelectedItem();
         String fileName = selectedSong.getFileName();
         System.out.println(fileName);
         
-        String path = "file:///C:/Users/frederik/Desktop/Songs/"+fileName;
-        Media musicFile = new Media(path);
+        String path = "./Songs/"+fileName;
+       URL url = Paths.get(path).toAbsolutePath().toUri().toURL();
+        Media musicFile = new Media(url.toString());
+        musicFile.getDuration().toMinutes();
         // double songDuration = musicFile.getDuration().toSeconds();
         mediaplayer = new MediaPlayer(musicFile);
         mediaplayer.setVolume(0.9);  

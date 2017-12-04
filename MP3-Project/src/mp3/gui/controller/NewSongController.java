@@ -9,6 +9,7 @@ import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -18,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextField;
+import javafx.scene.media.Media;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
@@ -43,6 +45,8 @@ public class NewSongController implements Initializable
     private Button saveSongbtn;
     @FXML
     private ComboBox comboBox;
+    @FXML
+    private TextField txtTime;
 
     /**
      * Initializes the controller class.
@@ -56,10 +60,10 @@ public class NewSongController implements Initializable
         
     }    
     
-  
+    
     
     @FXML
-    private void eventChooseFileBtn(ActionEvent event) 
+    private void eventChooseFileBtn(ActionEvent event) throws IOException 
     {
         FileChooser fc = new FileChooser();
         fc.getExtensionFilters().addAll(new ExtensionFilter("AUDIO FILES", "*.mp3", "*.wav"));
@@ -69,6 +73,9 @@ public class NewSongController implements Initializable
             txtFieldFilePath.setText(selectedFile.getAbsolutePath());
             System.out.println(selectedFile.getAbsolutePath());
             fileName = selectedFile.getName();
+            URL url = Paths.get(selectedFile.getAbsolutePath()).toUri().toURL();
+            Media musicFile = new Media(url.toString());
+            txtTime.setText(musicFile.getDuration()+"");
         }
     
 
