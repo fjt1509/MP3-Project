@@ -183,7 +183,13 @@ public class MainWindowController implements Initializable {
                 if(newValue.isEmpty() || newValue==null) {
                     return true;
                 }
-                else if (song.getTitle().toLowerCase().contains(newValue.toLowerCase())) {
+                else if (song.getTitle().toLowerCase().contains(newValue.toLowerCase())|| 
+                        
+                     song.getArtist().toLowerCase().contains(newValue.toLowerCase()) ||
+                     song.getCategory().toLowerCase().contains(newValue.toLowerCase())
+                        
+                        
+                        ) {
                     
                     return true;
                 }
