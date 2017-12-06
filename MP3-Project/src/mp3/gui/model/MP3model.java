@@ -30,6 +30,15 @@ public class MP3model
     private PlaylistDAL playlistDAL = new PlaylistDAL();
     private SongManager songmanager = new SongManager();
 
+    
+    
+    /**
+     * The constructor of the class, 
+     * that helps the controller recieve both songs and playlists 
+     * into an observaableArrayList.
+     * @throws IOException
+     * @throws SQLException 
+     */
     public MP3model() throws IOException, SQLException
     {
         this.SongsInView = FXCollections.observableArrayList();
@@ -40,27 +49,62 @@ public class MP3model
 
     }
 
+    
+    /**
+     * ObservableList that returns SongsInView
+     * @return 
+     */
     public ObservableList<Song> getAllSongs()
     {
         return SongsInView;
     }
-
+    
+    
+    /**
+     * ObservableList that returns PlaylistsInView
+     * @return 
+     */
     public ObservableList<Playlist> getAllPlaylist()
     {
         return PlaylistsInView;
     }
 
+    
+    /**
+     * This methods let us create a song
+     * @param title
+     * @param artist
+     * @param category
+     * @param fileName
+     * @throws SQLServerException
+     * @throws SQLException
+     * @throws IOException 
+     */
     public void createSong(String title, String artist, String category, String fileName) throws SQLServerException, SQLException, IOException
     {
         songmanager.createSong(title, artist, category, fileName);
     }
 
+    
+    /**
+     * This methods let us create a playlist
+     * @param playlistName
+     * @throws SQLException
+     * @throws SQLServerException
+     * @throws IOException 
+     */
     public void createPlaylist(String playlistName) throws SQLException, SQLServerException, IOException
     {
         PlaylistManager playlistmanager = new PlaylistManager();
         playlistmanager.createPlaylist(playlistName);
     }
 
+    
+    /**
+     * This method removes a song from the tableview 
+     * and calls the remove method from the songmanager.
+     * @param selectedSong 
+     */
     public void remove(Song selectedSong)
     {
         songmanager.remove(selectedSong);

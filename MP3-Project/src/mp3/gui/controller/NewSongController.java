@@ -28,7 +28,7 @@ import mp3.gui.model.MP3model;
 /**
  * FXML Controller class
  *
- * @author Daniels PC
+ * @author Daniel
  */
 public class NewSongController implements Initializable
 {
@@ -47,10 +47,10 @@ public class NewSongController implements Initializable
     private ComboBox comboBox;
     @FXML
     private TextField txtTime;
+    @FXML 
+    private javafx.scene.control.Button CancelBtn2;
 
-    /**
-     * Initializes the controller class.
-     */
+    
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
@@ -61,7 +61,11 @@ public class NewSongController implements Initializable
     }    
     
     
-    
+    /**
+     * The "Choose" button adds a file.
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void eventChooseFileBtn(ActionEvent event) throws IOException 
     {
@@ -83,6 +87,14 @@ public class NewSongController implements Initializable
         
     }
 
+    
+    /**
+     * The "Save" button adds the song to the list.
+     * @param event
+     * @throws SQLException
+     * @throws SQLServerException
+     * @throws IOException 
+     */
     @FXML
     private void eventSaveSongBtn(ActionEvent event) throws SQLException, SQLServerException, IOException 
     {
@@ -100,7 +112,11 @@ public class NewSongController implements Initializable
         
         
     }
-    @FXML private javafx.scene.control.Button CancelBtn2;
+
+    /**
+     * The "Cancel" button closes the window.
+     * @param event 
+     */
     @FXML
     private void HandleCancelSongBtn(ActionEvent event)
     {

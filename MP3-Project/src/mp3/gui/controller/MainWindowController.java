@@ -83,7 +83,11 @@ public class MainWindowController implements Initializable {
 
 
     
-    
+    /**
+     * The constructor for the class
+     * @throws IOException
+     * @throws SQLException 
+     */
     public MainWindowController() throws  IOException, SQLException
     {
      

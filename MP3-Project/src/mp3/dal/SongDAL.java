@@ -31,7 +31,17 @@ public class SongDAL
     {
         dbConnector = new DataBaseConnector();
     }
-
+    
+    /**
+     * Creates a songObject in the database
+     * @param title
+     * @param artist
+     * @param category
+     * @param fileName
+     * @return
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
     public Song createSong(String title, String artist, String category, String fileName) throws SQLServerException, SQLException
     {
         try (Connection con = dbConnector.getConnection())
@@ -59,7 +69,11 @@ public class SongDAL
         }
     }
 
-    
+    /**
+     * Getting songs from the database
+     * @return
+     * @throws SQLException 
+     */
     public List<Song> getAllSongs() throws SQLException
     {
         try (Connection con = dbConnector.getConnection()) //I create a connection as a resource using my DatabaseConnector object:
@@ -83,6 +97,12 @@ public class SongDAL
     }
     
     
+    /**
+     *This method retrives all data from the database
+     * @param rs
+     * @return
+     * @throws SQLException 
+     */
     private Song getSongFromResultSetRow(ResultSet rs) throws SQLException
     {
         //I extract the data from the current row in the resultset:
@@ -98,6 +118,10 @@ public class SongDAL
     }
     
     
+    /**
+     * This method removes a song from the database
+     * @param song 
+     */
     public void remove(Song song) 
     {
         try (Connection con = dbConnector.getConnection();)
