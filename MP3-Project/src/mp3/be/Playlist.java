@@ -28,7 +28,10 @@ public class Playlist implements Serializable
     
     
     
-    
+     /**
+     * Return the ID from Playlist
+     * @return 
+     */
     public int getId()
     {
         return id;
@@ -37,22 +40,41 @@ public class Playlist implements Serializable
     
     
     
-    
+    /**
+     * Return the name from Playlist
+     * @return 
+     */
     public String getName()
     {
         return name;
     }
 
+    
+    /**
+     * Set the name
+     * @return 
+     */
     public void setName(String name)
     {
         this.name = name;
     }
 
+    
+    /**
+     * Gets songs
+     * @return 
+     */
     public int getSongs()
     {
         return songs;
     }
 
+    
+    
+    /**
+     * Sets songs
+     * @param songs 
+     */
     public void setSongs(int songs)
     {
         this.songs = songs;

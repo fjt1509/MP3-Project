@@ -22,14 +22,28 @@ public class PlaylistManager
 {
     private PlaylistDAL playlistDAL;
     
+    
+        /**
+         * Takes createPlaylist from the DAL
+         * @param playlistName
+         * @throws SQLServerException
+         * @throws SQLException
+         * @throws IOException 
+         */
         public void createPlaylist(String playlistName) throws SQLServerException, SQLException, IOException
         {    
             PlaylistDAL playlistdal = new PlaylistDAL();
             playlistdal.createPlaylist(playlistName);
         }
+    
         
-    public List<Playlist> getAllPlaylists() throws MP3Exception
-    {
+        /**
+         * Takes getAllPlaylist from the DAL
+         * @return
+         * @throws MP3Exception 
+         */
+        public List<Playlist> getAllPlaylists() throws MP3Exception
+        {
         try
         {
           return playlistDAL.getAllPlaylists();

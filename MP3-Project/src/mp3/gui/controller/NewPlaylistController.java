@@ -21,7 +21,7 @@ import mp3.gui.model.MP3model;
 /**
  * FXML Controller class
  *
- * @author Daniels PC
+ * @author Daniel
  */
 public class NewPlaylistController implements Initializable
 {
@@ -44,6 +44,13 @@ public class NewPlaylistController implements Initializable
     
     
 
+    /**
+     * The "Save" button adds the new playlist to the list
+     * @param event
+     * @throws SQLException
+     * @throws SQLServerException
+     * @throws IOException 
+     */
     @FXML
     private void eventSavePlaylistBtn (ActionEvent event) throws SQLException, SQLServerException, IOException 
     {
@@ -57,6 +64,11 @@ public class NewPlaylistController implements Initializable
         stage.close();
     }
     
+    
+    /**
+     * The "Cancel" button closes the window.
+     * @param event 
+     */
     @FXML
     private void eventCancelPlaylistBtn(ActionEvent event)
     {

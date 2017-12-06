@@ -26,11 +26,29 @@ public class SongManager
         songDAL = new SongDAL();
     }
 
+    
+    /**
+     * Takes createSong from the DAL
+     * @param title
+     * @param artist
+     * @param category
+     * @param fileName
+     * @throws SQLServerException
+     * @throws SQLException
+     * @throws IOException 
+     */
     public void createSong(String title, String artist, String category, String fileName) throws SQLServerException, SQLException, IOException
     {
         songDAL.createSong(title, artist, category, fileName);
     }
 
+    
+    
+    /**
+     * Takes getAllSongs from the DAL
+     * @return
+     * @throws MP3Exception 
+     */
     public List<Song> getAllSongs() throws MP3Exception
     {
         try
@@ -42,6 +60,12 @@ public class SongManager
         }
     }
 
+    
+    
+    /**
+     * Takes remove from the DAL
+     * @param song 
+     */
     public void remove(Song song)
     {
         songDAL.remove(song);

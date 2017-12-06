@@ -30,6 +30,14 @@ public class PlaylistDAL
         dbConnector = new DataBaseConnector();
     }
 
+    
+    /**
+     * Creates a playlistObject in the database
+     * @param playlistName
+     * @return
+     * @throws SQLServerException
+     * @throws SQLException 
+     */
     public Playlist createPlaylist(String playlistName) throws SQLServerException, SQLException
     {
         try (Connection con = dbConnector.getConnection())
@@ -58,6 +66,12 @@ public class PlaylistDAL
     }
 
     
+    
+    /**
+     * Getting playlist from the database
+     * @return
+     * @throws SQLException 
+     */
     public List<Playlist> getAllPlaylists() throws SQLException
     {
         try (Connection con = dbConnector.getConnection()) //I create a connection as a resource using my DatabaseConnector object:
@@ -80,7 +94,12 @@ public class PlaylistDAL
         //The connection to the database i automatically closed by the "try with resources"..
     }
     
-    
+    /**
+     * This method retrives all data from the database
+     * @param rs
+     * @return
+     * @throws SQLException 
+     */
     private Playlist getPlaylistFromResultSetRow(ResultSet rs) throws SQLException
     {
         //I extract the data from the current row in the resultset:

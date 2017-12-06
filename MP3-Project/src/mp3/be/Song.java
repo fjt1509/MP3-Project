@@ -28,15 +28,27 @@ public class Song implements Serializable {
         this.fileName = fileName;
     
     }
-
+    /**
+     * Return the ID from songs
+     * @return 
+     */
     public int getId() {
         return id;
     }
-
+    
+    
+    /**
+     * Return the filename from songs
+     * @return 
+     */
     public String getFileName() {
         return fileName;
     }
 
+    /**
+     * Set the filename to songs
+     * @return 
+     */
     public void setFileName(String fileName) {
         this.fileName = fileName;
     }
