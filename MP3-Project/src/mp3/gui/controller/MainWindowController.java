@@ -117,7 +117,18 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private void eventEditSongBtn(ActionEvent event) throws IOException 
-    {   
+    {
+        Song selectedSong = SongsViewer.getSelectionModel().getSelectedItem();        
+        EditSongController esc = new EditSongController();
+        esc.infoTransfer(selectedSong);
+
+        
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mp3/gui/view/EditSong.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root1)); 
+        stage.show(); 
+        
     }
 
     @FXML
@@ -168,10 +179,9 @@ public class MainWindowController implements Initializable {
         System.out.println(fileName);
         
         String path = "./Songs/"+fileName;
-       URL url = Paths.get(path).toAbsolutePath().toUri().toURL();
+        URL url = Paths.get(path).toAbsolutePath().toUri().toURL();
         Media musicFile = new Media(url.toString());
         musicFile.getDuration().toMinutes();
-        // double songDuration = musicFile.getDuration().toSeconds();
         mediaplayer = new MediaPlayer(musicFile);
         mediaplayer.setVolume(0.9);  
         
@@ -191,12 +201,9 @@ public class MainWindowController implements Initializable {
                 if(newValue.isEmpty() || newValue==null) {
                     return true;
                 }
-                else if (song.getTitle().toLowerCase().contains(newValue.toLowerCase())|| 
-                        
-                     song.getArtist().toLowerCase().contains(newValue.toLowerCase()) ||
-                     song.getCategory().toLowerCase().contains(newValue.toLowerCase())
-                        
-                        
+                else if (song.getTitle().toLowerCase().contains(newValue.toLowerCase())  ||   
+                         song.getArtist().toLowerCase().contains(newValue.toLowerCase()) ||
+                         song.getCategory().toLowerCase().contains(newValue.toLowerCase())
                         ) {
                     
                     return true;

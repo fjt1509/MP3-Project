@@ -47,7 +47,7 @@ public class NewSongController implements Initializable
     private ComboBox comboBox;
     @FXML
     private TextField txtTime;
-
+    @FXML private javafx.scene.control.Button CancelBtn2;
     /**
      * Initializes the controller class.
      */
@@ -100,7 +100,7 @@ public class NewSongController implements Initializable
         
         
     }
-    @FXML private javafx.scene.control.Button CancelBtn2;
+
     @FXML
     private void HandleCancelSongBtn(ActionEvent event)
     {

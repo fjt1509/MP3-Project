@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9" fx:controller="mp3.gui.controller.EditSongController">
+   <children>
+      <TextField fx:id="txtTitle" layoutX="226.0" layoutY="100.0" />
+      <TextField fx:id="txtArtist" layoutX="226.0" layoutY="175.0" />
+      <Label layoutX="245.0" layoutY="14.0" text="Edit Song">
+         <font>
+            <Font name="System Bold Italic" size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="144.0" layoutY="104.0" text="Title" />
+      <Label layoutX="142.0" layoutY="179.0" text="Artist" />
+   </children>
+</AnchorPane>
