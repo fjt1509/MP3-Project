@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
@@ -123,12 +125,13 @@ public class MainWindowController implements Initializable {
     private void eventEditSongBtn(ActionEvent event) throws IOException 
     {
         Song selectedSong = SongsViewer.getSelectionModel().getSelectedItem();        
-        EditSongController esc = new EditSongController();
-        esc.infoTransfer(selectedSong);
+        
 
         
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mp3/gui/view/EditSong.fxml"));
         Parent root1 = (Parent) fxmlLoader.load();
+        EditSongController esc = fxmlLoader.getController();
+        esc.infoTransfer(selectedSong);
         Stage stage = new Stage();
         stage.setScene(new Scene(root1)); 
         stage.show(); 
@@ -242,6 +245,22 @@ public class MainWindowController implements Initializable {
         }
         
 
+    }
+
+    @FXML
+    private void eventAddSongbtn(ActionEvent event) 
+    {
+        Song selectedSong = SongsViewer.getSelectionModel().getSelectedItem();
+        Playlist selectedPlaylist = PlaylistsViewer.getSelectionModel().getSelectedItem();
+        
+        if (selectedSong!=null && selectedPlaylist!=null)
+        {
+            try {
+                mp3model.addSongToPlaylist(selectedSong, selectedPlaylist);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 }
 

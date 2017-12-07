@@ -37,15 +37,15 @@ public class EditSongController implements Initializable {
     {
         title = selectedSong.getTitle();
         artist = selectedSong.getArtist();
-        
+        txtTitle.setText(title);
+        txtArtist.setText(artist);
         System.out.println(title + artist);
         
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
-        txtTitle.setText(title);
-        txtArtist.setText(artist);
+
         
     }    
     

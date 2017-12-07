@@ -72,7 +72,7 @@
                   <Slider fx:id="SliderBar" layoutX="44.0" layoutY="58.0" />
                   <Label layoutX="14.0" layoutY="95.0" text="Playlists" />
                   <Label layoutX="286.0" layoutY="95.0" text="Songs on Playlist" />
-                  <Button layoutX="478.0" layoutY="112.0" mnemonicParsing="false" text="&lt;--" />
+                  <Button layoutX="478.0" layoutY="112.0" mnemonicParsing="false" onAction="#eventAddSongbtn" text="&lt;--" />
                   <Button layoutX="877.0" layoutY="83.0" mnemonicParsing="false" text="Search">
                      <font>
                         <Font size="10.0" />

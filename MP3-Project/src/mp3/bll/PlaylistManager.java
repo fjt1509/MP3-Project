@@ -21,6 +21,13 @@ import mp3.dal.SongDAL;
 public class PlaylistManager
 {
     private PlaylistDAL playlistDAL;
+
+    public PlaylistManager() throws IOException 
+    {
+        playlistDAL = new PlaylistDAL();
+    }
+    
+    
     
     
         /**
@@ -53,4 +60,11 @@ public class PlaylistManager
             throw new MP3Exception(ex);
         }
     }
+
+    public void addSongToPlaylist(Song selectedSong, Playlist selectedPlaylist) throws SQLException 
+    {
+        playlistDAL.addSongToPlaylist(selectedSong, selectedPlaylist);
+    }
+    
+    
 }

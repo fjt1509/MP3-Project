@@ -61,7 +61,7 @@ public class PlaylistDAL
                 Playlist c = new Playlist(id, playlistName);
                 return c;
             }
-            throw new RuntimeException("Can't create company");
+            throw new RuntimeException("Can't create Playlist");
         }
     }
 
@@ -110,6 +110,28 @@ public class PlaylistDAL
         //I create the company object and add it to my list of results:
         Playlist playlist = new Playlist(id, name);
         return playlist;
+    }
+
+    public void addSongToPlaylist(Song selectedSong, Playlist selectedPlaylist) throws SQLException 
+    {
+        int songID = selectedSong.getId();
+        int playlistID = selectedPlaylist.getId();
+        
+        
+        try (Connection con = dbConnector.getConnection())
+        {
+            String sql = "INSERT INTO PlaylistSong VALUES (?, ?, ?);";
+
+            PreparedStatement statement = con.prepareStatement(sql);
+            
+            statement.setInt(1, playlistID);
+            statement.setInt(2, songID);
+            statement.setInt(3, 1);
+            
+            statement.executeUpdate();
+            
+        }  
+        
     }
     
 }

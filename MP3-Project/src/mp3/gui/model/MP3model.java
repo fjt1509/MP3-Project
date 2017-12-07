@@ -29,6 +29,8 @@ public class MP3model
     private SongDAL songDAL = new SongDAL();
     private PlaylistDAL playlistDAL = new PlaylistDAL();
     private SongManager songmanager = new SongManager();
+    
+    PlaylistManager playlistmanager = new PlaylistManager();
 
     
     
@@ -110,5 +112,14 @@ public class MP3model
         songmanager.remove(selectedSong);
         SongsInView.remove(selectedSong);
     }
+
+    public void addSongToPlaylist(Song selectedSong, Playlist selectedPlaylist) throws SQLException 
+    {
+        playlistmanager.addSongToPlaylist(selectedSong, selectedPlaylist);
+        
+    }
+    
+    
+    
 
 }
