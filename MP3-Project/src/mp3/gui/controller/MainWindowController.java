@@ -97,11 +97,15 @@ public class MainWindowController implements Initializable {
       
     }
     
-    
+    /**
+     * method specifies a cell factory for each column. The cell factories are implemented by using the
+     * PropertyValueFactory class, which uses the Title, Artist and Category  properties of the table columns as 
+     * references to the corresponding methods of the Controller class
+    */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        tableColumnTitle.setCellValueFactory(new PropertyValueFactory("title"));
+        tableColumnTitle.setCellValueFactory (new PropertyValueFactory( "title"));
         tableColumnArtist.setCellValueFactory(new PropertyValueFactory("artist"));
         tableColumnCategory.setCellValueFactory(new PropertyValueFactory("category"));
         
