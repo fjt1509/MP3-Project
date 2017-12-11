@@ -26,6 +26,7 @@ import mp3.gui.model.MP3model;
  */
 public class NewPlaylistController implements Initializable
 {
+    private MP3model mp3model;
 
     @FXML
     private Button SavePlaylistBtn;
@@ -55,11 +56,10 @@ public class NewPlaylistController implements Initializable
     @FXML
     private void eventSavePlaylistBtn (ActionEvent event) throws SQLException, SQLServerException, IOException, MP3Exception 
     {
-        MP3model model = new MP3model();
         
        String playListName = playlistName.getText();
 
-        model.createPlaylist(playListName);
+        mp3model.createPlaylist(playListName);
         
         Stage stage = (Stage) SavePlaylistBtn.getScene().getWindow();
         stage.close();
@@ -76,5 +76,12 @@ public class NewPlaylistController implements Initializable
         Stage stage = (Stage) CancelBtn.getScene().getWindow();
         stage.close();
     }
+       
+    
+    public void setModel(MP3model mp3model) 
+    {
+        this.mp3model = mp3model;
+    }
+    
     
 }

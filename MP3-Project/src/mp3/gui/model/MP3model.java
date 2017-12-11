@@ -30,8 +30,7 @@ public class MP3model
     private final ObservableList<Playlist> PlaylistsInView;
     private final ObservableList<Song> playlistSongView;
 
-    SongManager songmanager = new SongManager();
-    
+    SongManager songmanager = new SongManager();   
     PlaylistManager playlistmanager = new PlaylistManager();
 
     
@@ -93,9 +92,12 @@ public class MP3model
      * @throws SQLException
      * @throws IOException 
      */
-    public void createSong(String title, String artist, String category, String fileName) throws SQLServerException, SQLException, IOException
+    public void createSong(String title, String artist, String category, String fileName) throws SQLServerException, SQLException, IOException, MP3Exception
     {
         songmanager.createSong(title, artist, category, fileName);
+        SongsInView.clear();
+        SongsInView.addAll(songmanager.getAllSongs());
+
     }
 
     
@@ -106,10 +108,11 @@ public class MP3model
      * @throws SQLServerException
      * @throws IOException 
      */
-    public void createPlaylist(String playlistName) throws SQLException, SQLServerException, IOException
+    public void createPlaylist(String playlistName) throws SQLException, SQLServerException, IOException, MP3Exception
     {
-        PlaylistManager playlistmanager = new PlaylistManager();
         playlistmanager.createPlaylist(playlistName);
+        PlaylistsInView.clear();
+        PlaylistsInView.addAll(playlistmanager.getAllPlaylists());
     }
 
     
@@ -124,21 +127,43 @@ public class MP3model
         SongsInView.remove(selectedSong);
     }
 
-    public void addSongToPlaylist(Song selectedSong, Playlist selectedPlaylist) throws SQLException 
+    public void addSongToPlaylist(Song selectedSong, Playlist selectedPlaylist) throws SQLException, IOException 
     {
         playlistmanager.addSongToPlaylist(selectedSong, selectedPlaylist);
-        
+        playlistSongView.clear();
+        getSongsforPlaylist(selectedPlaylist);
     }
 
     public void getSongsforPlaylist(Playlist selectedPlaylist) throws SQLException, IOException 
     {
-       playlistSongView.addAll(playlistmanager.getSongsforPlaylist(selectedPlaylist));
-        
+       playlistSongView.addAll(playlistmanager.getSongsforPlaylist(selectedPlaylist));      
     }
 
-    public void updateSong(int id, String updatedTitle, String updatedArtist, String updatedCategory) throws SQLException 
+    public void updateSong(int id, String updatedTitle, String updatedArtist, String updatedCategory) throws SQLException, MP3Exception 
     {
         songmanager.updateSong(id, updatedTitle, updatedArtist, updatedCategory);
+        SongsInView.clear();
+        SongsInView.addAll(songmanager.getAllSongs());
+    }
+
+    public void deletePlaylist(Playlist selectedPlaylist) 
+    {
+        playlistmanager.deletePlaylist(selectedPlaylist);
+        PlaylistsInView.remove(selectedPlaylist);
+    }
+
+    public void updatePlaylist(int id, String updatedPlaylistName) throws MP3Exception 
+    {
+        playlistmanager.updatePlaylist(id, updatedPlaylistName);
+        PlaylistsInView.clear();
+        PlaylistsInView.addAll(playlistmanager.getAllPlaylists());
+    }
+
+    public void removeSongFromPlaylist(Playlist selectedPlaylist, Song selectedSong) throws SQLException, IOException 
+    {
+        playlistmanager.removeSongFromPlaylist(selectedPlaylist, selectedSong);
+        playlistSongView.clear();
+        getSongsforPlaylist(selectedPlaylist);
     }
 
 

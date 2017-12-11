@@ -14,6 +14,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import mp3.be.Playlist;
 import mp3.be.Song;
 
@@ -159,13 +161,70 @@ public class PlaylistDAL
                 allSongs.add(song);
                 
             }
-            return allSongs;
-                
-            
-            
+            return allSongs;  
         }
         
     }
+
+    public void deletePlaylist(Playlist selectedPlaylist) 
+    {
+        try (Connection con = dbConnector.getConnection())
+        {
+            String sql = "DELETE FROM PlaylistSong WHERE playlistID = ?; DELETE FROM Playlist WHERE id = ?;";
+
+            PreparedStatement statement = con.prepareStatement(sql);
+            
+            statement.setInt(1, selectedPlaylist.getId());
+            statement.setInt(2, selectedPlaylist.getId());
+            
+            statement.executeUpdate();        
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(SongDAL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void updatePlaylist(int id, String updatedPlaylistName) 
+    {
+        try (Connection con = dbConnector.getConnection())
+        {
+            String sql = "UPDATE Playlist SET name = ? WHERE id = ?;";
+
+            PreparedStatement statement = con.prepareStatement(sql);
+            
+            statement.setString(1, updatedPlaylistName);
+            statement.setInt(2, id);
+            
+            statement.executeUpdate();
+            
+        } 
+        catch (SQLException ex)
+        {
+            Logger.getLogger(SongDAL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void removeSongFromPlaylist(Playlist selectedPlaylist, Song selectedSong) 
+    {
+        try (Connection con = dbConnector.getConnection())
+        {
+            String sql = "DELETE FROM PlaylistSong WHERE playlistID = ? AND songID = ?;";
+
+            PreparedStatement statement = con.prepareStatement(sql);
+            
+            statement.setInt(1, selectedPlaylist.getId());
+            statement.setInt(2, selectedSong.getId());
+            
+            statement.executeUpdate();
+            
+        } 
+        catch (SQLException ex)
+        {
+            Logger.getLogger(SongDAL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }        
+    
     
 }
 

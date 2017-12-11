@@ -16,6 +16,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import mp3.be.Song;
+import mp3.bll.MP3Exception;
 import mp3.gui.model.MP3model;
 
 /**
@@ -76,7 +77,7 @@ public class EditSongController implements Initializable {
     }    
 
     @FXML
-    private void eventSaveChangesbtn(ActionEvent event) throws SQLException 
+    private void eventSaveChangesbtn(ActionEvent event) throws SQLException, MP3Exception 
     {
         String updatedTitle = txtTitle.getText();
         String updatedArtist = txtArtist.getText();
@@ -89,7 +90,8 @@ public class EditSongController implements Initializable {
         stage.close();
         
     }
-    public void setModel(MP3model mp3model) {
+    public void setModel(MP3model mp3model) 
+    {
         this.mp3model = mp3model;
     }
     

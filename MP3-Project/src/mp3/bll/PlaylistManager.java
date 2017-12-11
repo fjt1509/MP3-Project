@@ -70,6 +70,20 @@ public class PlaylistManager
     {
         return playlistDAL.getSongsforPlaylist(selectedPlaylist);
     }
+
+    public void deletePlaylist(Playlist selectedPlaylist) 
+    {
+        playlistDAL.deletePlaylist(selectedPlaylist);
+    }
+
+    public void updatePlaylist(int id, String updatedPlaylistName) 
+    {
+        playlistDAL.updatePlaylist(id, updatedPlaylistName);
+    }
+
+    public void removeSongFromPlaylist(Playlist selectedPlaylist, Song selectedSong) {
+        playlistDAL.removeSongFromPlaylist(selectedPlaylist, selectedSong);
+    }
     
     
 }

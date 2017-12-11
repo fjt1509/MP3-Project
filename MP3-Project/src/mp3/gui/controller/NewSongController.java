@@ -34,6 +34,8 @@ import mp3.gui.model.MP3model;
 public class NewSongController implements Initializable
 {
     private String fileName;
+    
+    private MP3model mp3model;
 
     @FXML
     private TextField txtFieldFilePath;
@@ -103,14 +105,14 @@ public class NewSongController implements Initializable
     @FXML
     private void eventSaveSongBtn(ActionEvent event) throws SQLException, SQLServerException, IOException, MP3Exception 
     {
-        MP3model model = new MP3model();
+
         
         String title = txtFieldTitle.getText();
         String artist = txtFieldArtist.getText();
         String category = (String) comboBox.getSelectionModel().getSelectedItem();
 
         
-        model.createSong(title, artist, category, fileName);
+        mp3model.createSong(title, artist, category, fileName);
         
         Stage stage = (Stage) saveSongbtn.getScene().getWindow();
         stage.close();
@@ -127,6 +129,11 @@ public class NewSongController implements Initializable
     {
         Stage stage = (Stage) CancelBtn2.getScene().getWindow();
         stage.close();
+    }
+
+    void setModel(MP3model mp3model) 
+    {
+        this.mp3model = mp3model;
     }
     
 }

@@ -148,8 +148,15 @@ public class SongDAL
     {
         try (Connection con = dbConnector.getConnection();)
         {
-            Statement stmt = con.createStatement();
-            stmt.execute("DELETE FROM Songs WHERE id="+song.getId());
+            String sql = "DELETE FROM PlaylistSong WHERE SongID = ?; DELETE FROM Songs WHERE id = ?;";
+
+            PreparedStatement statement = con.prepareStatement(sql);
+            
+            statement.setInt(1, song.getId());
+            statement.setInt(2, song.getId());
+            
+            statement.executeUpdate();
+
             
         }
         catch (SQLException ex)
@@ -175,4 +182,5 @@ public class SongDAL
             
         }  
     }
+
 }

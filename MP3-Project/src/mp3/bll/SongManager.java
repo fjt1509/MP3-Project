@@ -60,8 +60,7 @@ public class SongManager
         }
     }
 
-    
-    
+
     /**
      * Takes remove from the DAL
      * @param song 
@@ -75,5 +74,7 @@ public class SongManager
     {
         songDAL.updateSong(id, updatedTitle, updatedArtist, updatedCategory);
     }
+
+   
 
 }

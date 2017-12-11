@@ -29,8 +29,8 @@
             <AnchorPane prefHeight="54.0" prefWidth="818.0" BorderPane.alignment="CENTER">
                <children>
                   <Button layoutX="14.0" layoutY="11.0" mnemonicParsing="false" onAction="#eventNewPlaylistBtn" text="New.." />
-                  <Button layoutX="79.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="54.0" text="Edit.." />
-                  <Button layoutX="134.0" layoutY="14.0" mnemonicParsing="false" text="Delete" />
+                  <Button layoutX="69.0" layoutY="10.0" mnemonicParsing="false" onAction="#eventEditPlaylist" prefHeight="26.0" prefWidth="54.0" text="Edit.." />
+                  <Button layoutX="133.0" layoutY="10.0" mnemonicParsing="false" onAction="#eventDeletePlaylist" text="Delete" />
                   <Button layoutX="352.0" layoutY="12.0" mnemonicParsing="false" text="\\/">
                      <font>
                         <Font size="10.0" />
@@ -44,7 +44,7 @@
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <Button layoutX="250.0" layoutY="11.0" mnemonicParsing="false" text="Delete" />
+                  <Button layoutX="250.0" layoutY="11.0" mnemonicParsing="false" onAction="#eventRemoveSongFromPlaylist" text="Remove" />
                </children>
             </AnchorPane>
          </bottom>

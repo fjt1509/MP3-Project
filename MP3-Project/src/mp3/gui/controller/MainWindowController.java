@@ -162,6 +162,8 @@ public class MainWindowController implements Initializable {
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mp3/gui/view/NewSong.fxml"));
         Parent root1 = (Parent) fxmlLoader.load();
+        NewSongController nsc = fxmlLoader.getController();
+        nsc.setModel(mp3model);
         Stage stage = new Stage();
         stage.setScene(new Scene(root1)); 
         stage.show();  
@@ -173,6 +175,8 @@ public class MainWindowController implements Initializable {
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mp3/gui/view/NewPlaylist.fxml"));
         Parent root1 = (Parent) fxmlLoader.load();
+        NewPlaylistController npc = fxmlLoader.getController();
+        npc.setModel(mp3model);
         Stage stage = new Stage();
         stage.setScene(new Scene(root1)); 
         stage.show();  
@@ -263,7 +267,8 @@ public class MainWindowController implements Initializable {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Confirmation ");
         alert.setHeaderText("Delete confirmation");
-        alert.setContentText("Are you sure you want to delete this song?");
+        alert.setContentText("Are you sure you want to delete this song? the song will also be removed from all playlists");
+        
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK)
@@ -279,7 +284,7 @@ public class MainWindowController implements Initializable {
     }
 
     @FXML
-    private void eventAddSongbtn(ActionEvent event) 
+    private void eventAddSongbtn(ActionEvent event) throws IOException 
     {
         Song selectedSong = SongsViewer.getSelectionModel().getSelectedItem();
         Playlist selectedPlaylist = PlaylistsViewer.getSelectionModel().getSelectedItem();
@@ -300,6 +305,63 @@ public class MainWindowController implements Initializable {
         viewPlaylistSongs.getItems().clear();
         Playlist selectedPlaylist = PlaylistsViewer.getSelectionModel().getSelectedItem();
         mp3model.getSongsforPlaylist(selectedPlaylist);    
+    }
+
+    @FXML
+    private void eventDeletePlaylist(ActionEvent event) 
+    {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation ");
+        alert.setHeaderText("Delete confirmation");
+        alert.setContentText("Are you sure you want to delete this Playlist?");
+        
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK)
+        {
+            Playlist selectedPlaylist = PlaylistsViewer.getSelectionModel().getSelectedItem();
+            mp3model.deletePlaylist(selectedPlaylist);
+        } else 
+        {
+            
+        }
+    }
+
+    @FXML
+    private void eventEditPlaylist(ActionEvent event) throws IOException 
+    {
+        Playlist selectedPlaylist = PlaylistsViewer.getSelectionModel().getSelectedItem(); 
+        
+        
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mp3/gui/view/EditPlaylist.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+        EditPlaylistController epc = fxmlLoader.getController();
+        epc.setModel(mp3model);
+        epc.infoTransfer(selectedPlaylist);
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root1)); 
+        stage.show();
+    }
+
+    @FXML
+    private void eventRemoveSongFromPlaylist(ActionEvent event) throws SQLException, IOException 
+    {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation ");
+        alert.setHeaderText("Delete confirmation");
+        alert.setContentText("Are you sure you wish to remove this song from the playlist?");
+        
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK)
+        {
+            Playlist selectedPlaylist = PlaylistsViewer.getSelectionModel().getSelectedItem();
+            Song selectedSong = SongsViewer.getSelectionModel().getSelectedItem();
+            
+            mp3model.removeSongFromPlaylist(selectedPlaylist, selectedSong);
+        } else 
+        {
+            
+        }
     }
 }
 
