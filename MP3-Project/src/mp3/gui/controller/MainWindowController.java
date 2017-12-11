@@ -215,18 +215,22 @@ public class MainWindowController implements Initializable {
         mediaplayer.pause();
     }
 
-
-
     @FXML
-    private void eventMouseSelectclk(MouseEvent event) throws MalformedURLException 
+    private void eventMouseSelectInPlaylistclk(MouseEvent event) throws MalformedURLException 
     {
                 
         Song selectedSong = viewPlaylistSongs.getSelectionModel().getSelectedItem();
         fileName = selectedSong.getFileName();
-        System.out.println(fileName);
+        System.out.println(fileName); 
         
-;  
-        
+    }
+
+    @FXML
+    private void eventMouseSelectInSongsclk(MouseEvent event) 
+    {
+        Song selectedSong = SongsViewer.getSelectionModel().getSelectedItem();
+        fileName = selectedSong.getFileName();
+        System.out.println(fileName);       
     }
     
     
@@ -357,11 +361,13 @@ public class MainWindowController implements Initializable {
             Playlist selectedPlaylist = PlaylistsViewer.getSelectionModel().getSelectedItem();
             Song selectedSong = SongsViewer.getSelectionModel().getSelectedItem();
             
-            mp3model.removeSongFromPlaylist(selectedPlaylist, selectedSong);
+        mp3model.removeSongFromPlaylist(selectedPlaylist, selectedSong);
         } else 
         {
             
         }
     }
+
+
 }
 
