@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import mp3.bll.MP3Exception;
 import mp3.gui.model.MP3model;
 
 /**
@@ -52,7 +53,7 @@ public class NewPlaylistController implements Initializable
      * @throws IOException 
      */
     @FXML
-    private void eventSavePlaylistBtn (ActionEvent event) throws SQLException, SQLServerException, IOException 
+    private void eventSavePlaylistBtn (ActionEvent event) throws SQLException, SQLServerException, IOException, MP3Exception 
     {
         MP3model model = new MP3model();
         

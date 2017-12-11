@@ -117,6 +117,28 @@ public class SongDAL
         return song;
     }
     
+    public Song getSongById(int id) throws SQLException
+    {
+        try (Connection con = dbConnector.getConnection())
+        {
+            String sql = "SELECT * FROM Songs WHERE id = ?;";
+
+            PreparedStatement statement = con.prepareStatement(sql);
+
+            statement.setInt(1, id);
+
+
+            
+                ResultSet rs = statement.executeQuery();
+                rs.next();
+
+                Song c = getSongFromResultSetRow(rs);
+                return c;
+            
+
+        }
+    }
+    
     
     /**
      * This method removes a song from the database
@@ -134,5 +156,23 @@ public class SongDAL
         {
             Logger.getLogger(SongDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void updateSong(int id, String updatedTitle, String updatedArtist, String updatedCategory) throws SQLException 
+    {
+        try (Connection con = dbConnector.getConnection())
+        {
+            String sql = "UPDATE Songs SET title = ?, artist = ?, category = ? WHERE id = ?;";
+
+            PreparedStatement statement = con.prepareStatement(sql);
+            
+            statement.setString(1, updatedTitle);
+            statement.setString(2, updatedArtist);
+            statement.setString(3, updatedCategory);
+            statement.setInt(4, id);
+            
+            statement.executeUpdate();
+            
+        }  
     }
 }

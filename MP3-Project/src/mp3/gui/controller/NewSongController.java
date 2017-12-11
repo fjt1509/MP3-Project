@@ -23,6 +23,7 @@ import javafx.scene.media.Media;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+import mp3.bll.MP3Exception;
 import mp3.gui.model.MP3model;
 
 /**
@@ -100,7 +101,7 @@ public class NewSongController implements Initializable
      * @throws IOException 
      */
     @FXML
-    private void eventSaveSongBtn(ActionEvent event) throws SQLException, SQLServerException, IOException 
+    private void eventSaveSongBtn(ActionEvent event) throws SQLException, SQLServerException, IOException, MP3Exception 
     {
         MP3model model = new MP3model();
         

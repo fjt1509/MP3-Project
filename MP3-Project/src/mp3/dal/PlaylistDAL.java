@@ -133,6 +133,39 @@ public class PlaylistDAL
         }  
         
     }
+
+    public List<Song> getSongsforPlaylist(Playlist selectedPlaylist) throws SQLException, IOException 
+    {
+        int playlistID = selectedPlaylist.getId();
+        
+        try (Connection con = dbConnector.getConnection())
+        {
+            String sql = "SELECT * FROM PlaylistSong WHERE playlistID = ?";
+            
+            PreparedStatement statement = con.prepareStatement(sql);
+            
+            
+            statement.setInt(1, playlistID);
+            
+            ResultSet rs = statement.executeQuery(); 
+            SongDAL songDAL = new SongDAL();
+            
+            List<Song> allSongs = new ArrayList<>();
+            
+            while(rs.next())
+            {
+                int songID = rs.getInt("songID");
+                Song song = songDAL.getSongById(songID);
+                allSongs.add(song);
+                
+            }
+            return allSongs;
+                
+            
+            
+        }
+        
+    }
     
 }
 

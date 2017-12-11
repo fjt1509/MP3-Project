@@ -8,10 +8,12 @@ package mp3.gui.model;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import mp3.be.Playlist;
 import mp3.be.Song;
+import mp3.bll.MP3Exception;
 import mp3.bll.PlaylistManager;
 import mp3.bll.SongManager;
 import mp3.dal.PlaylistDAL;
@@ -26,9 +28,9 @@ public class MP3model
 
     private final ObservableList<Song> SongsInView;
     private final ObservableList<Playlist> PlaylistsInView;
-    private SongDAL songDAL = new SongDAL();
-    private PlaylistDAL playlistDAL = new PlaylistDAL();
-    private SongManager songmanager = new SongManager();
+    private final ObservableList<Song> playlistSongView;
+
+    SongManager songmanager = new SongManager();
     
     PlaylistManager playlistmanager = new PlaylistManager();
 
@@ -41,13 +43,17 @@ public class MP3model
      * @throws IOException
      * @throws SQLException 
      */
-    public MP3model() throws IOException, SQLException
+    public MP3model() throws IOException, SQLException, MP3Exception
     {
         this.SongsInView = FXCollections.observableArrayList();
-        SongsInView.addAll(songDAL.getAllSongs());
+        SongsInView.addAll(songmanager.getAllSongs());
 
         this.PlaylistsInView = FXCollections.observableArrayList();
-        PlaylistsInView.addAll(playlistDAL.getAllPlaylists());
+        PlaylistsInView.addAll(playlistmanager.getAllPlaylists());
+        
+        this.playlistSongView = FXCollections.observableArrayList();
+ 
+        
 
     }
 
@@ -70,7 +76,12 @@ public class MP3model
     {
         return PlaylistsInView;
     }
-
+    
+    
+    public ObservableList<Song> getAllSongsInPlaylist()
+    {
+        return playlistSongView;
+    }
     
     /**
      * This methods let us create a song
@@ -118,6 +129,19 @@ public class MP3model
         playlistmanager.addSongToPlaylist(selectedSong, selectedPlaylist);
         
     }
+
+    public void getSongsforPlaylist(Playlist selectedPlaylist) throws SQLException, IOException 
+    {
+       playlistSongView.addAll(playlistmanager.getSongsforPlaylist(selectedPlaylist));
+        
+    }
+
+    public void updateSong(int id, String updatedTitle, String updatedArtist, String updatedCategory) throws SQLException 
+    {
+        songmanager.updateSong(id, updatedTitle, updatedArtist, updatedCategory);
+    }
+
+
     
     
     

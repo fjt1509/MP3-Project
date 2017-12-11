@@ -15,6 +15,8 @@ import java.util.ResourceBundle;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
@@ -27,6 +29,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
@@ -43,6 +46,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import mp3.be.Playlist;
 import mp3.be.Song;
+import mp3.bll.MP3Exception;
 import mp3.gui.model.MP3model;
 
 /**
@@ -57,15 +61,16 @@ public class MainWindowController implements Initializable {
     private MediaPlayer mediaplayer;
     private Song song;
     private boolean isPlaying;
-    
+    private String fileName;
 
 
-    @FXML
-    private ListView<Song> SongplayListViewer;
     @FXML
     private TableView<Playlist> PlaylistsViewer;
     @FXML
     private TableView<Song> SongsViewer;
+    @FXML
+    private TableView<Song> viewPlaylistSongs;    
+    
     @FXML
     private TextField FilterTxtField;
     @FXML
@@ -82,6 +87,11 @@ public class MainWindowController implements Initializable {
     @FXML
     private TableColumn<Playlist, String> tableColumnName;
 
+    @FXML
+    private TableColumn<Song, String> playlistSongColumnNr;
+    @FXML
+    private TableColumn<Song, String> playlistSongColumnSong;
+
 
 
     
@@ -90,10 +100,11 @@ public class MainWindowController implements Initializable {
      * @throws IOException
      * @throws SQLException 
      */
-    public MainWindowController() throws  IOException, SQLException
+    public MainWindowController() throws  IOException, SQLException, MP3Exception
     {
      
       mp3model = new MP3model();
+      
       
     }
     
@@ -103,25 +114,28 @@ public class MainWindowController implements Initializable {
      * references to the corresponding methods of the Controller class
     */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb) 
+    {
         
+        SongsViewer.setItems(mp3model.getAllSongs());       
         tableColumnTitle.setCellValueFactory (new PropertyValueFactory( "title"));
         tableColumnArtist.setCellValueFactory(new PropertyValueFactory("artist"));
         tableColumnCategory.setCellValueFactory(new PropertyValueFactory("category"));
         
-        SongsViewer.setItems(mp3model.getAllSongs());
-        
+
+        PlaylistsViewer.setItems(mp3model.getAllPlaylist());        
         tableColumnName.setCellValueFactory(new PropertyValueFactory("name"));
         
-        PlaylistsViewer.setItems(mp3model.getAllPlaylist());
-        isPlaying = false;
         
+        viewPlaylistSongs.setItems(mp3model.getAllSongsInPlaylist());
+        playlistSongColumnSong.setCellValueFactory(new PropertyValueFactory("title"));
         
+        SliderBar.setValue(100);
         
-      
+        viewPlaylistSongs.setPlaceholder(new Label("Choose a playlist"));
         
 
-        
+
     }    
     
 
@@ -133,11 +147,12 @@ public class MainWindowController implements Initializable {
 
         
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mp3/gui/view/EditSong.fxml"));
-        Parent root1 = (Parent) fxmlLoader.load();
+        Parent root = (Parent) fxmlLoader.load();
         EditSongController esc = fxmlLoader.getController();
+        esc.setModel(mp3model);
         esc.infoTransfer(selectedSong);
         Stage stage = new Stage();
-        stage.setScene(new Scene(root1)); 
+        stage.setScene(new Scene(root)); 
         stage.show(); 
         
     }
@@ -164,9 +179,30 @@ public class MainWindowController implements Initializable {
     }
 
     @FXML
-    private void eventPlayPausebtn(ActionEvent event) 
-    {        
+    private void eventPlayPausebtn(ActionEvent event) throws MalformedURLException 
+    {
+        if(isPlaying)
+        {
+            mediaplayer.dispose();
+            isPlaying = false;
+        }
+        String path = "./Songs/"+fileName;
+        URL url = Paths.get(path).toAbsolutePath().toUri().toURL();
+        Media musicFile = new Media(url.toString());
+        musicFile.getDuration().toMinutes();
+        mediaplayer = new MediaPlayer(musicFile);
         mediaplayer.play();
+        isPlaying = true;
+        
+        SliderBar.setValue(mediaplayer.getVolume() * 100);
+        SliderBar.valueProperty().addListener(new InvalidationListener() 
+        {          
+            @Override
+            public void invalidated(Observable observable) 
+            {
+                mediaplayer.setVolume(SliderBar.getValue() / 100);
+            }
+        });
     }
     
     @FXML
@@ -175,26 +211,17 @@ public class MainWindowController implements Initializable {
         mediaplayer.pause();
     }
 
-    @FXML
-    private void eventStopbtn(ActionEvent event) 
-    {
-        mediaplayer.stop();
-    }
+
 
     @FXML
     private void eventMouseSelectclk(MouseEvent event) throws MalformedURLException 
     {
                 
-        Song selectedSong = SongsViewer.getSelectionModel().getSelectedItem();
-        String fileName = selectedSong.getFileName();
+        Song selectedSong = viewPlaylistSongs.getSelectionModel().getSelectedItem();
+        fileName = selectedSong.getFileName();
         System.out.println(fileName);
         
-        String path = "./Songs/"+fileName;
-        URL url = Paths.get(path).toAbsolutePath().toUri().toURL();
-        Media musicFile = new Media(url.toString());
-        musicFile.getDuration().toMinutes();
-        mediaplayer = new MediaPlayer(musicFile);
-        mediaplayer.setVolume(0.9);  
+;  
         
     }
     
@@ -265,6 +292,14 @@ public class MainWindowController implements Initializable {
                 ex.printStackTrace();
             }
         }
+    }
+
+    @FXML
+    private void eventChoosePlaylistclk(MouseEvent event) throws IOException, SQLException 
+    {
+        viewPlaylistSongs.getItems().clear();
+        Playlist selectedPlaylist = PlaylistsViewer.getSelectionModel().getSelectedItem();
+        mp3model.getSongsforPlaylist(selectedPlaylist);    
     }
 }
 

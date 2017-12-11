@@ -65,6 +65,11 @@ public class PlaylistManager
     {
         playlistDAL.addSongToPlaylist(selectedSong, selectedPlaylist);
     }
+
+    public List<Song> getSongsforPlaylist(Playlist selectedPlaylist) throws SQLException, IOException 
+    {
+        return playlistDAL.getSongsforPlaylist(selectedPlaylist);
+    }
     
     
 }

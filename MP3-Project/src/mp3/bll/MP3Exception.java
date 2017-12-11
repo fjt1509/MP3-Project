@@ -11,7 +11,7 @@ import java.sql.SQLException;
  *
  * @author frederik
  */
-class MP3Exception extends Exception {
+public class MP3Exception extends Exception {
 
 
     public MP3Exception(String message)

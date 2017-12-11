@@ -71,4 +71,9 @@ public class SongManager
         songDAL.remove(song);
     }
 
+    public void updateSong(int id, String updatedTitle, String updatedArtist, String updatedCategory) throws SQLException
+    {
+        songDAL.updateSong(id, updatedTitle, updatedArtist, updatedCategory);
+    }
+
 }
