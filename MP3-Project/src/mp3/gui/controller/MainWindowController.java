@@ -91,7 +91,11 @@ public class MainWindowController implements Initializable {
     private TableColumn<Song, String> playlistSongColumnNr;
     @FXML
     private TableColumn<Song, String> playlistSongColumnSong;
-
+    
+    @FXML
+    private Label MediaDisplayLabel;
+    @FXML
+    private Label MediaDurationLabel;
 
 
     
@@ -197,6 +201,7 @@ public class MainWindowController implements Initializable {
         mediaplayer = new MediaPlayer(musicFile);
         mediaplayer.play();
         isPlaying = true;
+        MediaDisplayLabel.setText("Track Playing:" + "(" + fileName + ")");
         
         SliderBar.setValue(mediaplayer.getVolume() * 100);
         SliderBar.valueProperty().addListener(new InvalidationListener() 
@@ -213,7 +218,8 @@ public class MainWindowController implements Initializable {
     private void eventPausebtn(ActionEvent event)
     {
         mediaplayer.pause();
-    }
+        MediaDisplayLabel.setText("Track Paused!");
+   }
 
     @FXML
     private void eventMouseSelectInPlaylistclk(MouseEvent event) throws MalformedURLException 

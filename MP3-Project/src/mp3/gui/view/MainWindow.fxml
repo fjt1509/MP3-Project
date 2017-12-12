@@ -80,13 +80,14 @@
                   <Label layoutX="511.0" layoutY="95.0" text="Songs" />
                   <Button layoutX="63.0" layoutY="20.0" mnemonicParsing="false" onAction="#eventPlayPausebtn" text="Play" />
                   <Button layoutX="114.0" layoutY="20.0" mnemonicParsing="false" onAction="#eventPausebtn" text="Pause" />
-                  <Label layoutX="429.0" layoutY="57.0" text="Song playing..." />
+                  <Label fx:id="MediaDisplayLabel" layoutX="429.0" layoutY="57.0" text="No Track Playing" />
                   <TableView fx:id="viewPlaylistSongs" layoutX="203.0" layoutY="113.0" onMouseClicked="#eventMouseSelectInPlaylistclk" prefHeight="511.0" prefWidth="203.0" style="-fx-border-color: BLACK;" stylesheets="@../../res/css/tableView.css">
                     <columns>
                       <TableColumn fx:id="playlistSongColumnNr" prefWidth="36.800079345703125" text="Nr." />
                       <TableColumn fx:id="playlistSongColumnSong" prefWidth="164.8000061035156" text="Song" />
                     </columns>
                   </TableView>
+                  <Label fx:id="MediaDurationLabel" layoutX="454.0" layoutY="36.0" text="Duration" />
       
                </children>
             </AnchorPane>
