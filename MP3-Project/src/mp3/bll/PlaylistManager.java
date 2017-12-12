@@ -81,7 +81,10 @@ public class PlaylistManager
         playlistDAL.updatePlaylist(id, updatedPlaylistName);
     }
 
-    public void removeSongFromPlaylist(Playlist selectedPlaylist, Song selectedSong) {
+    public void removeSongFromPlaylist(Playlist selectedPlaylist, Song selectedSong)
+    {
+                        System.out.println(selectedSong);
+
         playlistDAL.removeSongFromPlaylist(selectedPlaylist, selectedSong);
     }
     

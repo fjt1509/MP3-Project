@@ -312,7 +312,7 @@ public class MainWindowController implements Initializable {
     }
 
     @FXML
-    private void eventDeletePlaylist(ActionEvent event) 
+    private void eventDeletePlaylist(ActionEvent event) throws SQLException, IOException 
     {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Confirmation ");
@@ -359,7 +359,7 @@ public class MainWindowController implements Initializable {
         if (result.get() == ButtonType.OK)
         {
             Playlist selectedPlaylist = PlaylistsViewer.getSelectionModel().getSelectedItem();
-            Song selectedSong = SongsViewer.getSelectionModel().getSelectedItem();
+            Song selectedSong = viewPlaylistSongs.getSelectionModel().getSelectedItem();
             
         mp3model.removeSongFromPlaylist(selectedPlaylist, selectedSong);
         } else 

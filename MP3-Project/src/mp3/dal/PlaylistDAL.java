@@ -207,6 +207,8 @@ public class PlaylistDAL
 
     public void removeSongFromPlaylist(Playlist selectedPlaylist, Song selectedSong) 
     {
+                        System.out.println(selectedSong);
+
         try (Connection con = dbConnector.getConnection())
         {
             String sql = "DELETE FROM PlaylistSong WHERE playlistID = ? AND songID = ?;";

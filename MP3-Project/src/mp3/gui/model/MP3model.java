@@ -144,12 +144,16 @@ public class MP3model
         songmanager.updateSong(id, updatedTitle, updatedArtist, updatedCategory);
         SongsInView.clear();
         SongsInView.addAll(songmanager.getAllSongs());
+        playlistSongView.clear();
+        
     }
 
-    public void deletePlaylist(Playlist selectedPlaylist) 
+    public void deletePlaylist(Playlist selectedPlaylist) throws SQLException, IOException 
     {
         playlistmanager.deletePlaylist(selectedPlaylist);
         PlaylistsInView.remove(selectedPlaylist);
+        playlistSongView.clear();
+        getSongsforPlaylist(selectedPlaylist);
     }
 
     public void updatePlaylist(int id, String updatedPlaylistName) throws MP3Exception 
@@ -161,6 +165,8 @@ public class MP3model
 
     public void removeSongFromPlaylist(Playlist selectedPlaylist, Song selectedSong) throws SQLException, IOException 
     {
+                System.out.println(selectedSong);
+
         playlistmanager.removeSongFromPlaylist(selectedPlaylist, selectedSong);
         playlistSongView.clear();
         getSongsforPlaylist(selectedPlaylist);
