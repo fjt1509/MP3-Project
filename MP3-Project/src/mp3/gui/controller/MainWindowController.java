@@ -201,7 +201,7 @@ public class MainWindowController implements Initializable {
         mediaplayer = new MediaPlayer(musicFile);
         mediaplayer.play();
         isPlaying = true;
-        MediaDisplayLabel.setText("Track Playing:" + "(" + fileName + ")");
+        MediaDisplayLabel.setText("Track Playing:" + " " + song.getTitle() + "");
         
         SliderBar.setValue(mediaplayer.getVolume() * 100);
         SliderBar.valueProperty().addListener(new InvalidationListener() 
@@ -226,6 +226,7 @@ public class MainWindowController implements Initializable {
     {
                 
         Song selectedSong = viewPlaylistSongs.getSelectionModel().getSelectedItem();
+        song = selectedSong;
         fileName = selectedSong.getFileName();
         System.out.println(fileName); 
         
@@ -315,6 +316,7 @@ public class MainWindowController implements Initializable {
         viewPlaylistSongs.getItems().clear();
         Playlist selectedPlaylist = PlaylistsViewer.getSelectionModel().getSelectedItem();
         mp3model.getSongsforPlaylist(selectedPlaylist);    
+       // mp3model.setSongsOrder(selectedPlaylist);
     }
 
     @FXML
@@ -372,6 +374,23 @@ public class MainWindowController implements Initializable {
         {
             
         }
+    }
+
+    @FXML
+    private void eventPushDownbtn(ActionEvent event) 
+    {
+       Playlist selectedPlaylist = PlaylistsViewer.getSelectionModel().getSelectedItem();
+       Song selectedSong = viewPlaylistSongs.getSelectionModel().getSelectedItem();
+       mp3model.moveSongDown(selectedSong, selectedPlaylist);
+    }
+
+    @FXML
+    private void eventPushUpbtn(ActionEvent event) 
+    {
+       Playlist selectedPlaylist = PlaylistsViewer.getSelectionModel().getSelectedItem();
+       Song selectedSong = viewPlaylistSongs.getSelectionModel().getSelectedItem();
+       mp3model.moveSongUp(selectedSong, selectedPlaylist);
+        
     }
 
 

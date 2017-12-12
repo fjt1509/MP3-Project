@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import mp3.be.Playlist;
 import mp3.be.Song;
 
 /**
@@ -181,6 +182,32 @@ public class SongDAL
             statement.executeUpdate();
             
         }  
+    }
+
+    public void setSongsOrder(Playlist selectedPlaylist, Song selectedSong, int numberInPlaylist) 
+    {
+        try (Connection con = dbConnector.getConnection())
+        {
+
+                
+
+                String sql = "UPDATE PlaylistSong SET numberInPlaylist = ? WHERE PlaylistID = ? AND SongID = ?;";
+
+                PreparedStatement statement = con.prepareStatement(sql);
+                
+                statement.setInt(1, numberInPlaylist);
+                statement.setInt(2, selectedPlaylist.getId());
+                statement.setInt(3, selectedSong.getId());
+                
+            
+            
+                statement.executeUpdate();    
+            
+        }   
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(SongDAL.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

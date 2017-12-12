@@ -9,6 +9,7 @@ import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import mp3.be.Playlist;
 import mp3.be.Song;
 import mp3.dal.SongDAL;
 
@@ -73,6 +74,14 @@ public class SongManager
     public void updateSong(int id, String updatedTitle, String updatedArtist, String updatedCategory) throws SQLException
     {
         songDAL.updateSong(id, updatedTitle, updatedArtist, updatedCategory);
+    }
+
+    public void setSongsOrder(Playlist selectedPlaylist, List<Song> songs) 
+    {
+        for (int i=0; i<songs.size(); i++)
+        { 
+            songDAL.setSongsOrder(selectedPlaylist, songs.get(i), i+1);
+        }
     }
 
    

@@ -142,7 +142,7 @@ public class PlaylistDAL
         
         try (Connection con = dbConnector.getConnection())
         {
-            String sql = "SELECT * FROM PlaylistSong WHERE playlistID = ?";
+            String sql = "SELECT * FROM PlaylistSong WHERE playlistID = ? ORDER BY numberInPlaylist";
             
             PreparedStatement statement = con.prepareStatement(sql);
             

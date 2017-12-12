@@ -8,6 +8,7 @@ package mp3.gui.model;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -171,6 +172,33 @@ public class MP3model
         playlistSongView.clear();
         getSongsforPlaylist(selectedPlaylist);
     }
+
+    public void setSongsOrder(Playlist selectedPlaylist) 
+    {
+        songmanager.setSongsOrder(selectedPlaylist, playlistSongView);
+    }
+
+    public void moveSongUp(Song selectedSong, Playlist selectedPlaylist) 
+    {
+        int index = playlistSongView.indexOf(selectedSong);       
+        int nextObject = index-1;
+        
+        Collections.swap(playlistSongView, index, nextObject);
+        
+        setSongsOrder(selectedPlaylist);     
+    }
+
+    public void moveSongDown(Song selectedSong, Playlist selectedPlaylist) 
+    {
+        int index = playlistSongView.indexOf(selectedSong);       
+        int nextObject = index+1;
+        
+        Collections.swap(playlistSongView, index, nextObject);
+        
+        setSongsOrder(selectedPlaylist);         
+    }
+
+
 
 
     

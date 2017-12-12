@@ -31,7 +31,7 @@
                   <Button layoutX="14.0" layoutY="11.0" mnemonicParsing="false" onAction="#eventNewPlaylistBtn" text="New.." />
                   <Button layoutX="69.0" layoutY="10.0" mnemonicParsing="false" onAction="#eventEditPlaylist" prefHeight="26.0" prefWidth="54.0" text="Edit.." />
                   <Button layoutX="133.0" layoutY="10.0" mnemonicParsing="false" onAction="#eventDeletePlaylist" text="Delete" />
-                  <Button layoutX="352.0" layoutY="12.0" mnemonicParsing="false" text="\\/">
+                  <Button layoutX="352.0" layoutY="12.0" mnemonicParsing="false" onAction="#eventPushDownbtn" text="\\/">
                      <font>
                         <Font size="10.0" />
                      </font>
@@ -39,7 +39,7 @@
                   <Button layoutX="605.0" layoutY="14.0" mnemonicParsing="false" onAction="#eventNewSongBtn" text="New.." />
                   <Button layoutX="691.0" layoutY="14.0" mnemonicParsing="false" onAction="#eventEditSongBtn" text="Edit" />
                   <Button layoutX="779.0" layoutY="14.0" mnemonicParsing="false" onAction="#eventDeleteSongBtn" text="Delete" />
-                  <Button graphicTextGap="1.0" layoutX="318.0" layoutY="12.0" mnemonicParsing="false" text="/\">
+                  <Button graphicTextGap="1.0" layoutX="318.0" layoutY="12.0" mnemonicParsing="false" onAction="#eventPushUpbtn" text="/\">
                      <font>
                         <Font size="10.0" />
                      </font>
