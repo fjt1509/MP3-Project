@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -211,6 +212,11 @@ public class MP3model
         setSongsOrder(selectedPlaylist);         
     }
     
+    private String placeZeroIfNeeded(int number) 
+    {
+        return (number >=10)? Integer.toString(number):String.format("0%s",Integer.toString(number));
+    }
+        
     public String getDurationOfMp3(File selectedFile) throws UnsupportedAudioFileException, IOException
     {
             String duration;
@@ -224,6 +230,13 @@ public class MP3model
                 int sec = (mili / 1000) % 60;
                 int min = (mili /1000) / 60;
                 duration = (min + ":" + sec);
+                
+                
+
+
+                    String strSec = placeZeroIfNeeded(sec);
+                    String seconds = String.format("%s",strSec);
+                    duration = (min +  ":" + seconds);
 
                         
                         
@@ -232,8 +245,11 @@ public class MP3model
                 duration = null;                
             }
             return duration;
-            
+                            
+
     }
+    
+
     
     public String getDurationOfWav(File selectedFile) throws UnsupportedAudioFileException, IOException, LineUnavailableException
     {
@@ -243,6 +259,7 @@ public class MP3model
         long durationInSeconds = (long) ((frames+0.0) / format.getFrameRate());   
        
         String time = songmanager.getFormattedTimeString(durationInSeconds);
+        
         
         return time;
         
