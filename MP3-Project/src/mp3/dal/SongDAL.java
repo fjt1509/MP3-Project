@@ -43,18 +43,19 @@ public class SongDAL
      * @throws SQLServerException
      * @throws SQLException 
      */
-    public Song createSong(String title, String artist, String category, String fileName) throws SQLServerException, SQLException
+    public Song createSong(String title, String artist, String category, String time, String fileName) throws SQLServerException, SQLException
     {
         try (Connection con = dbConnector.getConnection())
         {
-            String sql = "INSERT INTO Songs VALUES (?, ?, ?, ?);";
+            String sql = "INSERT INTO Songs VALUES (?, ?, ?, ?, ?);";
 
             PreparedStatement statement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             statement.setString(1, title);
             statement.setString(2, artist);
             statement.setString(3, category);
-            statement.setString(4, fileName);
+            statement.setString(4, time);
+            statement.setString(5, fileName);
 
 
             if (statement.executeUpdate() == 1)
@@ -63,10 +64,10 @@ public class SongDAL
                 ResultSet rs = statement.getGeneratedKeys();
                 rs.next();
                 int id = rs.getInt(1);
-                Song c = new Song(id, title, artist, category, fileName);
+                Song c = new Song(id, title, artist, category, time, fileName);
                 return c;
             }
-            throw new RuntimeException("Can't create company");
+            throw new RuntimeException("Can't create song");
         }
     }
 
@@ -111,10 +112,11 @@ public class SongDAL
         String title = rs.getString("Title");
         String artist = rs.getString("Artist");
         String category = rs.getString("Category");
+        String time = rs.getString("time");
         String fileName = rs.getString("FileName");
 
         //I create the company object and add it to my list of results:
-        Song song = new Song(id, title, artist, category, fileName);
+        Song song = new Song(id, title, artist, category, time, fileName);
         return song;
     }
     

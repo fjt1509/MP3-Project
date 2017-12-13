@@ -125,6 +125,7 @@ public class MainWindowController implements Initializable {
         tableColumnTitle.setCellValueFactory (new PropertyValueFactory( "title"));
         tableColumnArtist.setCellValueFactory(new PropertyValueFactory("artist"));
         tableColumnCategory.setCellValueFactory(new PropertyValueFactory("category"));
+        tableColumnTime.setCellValueFactory(new PropertyValueFactory("time"));
         
 
         PlaylistsViewer.setItems(mp3model.getAllPlaylist());        

@@ -106,9 +106,9 @@ public class MP3model
      * @throws SQLException
      * @throws IOException 
      */
-    public void createSong(String title, String artist, String category, String fileName) throws SQLServerException, SQLException, IOException, MP3Exception
+    public void createSong(String title, String artist, String category, String time, String fileName) throws SQLServerException, SQLException, IOException, MP3Exception
     {
-        songmanager.createSong(title, artist, category, fileName);
+        songmanager.createSong(title, artist, category, time, fileName);
         SongsInView.clear();
         SongsInView.addAll(songmanager.getAllSongs());
 
