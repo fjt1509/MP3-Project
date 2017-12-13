@@ -39,9 +39,9 @@ public class SongManager
      * @throws SQLException
      * @throws IOException 
      */
-    public void createSong(String title, String artist, String category, String fileName) throws SQLServerException, SQLException, IOException
+    public void createSong(String title, String artist, String category, String time, String fileName) throws SQLServerException, SQLException, IOException
     {
-        songDAL.createSong(title, artist, category, fileName);
+        songDAL.createSong(title, artist, category, time, fileName);
     }
 
     

@@ -130,9 +130,9 @@ public class NewSongController implements Initializable
         String title = txtFieldTitle.getText();
         String artist = txtFieldArtist.getText();
         String category = (String) comboBox.getSelectionModel().getSelectedItem();
-
+        String time = txtTime.getText();
         
-        mp3model.createSong(title, artist, category, fileName);
+        mp3model.createSong(title, artist, category, time, fileName);
         
         Stage stage = (Stage) saveSongbtn.getScene().getWindow();
         stage.close();
