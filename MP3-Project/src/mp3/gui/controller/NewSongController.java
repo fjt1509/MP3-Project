@@ -41,6 +41,7 @@ import org.tritonus.share.sampled.file.TAudioFileFormat;
 public class NewSongController implements Initializable
 {
     private String fileName;
+    private String time;
     
     private MP3model mp3model;
 
@@ -93,14 +94,19 @@ public class NewSongController implements Initializable
             fileName = selectedFile.getName();
             URL url = Paths.get(selectedFile.getAbsolutePath()).toUri().toURL();
             Media musicFile = new Media(url.toString());
+                     
+            boolean compare = selectedFile.getName().toLowerCase().endsWith("mp3");
             
-            //mp3model.getDurationOfWav(selectedFile);
+            if (compare)
+            {
+               time = mp3model.getDurationOfMp3(selectedFile);
+            }
+            else
+            {
+               time = mp3model.getDurationOfWav(selectedFile);
+            }
             
-            String songDuration = mp3model.getDurationOfMp3(selectedFile);
-            txtTime.setText(songDuration);
-            
-            
-      
+            txtTime.setText(time);   
         }
     
 

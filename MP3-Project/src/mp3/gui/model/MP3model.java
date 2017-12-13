@@ -235,15 +235,18 @@ public class MP3model
             
     }
     
-    public void getDurationOfWav(File selectedFile) throws UnsupportedAudioFileException, IOException, LineUnavailableException
+    public String getDurationOfWav(File selectedFile) throws UnsupportedAudioFileException, IOException, LineUnavailableException
     {
         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(selectedFile);
         AudioFormat format = audioInputStream.getFormat();
         long frames = audioInputStream.getFrameLength();
-        double durationInSeconds = (frames+0.0) / format.getFrameRate();   
-        double durationInMinutes = (durationInSeconds/100) / 60;
+        long durationInSeconds = (long) ((frames+0.0) / format.getFrameRate());   
+       
+        String time = songmanager.getFormattedTimeString(durationInSeconds);
         
-        System.out.println(durationInSeconds);
+        return time;
+        
+        
     }
 
 

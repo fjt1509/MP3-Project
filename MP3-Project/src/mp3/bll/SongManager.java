@@ -9,6 +9,7 @@ import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import mp3.be.Playlist;
 import mp3.be.Song;
 import mp3.dal.SongDAL;
@@ -83,6 +84,41 @@ public class SongManager
             songDAL.setSongsOrder(selectedPlaylist, songs.get(i), i+1);
         }
     }
+    
+    public String getFormattedTimeString(long timeInSeconds) {
+        
+        
+        String timeStr = new String();
+        long sec_term = 1;
+        long min_term = 60 * sec_term;
+        long hour_term = 60 * min_term;
+        long result = Math.abs(timeInSeconds);
+ 
+        int hour = (int) (result / hour_term);
+        result = result % hour_term;
+        int min = (int) (result / min_term);
+        result = result % min_term;
+        int sec = (int) (result / sec_term);
+ 
+        if (timeInSeconds < 0) 
+        {
+        timeStr = "-";
+        }
+        if (hour > 0) 
+        {
+        timeStr += hour + "h ";
+        }
+        if (min > 0) 
+        {
+        timeStr += min + ":";
+        }
+        if (sec > 0) 
+        {
+        timeStr += sec + "";
+        }
+        return timeStr;
+ }
+
 
    
 
