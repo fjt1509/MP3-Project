@@ -139,6 +139,7 @@ public class MainWindowController implements Initializable {
         
         viewPlaylistSongs.setPlaceholder(new Label("Choose a playlist"));
         
+        
 
 
     }    
