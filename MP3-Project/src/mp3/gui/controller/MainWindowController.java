@@ -224,20 +224,25 @@ public class MainWindowController implements Initializable {
     @FXML
     private void eventMouseSelectInPlaylistclk(MouseEvent event) throws MalformedURLException 
     {
-                
-        Song selectedSong = viewPlaylistSongs.getSelectionModel().getSelectedItem();
-        song = selectedSong;
-        fileName = selectedSong.getFileName();
-        System.out.println(fileName); 
+        if(!viewPlaylistSongs.getSelectionModel().isEmpty())
+        {    
+            Song selectedSong = viewPlaylistSongs.getSelectionModel().getSelectedItem();
+            song = selectedSong;
+            fileName = selectedSong.getFileName();
+            System.out.println(fileName);
+        }
         
     }
 
     @FXML
     private void eventMouseSelectInSongsclk(MouseEvent event) 
     {
-        Song selectedSong = SongsViewer.getSelectionModel().getSelectedItem();
-        fileName = selectedSong.getFileName();
-        System.out.println(fileName);       
+        if(!SongsViewer.getSelectionModel().isEmpty())
+        {
+            Song selectedSong = SongsViewer.getSelectionModel().getSelectedItem();
+            fileName = selectedSong.getFileName();
+            System.out.println(fileName);  
+        }
     }
     
     
@@ -313,10 +318,13 @@ public class MainWindowController implements Initializable {
     @FXML
     private void eventChoosePlaylistclk(MouseEvent event) throws IOException, SQLException 
     {
-        viewPlaylistSongs.getItems().clear();
-        Playlist selectedPlaylist = PlaylistsViewer.getSelectionModel().getSelectedItem();
-        mp3model.getSongsforPlaylist(selectedPlaylist);    
-       // mp3model.setSongsOrder(selectedPlaylist);
+        if(!viewPlaylistSongs.getSelectionModel().isEmpty())
+        {
+            viewPlaylistSongs.getItems().clear();
+            Playlist selectedPlaylist = PlaylistsViewer.getSelectionModel().getSelectedItem();
+            mp3model.getSongsforPlaylist(selectedPlaylist);    
+            // mp3model.setSongsOrder(selectedPlaylist);
+        }
     }
 
     @FXML
