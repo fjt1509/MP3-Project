@@ -201,7 +201,6 @@ public class MainWindowController implements Initializable {
         mediaplayer = new MediaPlayer(musicFile);
         mediaplayer.play();
         isPlaying = true;
-        MediaDisplayLabel.setText("Track Playing:" + " " + song.getTitle() + "");
         
         SliderBar.setValue(mediaplayer.getVolume() * 100);
         SliderBar.valueProperty().addListener(new InvalidationListener() 
@@ -391,6 +390,80 @@ public class MainWindowController implements Initializable {
        Song selectedSong = viewPlaylistSongs.getSelectionModel().getSelectedItem();
        mp3model.moveSongUp(selectedSong, selectedPlaylist);
         
+    }
+
+    @FXML
+    private void eventNextSongbtn(ActionEvent event) throws MalformedURLException 
+    {
+        Song selectedSong = viewPlaylistSongs.getSelectionModel().getSelectedItem();
+        int currentSong = viewPlaylistSongs.getItems().indexOf(selectedSong);
+        int nextSong = currentSong+1;
+        
+        Song nextSelectedSong = viewPlaylistSongs.getItems().get(nextSong);
+        fileName = nextSelectedSong.getFileName();
+        viewPlaylistSongs.getSelectionModel().clearAndSelect(nextSong);
+   
+        
+        if(isPlaying)
+        {
+            mediaplayer.dispose();
+            isPlaying = false;
+        }
+        String path = "./Songs/"+fileName;
+        URL url = Paths.get(path).toAbsolutePath().toUri().toURL();
+        Media musicFile = new Media(url.toString());
+        musicFile.getDuration().toMinutes();
+        mediaplayer = new MediaPlayer(musicFile);
+        mediaplayer.play();
+        isPlaying = true;
+        MediaDisplayLabel.setText("Track Playing:" + " " + song.getTitle() + "");
+        
+        SliderBar.setValue(mediaplayer.getVolume() * 100);
+        SliderBar.valueProperty().addListener(new InvalidationListener() 
+        {          
+            @Override
+            public void invalidated(Observable observable) 
+            {
+                mediaplayer.setVolume(SliderBar.getValue() / 100);
+            }
+        });
+    }
+
+    @FXML
+    private void eventPreviousSongbtn(ActionEvent event) throws MalformedURLException 
+    {
+        Song selectedSong = viewPlaylistSongs.getSelectionModel().getSelectedItem();
+        int currentSong = viewPlaylistSongs.getItems().indexOf(selectedSong);
+        int nextSong = currentSong-1;
+        
+        Song nextSelectedSong = viewPlaylistSongs.getItems().get(nextSong);
+        fileName = nextSelectedSong.getFileName();  
+        viewPlaylistSongs.getSelectionModel().clearAndSelect(nextSong);
+
+   
+         if(isPlaying)
+        {
+            mediaplayer.dispose();
+            isPlaying = false;
+        }
+        String path = "./Songs/"+fileName;
+        URL url = Paths.get(path).toAbsolutePath().toUri().toURL();
+        Media musicFile = new Media(url.toString());
+        musicFile.getDuration().toMinutes();
+        mediaplayer = new MediaPlayer(musicFile);
+        mediaplayer.play();
+        isPlaying = true;
+        MediaDisplayLabel.setText("Track Playing:" + " " + song.getTitle() + "");
+        
+        SliderBar.setValue(mediaplayer.getVolume() * 100);
+        SliderBar.valueProperty().addListener(new InvalidationListener() 
+        {          
+            @Override
+            public void invalidated(Observable observable) 
+            {
+                mediaplayer.setVolume(SliderBar.getValue() / 100);
+            }
+        });
     }
 
 

@@ -6,12 +6,24 @@
 package mp3.gui.model;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import static javafx.scene.input.DataFormat.URL;
+import javax.sound.sampled.AudioFileFormat;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import mp3.be.Playlist;
 import mp3.be.Song;
 import mp3.bll.MP3Exception;
@@ -19,6 +31,7 @@ import mp3.bll.PlaylistManager;
 import mp3.bll.SongManager;
 import mp3.dal.PlaylistDAL;
 import mp3.dal.SongDAL;
+import org.tritonus.share.sampled.file.TAudioFileFormat;
 
 /**
  *
@@ -196,6 +209,41 @@ public class MP3model
         Collections.swap(playlistSongView, index, nextObject);
         
         setSongsOrder(selectedPlaylist);         
+    }
+    
+    public String getDurationOfMp3(File selectedFile) throws UnsupportedAudioFileException, IOException
+    {
+            String duration;
+            AudioFileFormat fileFormat = AudioSystem.getAudioFileFormat(selectedFile);
+            if(fileFormat instanceof TAudioFileFormat) 
+            {
+                Map<?, ?> properties = ((TAudioFileFormat) fileFormat).properties();
+                String key = "duration";
+                Long microseconds = (Long) properties.get(key);
+                int mili = (int) (microseconds / 1000);
+                int sec = (mili / 1000) % 60;
+                int min = (mili /1000) / 60;
+                duration = (min + ":" + sec);
+
+                        
+                        
+            } else 
+            {
+                duration = null;                
+            }
+            return duration;
+            
+    }
+    
+    public void getDurationOfWav(File selectedFile) throws UnsupportedAudioFileException, IOException, LineUnavailableException
+    {
+        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(selectedFile);
+        AudioFormat format = audioInputStream.getFormat();
+        long frames = audioInputStream.getFrameLength();
+        double durationInSeconds = (frames+0.0) / format.getFrameRate();   
+        double durationInMinutes = (durationInSeconds/100) / 60;
+        
+        System.out.println(durationInSeconds);
     }
 
 

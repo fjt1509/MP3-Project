@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,8 +24,14 @@ import javafx.scene.media.Media;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+import javax.sound.sampled.AudioFileFormat;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import mp3.bll.MP3Exception;
 import mp3.gui.model.MP3model;
+import org.tritonus.share.sampled.file.TAudioFileFormat;
 
 /**
  * FXML Controller class
@@ -74,7 +81,7 @@ public class NewSongController implements Initializable
      * @throws IOException 
      */
     @FXML
-    private void eventChooseFileBtn(ActionEvent event) throws IOException 
+    private void eventChooseFileBtn(ActionEvent event) throws IOException, UnsupportedAudioFileException, LineUnavailableException 
     {
         FileChooser fc = new FileChooser();
         fc.getExtensionFilters().addAll(new ExtensionFilter("AUDIO FILES", "*.mp3", "*.wav"));
@@ -86,7 +93,14 @@ public class NewSongController implements Initializable
             fileName = selectedFile.getName();
             URL url = Paths.get(selectedFile.getAbsolutePath()).toUri().toURL();
             Media musicFile = new Media(url.toString());
-            txtTime.setText(musicFile.getDuration()+"");
+            
+            //mp3model.getDurationOfWav(selectedFile);
+            
+            String songDuration = mp3model.getDurationOfMp3(selectedFile);
+            txtTime.setText(songDuration);
+            
+            
+      
         }
     
 

@@ -88,6 +88,8 @@
                     </columns>
                   </TableView>
                   <Label fx:id="MediaDurationLabel" layoutX="454.0" layoutY="36.0" text="Duration" />
+                  <Button layoutX="177.0" layoutY="20.0" mnemonicParsing="false" onAction="#eventNextSongbtn" text="&gt;&gt;" />
+                  <Button layoutX="19.0" layoutY="20.0" mnemonicParsing="false" onAction="#eventPreviousSongbtn" text="&lt;&lt;" />
       
                </children>
             </AnchorPane>
