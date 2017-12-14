@@ -134,6 +134,11 @@ public class MainWindowController implements Initializable {
         
         viewPlaylistSongs.setItems(mp3model.getAllSongsInPlaylist());
         playlistSongColumnSong.setCellValueFactory(new PropertyValueFactory("title"));
+      
+        
+        
+        
+       
         
         SliderBar.setValue(100);
         
@@ -231,7 +236,11 @@ public class MainWindowController implements Initializable {
             song = selectedSong;
             fileName = selectedSong.getFileName();
             System.out.println(fileName);
+            
+                
         }
+            
+        
         
     }
 
@@ -319,12 +328,13 @@ public class MainWindowController implements Initializable {
     @FXML
     private void eventChoosePlaylistclk(MouseEvent event) throws IOException, SQLException 
     {
-        if(!viewPlaylistSongs.getSelectionModel().isEmpty())
+        if(!PlaylistsViewer.getSelectionModel().isEmpty())
         {
             viewPlaylistSongs.getItems().clear();
             Playlist selectedPlaylist = PlaylistsViewer.getSelectionModel().getSelectedItem();
-            mp3model.getSongsforPlaylist(selectedPlaylist);    
-            // mp3model.setSongsOrder(selectedPlaylist);
+            mp3model.getSongsforPlaylist(selectedPlaylist);
+            
+            
         }
     }
 

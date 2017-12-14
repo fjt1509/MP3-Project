@@ -85,7 +85,8 @@ public class SongManager
         }
     }
     
-    public String getFormattedTimeString(long timeInSeconds) {
+    public String getFormattedTimeString(long timeInSeconds) 
+    {
         
         
         String timeStr = new String();
@@ -106,7 +107,7 @@ public class SongManager
         }
         if (hour > 0) 
         {
-        timeStr += hour + "h ";
+        timeStr += hour + "";
         }
         if (min > 0) 
         {
