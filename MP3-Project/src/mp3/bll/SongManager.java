@@ -119,6 +119,12 @@ public class SongManager
         }
         return timeStr;
  }
+    
+    
+    public String placeZeroIfNeeded(int number) 
+    {
+        return (number >=10)? Integer.toString(number):String.format("0%s",Integer.toString(number));
+    }
 
 
    

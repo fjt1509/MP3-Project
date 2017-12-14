@@ -224,6 +224,10 @@ public class MP3model
                 int sec = (mili / 1000) % 60;
                 int min = (mili /1000) / 60;
                 duration = (min + ":" + sec);
+                
+                    String strSec = songmanager.placeZeroIfNeeded(sec);
+                    String seconds = String.format("%s",strSec);
+                    duration = (min +  ":" + seconds);
 
                         
                         
