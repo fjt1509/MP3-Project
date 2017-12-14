@@ -93,9 +93,11 @@ public class MainWindowController implements Initializable {
     private TableColumn<Song, String> playlistSongColumnSong;
     
     @FXML
-    private Label MediaDisplayLabel;
+    private Label lblTrackArtist;
     @FXML
-    private Label MediaDurationLabel;
+    private Label lblTrackTitle;
+    
+
 
 
     
@@ -209,6 +211,9 @@ public class MainWindowController implements Initializable {
         mediaplayer.play();
         isPlaying = true;
         
+        lblTrackTitle.setText(song.getTitle());
+        lblTrackArtist.setText(song.getArtist());
+        
         SliderBar.setValue(mediaplayer.getVolume() * 100);
         SliderBar.valueProperty().addListener(new InvalidationListener() 
         {          
@@ -224,8 +229,7 @@ public class MainWindowController implements Initializable {
     private void eventPausebtn(ActionEvent event)
     {
         mediaplayer.pause();
-        MediaDisplayLabel.setText("Track Paused!");
-   }
+    }
 
     @FXML
     private void eventMouseSelectInPlaylistclk(MouseEvent event) throws MalformedURLException 
@@ -314,16 +318,44 @@ public class MainWindowController implements Initializable {
     {
         Song selectedSong = SongsViewer.getSelectionModel().getSelectedItem();
         Playlist selectedPlaylist = PlaylistsViewer.getSelectionModel().getSelectedItem();
+        boolean isInPlaylist = false;
         
         if (selectedSong!=null && selectedPlaylist!=null)
         {
-            try {
-                mp3model.addSongToPlaylist(selectedSong, selectedPlaylist);
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+           
+            for(Song song : mp3model.getAllSongsInPlaylist())
+            {
+                if(selectedSong.getId() == song.getId())
+                {
+                    isInPlaylist = true;                    
+                }
             }
+            
+            if(!isInPlaylist)
+            {
+            
+                try 
+                {
+                    mp3model.addSongToPlaylist(selectedSong, selectedPlaylist);
+                } 
+                catch (SQLException ex) 
+                {
+                    ex.printStackTrace();
+                }
+            } 
+            else
+            {
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Information box");
+                alert.setHeaderText("Playist error");
+                alert.setContentText("You already have this song in the playlist");
+
+                alert.showAndWait();
+            }
+       
         }
     }
+    
 
     @FXML
     private void eventChoosePlaylistclk(MouseEvent event) throws IOException, SQLException 
@@ -436,7 +468,6 @@ public class MainWindowController implements Initializable {
         mediaplayer = new MediaPlayer(musicFile);
         mediaplayer.play();
         isPlaying = true;
-        MediaDisplayLabel.setText("Track Playing:" + " " + song.getTitle() + "");
         
         SliderBar.setValue(mediaplayer.getVolume() * 100);
         SliderBar.valueProperty().addListener(new InvalidationListener() 
@@ -473,7 +504,6 @@ public class MainWindowController implements Initializable {
         mediaplayer = new MediaPlayer(musicFile);
         mediaplayer.play();
         isPlaying = true;
-        MediaDisplayLabel.setText("Track Playing:" + " " + song.getTitle() + "");
         
         SliderBar.setValue(mediaplayer.getVolume() * 100);
         SliderBar.valueProperty().addListener(new InvalidationListener() 
