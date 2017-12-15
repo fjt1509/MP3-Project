@@ -78,18 +78,18 @@ public class PlaylistDAL
     {
         try (Connection con = dbConnector.getConnection()) //I create a connection as a resource using my DatabaseConnector object:
         {
-            String sql = "SELECT * FROM Playlist"; // I prepare my SQL
+            String sql = "SELECT * FROM Playlist"; //  preparing the SQL
 
-            Statement st = con.createStatement(); //I create a statement object
-            ResultSet rs = st.executeQuery(sql); //I execute my SQL and receive a ResultSet
+            Statement st = con.createStatement(); // creating a statement object
+            ResultSet rs = st.executeQuery(sql); // executing the SQL and receive a ResultSet
 
-            List<Playlist> allPlaylists = new ArrayList<>(); // I Prepare a list for holding my returned companies
-            while (rs.next()) //While there are companies (rows) in the result set:
+            List<Playlist> allPlaylists = new ArrayList<>(); // Prepared  list for holding  returned playlists
+            while (rs.next()) //While there are playlists (rows) in the result set:
             {
                 Playlist playlist = getPlaylistFromResultSetRow(rs);
                 allPlaylists.add(playlist);
             }
-            //I return all the found companies:
+            // returns all the found playlists:
             return allPlaylists;
         }
         //The connection to the database i automatically closed by the "try with resources"..
@@ -109,7 +109,7 @@ public class PlaylistDAL
         String name = rs.getString("Name");
 
 
-        //I create the company object and add it to my list of results:
+        //I create the playlist object and add it to my list of results:
         Playlist playlist = new Playlist(id, name);
         return playlist;
     }
