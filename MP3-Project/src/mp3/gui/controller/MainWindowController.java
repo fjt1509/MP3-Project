@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
@@ -44,6 +45,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import mp3.be.Playlist;
 import mp3.be.Song;
 import mp3.bll.MP3Exception;
@@ -95,7 +97,7 @@ public class MainWindowController implements Initializable {
     @FXML
     private Label lblTrackArtist;
     @FXML
-    private Label lblTrackTitle;
+    private Label lblTrackTime;
     
 
 
@@ -209,10 +211,12 @@ public class MainWindowController implements Initializable {
         musicFile.getDuration().toMinutes();
         mediaplayer = new MediaPlayer(musicFile);
         mediaplayer.play();
-        isPlaying = true;
+        mediaplayer.setRate(50.0);
         
-        lblTrackTitle.setText(song.getTitle());
-        lblTrackArtist.setText(song.getArtist());
+        
+        isPlaying = true;
+    
+        lblTrackArtist.setText(song.getTitle() + " By: " +  song.getArtist());
         
         SliderBar.setValue(mediaplayer.getVolume() * 100);
         SliderBar.valueProperty().addListener(new InvalidationListener() 
@@ -223,6 +227,25 @@ public class MainWindowController implements Initializable {
                 mediaplayer.setVolume(SliderBar.getValue() / 100);
             }
         });
+        
+        mediaplayer.setOnEndOfMedia(new Runnable()
+        {
+            @Override public void run()
+            {
+               ActionEvent i = null;
+                try 
+                {
+                    lblTrackArtist.setText("");
+                    eventNextSongbtn(i);
+                } 
+                catch (MalformedURLException ex) 
+                {
+                    Logger.getLogger(MainWindowController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        
+        
     }
     
     @FXML
@@ -234,6 +257,7 @@ public class MainWindowController implements Initializable {
     @FXML
     private void eventMouseSelectInPlaylistclk(MouseEvent event) throws MalformedURLException 
     {
+        SongsViewer.getSelectionModel().clearSelection();
         if(!viewPlaylistSongs.getSelectionModel().isEmpty())
         {    
             Song selectedSong = viewPlaylistSongs.getSelectionModel().getSelectedItem();
@@ -251,9 +275,11 @@ public class MainWindowController implements Initializable {
     @FXML
     private void eventMouseSelectInSongsclk(MouseEvent event) 
     {
+        viewPlaylistSongs.getSelectionModel().clearSelection();
         if(!SongsViewer.getSelectionModel().isEmpty())
         {
             Song selectedSong = SongsViewer.getSelectionModel().getSelectedItem();
+            song = selectedSong;
             fileName = selectedSong.getFileName();
             System.out.println(fileName);  
         }
@@ -447,16 +473,22 @@ public class MainWindowController implements Initializable {
     @FXML
     private void eventNextSongbtn(ActionEvent event) throws MalformedURLException 
     {
-        Song selectedSong = viewPlaylistSongs.getSelectionModel().getSelectedItem();
-        int currentSong = viewPlaylistSongs.getItems().indexOf(selectedSong);
-        int nextSong = currentSong+1;
+        if(!viewPlaylistSongs.getSelectionModel().isEmpty())
+        {
+            Song selectedSong = viewPlaylistSongs.getSelectionModel().getSelectedItem();
+            int currentSong = viewPlaylistSongs.getItems().indexOf(selectedSong);
+            int nextSong = currentSong+1;
         
-        Song nextSelectedSong = viewPlaylistSongs.getItems().get(nextSong);
-        fileName = nextSelectedSong.getFileName();
-        viewPlaylistSongs.getSelectionModel().clearAndSelect(nextSong);
+            Song nextSelectedSong = viewPlaylistSongs.getItems().get(nextSong);
+            song = nextSelectedSong;
+            fileName = nextSelectedSong.getFileName();
+            viewPlaylistSongs.getSelectionModel().clearAndSelect(nextSong);
    
+            ActionEvent g = null;        
+            eventPlayPausebtn(g);   
         
-        if(isPlaying)
+        
+       /* if(isPlaying)
         {
             mediaplayer.dispose();
             isPlaying = false;
@@ -469,6 +501,9 @@ public class MainWindowController implements Initializable {
         mediaplayer.play();
         isPlaying = true;
         
+        lblTrackArtist.setText(song.getTitle() + " By: " +  song.getArtist());
+
+        
         SliderBar.setValue(mediaplayer.getVolume() * 100);
         SliderBar.valueProperty().addListener(new InvalidationListener() 
         {          
@@ -477,7 +512,8 @@ public class MainWindowController implements Initializable {
             {
                 mediaplayer.setVolume(SliderBar.getValue() / 100);
             }
-        });
+        }); */
+        }
     }
 
     @FXML
@@ -488,11 +524,15 @@ public class MainWindowController implements Initializable {
         int nextSong = currentSong-1;
         
         Song nextSelectedSong = viewPlaylistSongs.getItems().get(nextSong);
+        song = nextSelectedSong;
         fileName = nextSelectedSong.getFileName();  
         viewPlaylistSongs.getSelectionModel().clearAndSelect(nextSong);
+        
+        ActionEvent g = null;       
+        eventPlayPausebtn(g);
 
    
-         if(isPlaying)
+    /*     if(isPlaying)
         {
             mediaplayer.dispose();
             isPlaying = false;
@@ -505,6 +545,9 @@ public class MainWindowController implements Initializable {
         mediaplayer.play();
         isPlaying = true;
         
+        lblTrackArtist.setText(song.getTitle() + " By: " +  song.getArtist());
+
+        
         SliderBar.setValue(mediaplayer.getVolume() * 100);
         SliderBar.valueProperty().addListener(new InvalidationListener() 
         {          
@@ -513,7 +556,7 @@ public class MainWindowController implements Initializable {
             {
                 mediaplayer.setVolume(SliderBar.getValue() / 100);
             }
-        });
+        });*/
     }
 
 

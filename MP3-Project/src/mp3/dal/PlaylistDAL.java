@@ -40,7 +40,7 @@ public class PlaylistDAL
      * @throws SQLServerException
      * @throws SQLException 
      */
-    public Playlist createPlaylist(String playlistName) throws SQLServerException, SQLException
+    public Playlist createPlaylist(String playlistName) throws SQLException
     {
         try (Connection con = dbConnector.getConnection())
         {

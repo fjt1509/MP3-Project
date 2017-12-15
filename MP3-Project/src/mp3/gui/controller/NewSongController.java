@@ -13,9 +13,13 @@ import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.SplitMenuButton;
@@ -123,7 +127,7 @@ public class NewSongController implements Initializable
      * @throws IOException 
      */
     @FXML
-    private void eventSaveSongBtn(ActionEvent event) throws SQLException, SQLServerException, IOException, MP3Exception 
+    private void eventSaveSongBtn(ActionEvent event) throws IOException, MP3Exception 
     {
 
         
@@ -132,7 +136,16 @@ public class NewSongController implements Initializable
         String category = (String) comboBox.getSelectionModel().getSelectedItem();
         String time = txtTime.getText();
         
-        mp3model.createSong(title, artist, category, time, fileName);
+        try {
+            mp3model.createSong(title, artist, category, time, fileName);
+        } catch (SQLException ex) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Look, an Error Dialog");
+            alert.setContentText("Ooops, there was an error!");
+
+            alert.showAndWait();        
+        }
         
         Stage stage = (Stage) saveSongbtn.getScene().getWindow();
         stage.close();
