@@ -484,22 +484,26 @@ public class MainWindowController implements Initializable {
         {
             selectedTable = SongsViewer;
         }
-            Song selectedSong = selectedTable.getSelectionModel().getSelectedItem();
-            int currentSong = selectedTable.getItems().indexOf(selectedSong);
+            if(selectedTable != null)
+            {
+                Song selectedSong = selectedTable.getSelectionModel().getSelectedItem();
+                int currentSong = selectedTable.getItems().indexOf(selectedSong);
 
-            if(currentSong+1 < selectedTable.getItems().size())
-            {
-                int nextSong = currentSong+1;
-                Song nextSelectedSong = selectedTable.getItems().get(nextSong);
-                song = nextSelectedSong;
-                fileName = nextSelectedSong.getFileName();
-                selectedTable.getSelectionModel().clearAndSelect(nextSong);
+                if(currentSong+1 < selectedTable.getItems().size())
+                {
+                    int nextSong = currentSong+1;
+                    Song nextSelectedSong = selectedTable.getItems().get(nextSong);
+                    song = nextSelectedSong;
+                    fileName = nextSelectedSong.getFileName();
+                    selectedTable.getSelectionModel().clearAndSelect(nextSong);
    
-                ActionEvent g = null;        
-                eventPlayPausebtn(g);   
-            } else 
-            {
-                mediaplayer.stop();
+                    ActionEvent g = null;        
+                    eventPlayPausebtn(g);   
+                } 
+                else 
+                {
+                    mediaplayer.stop();
+                }
             }
         
     }
@@ -518,22 +522,26 @@ public class MainWindowController implements Initializable {
             selectedTable = SongsViewer;
         }
         
-            Song selectedSong = selectedTable.getSelectionModel().getSelectedItem();
-            int currentSong = selectedTable.getItems().indexOf(selectedSong);
+            if(selectedTable != null)
+            {
+                Song selectedSong = selectedTable.getSelectionModel().getSelectedItem();
+                int currentSong = selectedTable.getItems().indexOf(selectedSong);
                        
-            if(currentSong-1 > selectedTable.getItems().size())
-            {
-                int nextSong = currentSong-1;
-                Song nextSelectedSong = selectedTable.getItems().get(nextSong);
-                song = nextSelectedSong;
-                fileName = nextSelectedSong.getFileName();
-                selectedTable.getSelectionModel().clearAndSelect(nextSong);
+                if(currentSong > 0)
+                {
+                    int nextSong = currentSong-1;
+                    Song nextSelectedSong = selectedTable.getItems().get(nextSong);
+                    song = nextSelectedSong;
+                    fileName = nextSelectedSong.getFileName();
+                    selectedTable.getSelectionModel().clearAndSelect(nextSong);
    
-                ActionEvent g = null;        
-                eventPlayPausebtn(g);   
-            } else 
-            {
-                mediaplayer.stop();
+                    ActionEvent g = null;        
+                    eventPlayPausebtn(g);   
+                } 
+                else 
+                {
+                    mediaplayer.stop();
+                }
             }
 
         }  
