@@ -541,6 +541,7 @@ public class MainWindowController implements Initializable {
                 else 
                 {
                     mediaplayer.stop();
+                    mediaplayer.play();
                 }
             }
 
