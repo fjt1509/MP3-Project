@@ -211,7 +211,8 @@ public class MainWindowController implements Initializable {
         musicFile.getDuration().toMinutes();
         mediaplayer = new MediaPlayer(musicFile);
         mediaplayer.play();
-        mediaplayer.setRate(50.0);
+   
+        
         
         
         isPlaying = true;
@@ -473,91 +474,70 @@ public class MainWindowController implements Initializable {
     @FXML
     private void eventNextSongbtn(ActionEvent event) throws MalformedURLException 
     {
+        TableView<Song> selectedTable = null;
+        
         if(!viewPlaylistSongs.getSelectionModel().isEmpty())
         {
-            Song selectedSong = viewPlaylistSongs.getSelectionModel().getSelectedItem();
-            int currentSong = viewPlaylistSongs.getItems().indexOf(selectedSong);
-            int nextSong = currentSong+1;
-        
-            Song nextSelectedSong = viewPlaylistSongs.getItems().get(nextSong);
-            song = nextSelectedSong;
-            fileName = nextSelectedSong.getFileName();
-            viewPlaylistSongs.getSelectionModel().clearAndSelect(nextSong);
-   
-            ActionEvent g = null;        
-            eventPlayPausebtn(g);   
-        
-        
-       /* if(isPlaying)
+            selectedTable = viewPlaylistSongs;
+        }
+        else if(!SongsViewer.getSelectionModel().isEmpty())
         {
-            mediaplayer.dispose();
-            isPlaying = false;
+            selectedTable = SongsViewer;
         }
-        String path = "./Songs/"+fileName;
-        URL url = Paths.get(path).toAbsolutePath().toUri().toURL();
-        Media musicFile = new Media(url.toString());
-        musicFile.getDuration().toMinutes();
-        mediaplayer = new MediaPlayer(musicFile);
-        mediaplayer.play();
-        isPlaying = true;
-        
-        lblTrackArtist.setText(song.getTitle() + " By: " +  song.getArtist());
+            Song selectedSong = selectedTable.getSelectionModel().getSelectedItem();
+            int currentSong = selectedTable.getItems().indexOf(selectedSong);
 
-        
-        SliderBar.setValue(mediaplayer.getVolume() * 100);
-        SliderBar.valueProperty().addListener(new InvalidationListener() 
-        {          
-            @Override
-            public void invalidated(Observable observable) 
+            if(currentSong+1 < selectedTable.getItems().size())
             {
-                mediaplayer.setVolume(SliderBar.getValue() / 100);
+                int nextSong = currentSong+1;
+                Song nextSelectedSong = selectedTable.getItems().get(nextSong);
+                song = nextSelectedSong;
+                fileName = nextSelectedSong.getFileName();
+                selectedTable.getSelectionModel().clearAndSelect(nextSong);
+   
+                ActionEvent g = null;        
+                eventPlayPausebtn(g);   
+            } else 
+            {
+                mediaplayer.stop();
             }
-        }); */
-        }
+        
     }
 
     @FXML
     private void eventPreviousSongbtn(ActionEvent event) throws MalformedURLException 
     {
-        Song selectedSong = viewPlaylistSongs.getSelectionModel().getSelectedItem();
-        int currentSong = viewPlaylistSongs.getItems().indexOf(selectedSong);
-        int nextSong = currentSong-1;
+        TableView<Song> selectedTable = null;
         
-        Song nextSelectedSong = viewPlaylistSongs.getItems().get(nextSong);
-        song = nextSelectedSong;
-        fileName = nextSelectedSong.getFileName();  
-        viewPlaylistSongs.getSelectionModel().clearAndSelect(nextSong);
-        
-        ActionEvent g = null;       
-        eventPlayPausebtn(g);
-
-   
-    /*     if(isPlaying)
+        if(!viewPlaylistSongs.getSelectionModel().isEmpty())
         {
-            mediaplayer.dispose();
-            isPlaying = false;
+            selectedTable = viewPlaylistSongs;
+        } 
+        else if(!SongsViewer.getSelectionModel().isEmpty())
+        {
+            selectedTable = SongsViewer;
         }
-        String path = "./Songs/"+fileName;
-        URL url = Paths.get(path).toAbsolutePath().toUri().toURL();
-        Media musicFile = new Media(url.toString());
-        musicFile.getDuration().toMinutes();
-        mediaplayer = new MediaPlayer(musicFile);
-        mediaplayer.play();
-        isPlaying = true;
         
-        lblTrackArtist.setText(song.getTitle() + " By: " +  song.getArtist());
-
-        
-        SliderBar.setValue(mediaplayer.getVolume() * 100);
-        SliderBar.valueProperty().addListener(new InvalidationListener() 
-        {          
-            @Override
-            public void invalidated(Observable observable) 
+            Song selectedSong = selectedTable.getSelectionModel().getSelectedItem();
+            int currentSong = selectedTable.getItems().indexOf(selectedSong);
+                       
+            if(currentSong-1 > selectedTable.getItems().size())
             {
-                mediaplayer.setVolume(SliderBar.getValue() / 100);
+                int nextSong = currentSong-1;
+                Song nextSelectedSong = selectedTable.getItems().get(nextSong);
+                song = nextSelectedSong;
+                fileName = nextSelectedSong.getFileName();
+                selectedTable.getSelectionModel().clearAndSelect(nextSong);
+   
+                ActionEvent g = null;        
+                eventPlayPausebtn(g);   
+            } else 
+            {
+                mediaplayer.stop();
             }
-        });*/
-    }
+
+        }  
+    
 
 
 }
