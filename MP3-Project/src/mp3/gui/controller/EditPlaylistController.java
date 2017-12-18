@@ -63,7 +63,11 @@ public class EditPlaylistController implements Initializable {
     {
         this.mp3model = mp3model;
     }
-    
+    /**
+     * This method gets information from the selectedPlaylist.
+     * and sets the textField to the selectedPlaylist name.
+     * @param selectedPlaylist 
+     */
     void infoTransfer(Playlist selectedPlaylist) 
     {
         id = selectedPlaylist.getId();

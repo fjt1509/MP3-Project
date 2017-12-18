@@ -53,6 +53,7 @@ public class EditSongController implements Initializable {
     
     
     /**
+     * This method gets information from the selectedSong and pastes it into the textFields & Combobox.
      * 
      * Initializes the controller class.
      * @param selectedSong
