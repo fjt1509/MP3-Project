@@ -78,24 +78,22 @@ public class SongDAL
      */
     public List<Song> getAllSongs() throws SQLException
     {
-        try (Connection con = dbConnector.getConnection()) //I create a connection as a resource using my DatabaseConnector object:
+        try (Connection con = dbConnector.getConnection()) 
         {
-            String sql = "SELECT * FROM Songs"; // I prepare my SQL
+            String sql = "SELECT * FROM Songs"; 
 
-            Statement st = con.createStatement(); //I create a statement object
-            ResultSet rs = st.executeQuery(sql); //I execute my SQL and receive a ResultSet
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
 
-            List<Song> allSongs = new ArrayList<>(); // I Prepare a list for holding my returned companies
-            while (rs.next()) //While there are companies (rows) in the result set:
+            List<Song> allSongs = new ArrayList<>(); 
+            while (rs.next()) 
             {
                 Song song = getSongFromResultSetRow(rs);
                 allSongs.add(song);
             }
-            //I return all the found companies:
+           
             return allSongs;
         }
-        //The connection to the database i automatically closed by the "try with resources"..
-        //The connection to the database i automatically closed by the "try with resources"..
     }
     
     
@@ -107,7 +105,6 @@ public class SongDAL
      */
     private Song getSongFromResultSetRow(ResultSet rs) throws SQLException
     {
-        //I extract the data from the current row in the resultset:
         int id = rs.getInt("Id");
         String title = rs.getString("Title");
         String artist = rs.getString("Artist");
@@ -115,7 +112,6 @@ public class SongDAL
         String time = rs.getString("time");
         String fileName = rs.getString("FileName");
 
-        //I create the company object and add it to my list of results:
         Song song = new Song(id, title, artist, category, time, fileName);
         return song;
     }

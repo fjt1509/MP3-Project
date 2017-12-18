@@ -73,7 +73,7 @@ public class NewSongController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         comboBox.getItems().removeAll(comboBox.getItems());
-        comboBox.getItems().addAll("POP", "ROCK", "JAZZ", "KLASSISK");
+        comboBox.getItems().addAll("POP", "ROCK", "JAZZ", "KLASSISK", "TECHNO", "COUNTRY", "OPERA");
         comboBox.getSelectionModel().select("POP");
         
     }    

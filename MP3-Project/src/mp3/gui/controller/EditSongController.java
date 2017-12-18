@@ -66,7 +66,7 @@ public class EditSongController implements Initializable {
         txtTitle.setText(title);
         txtArtist.setText(artist);
         comboBox.getItems().removeAll(comboBox.getItems());
-        comboBox.getItems().addAll("POP", "ROCK", "JAZZ", "KLASSISK");
+        comboBox.getItems().addAll("POP", "ROCK", "JAZZ", "KLASSISK", "TECHNO", "COUNTRY", "OPERA");
         comboBox.getSelectionModel().select(category);
                 
     }

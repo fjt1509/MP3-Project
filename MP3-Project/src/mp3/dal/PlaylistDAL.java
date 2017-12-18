@@ -76,24 +76,21 @@ public class PlaylistDAL
      */
     public List<Playlist> getAllPlaylists() throws SQLException
     {
-        try (Connection con = dbConnector.getConnection()) //I create a connection as a resource using my DatabaseConnector object:
+        try (Connection con = dbConnector.getConnection())
         {
-            String sql = "SELECT * FROM Playlist"; //  preparing the SQL
+            String sql = "SELECT * FROM Playlist"; 
 
-            Statement st = con.createStatement(); // creating a statement object
-            ResultSet rs = st.executeQuery(sql); // executing the SQL and receive a ResultSet
+            Statement st = con.createStatement(); 
+            ResultSet rs = st.executeQuery(sql); 
 
-            List<Playlist> allPlaylists = new ArrayList<>(); // Prepared  list for holding  returned playlists
-            while (rs.next()) //While there are playlists (rows) in the result set:
+            List<Playlist> allPlaylists = new ArrayList<>(); 
+            while (rs.next()) 
             {
                 Playlist playlist = getPlaylistFromResultSetRow(rs);
                 allPlaylists.add(playlist);
             }
-            // returns all the found playlists:
             return allPlaylists;
         }
-        //The connection to the database i automatically closed by the "try with resources"..
-        //The connection to the database i automatically closed by the "try with resources"..
     }
     
     /**
@@ -104,12 +101,10 @@ public class PlaylistDAL
      */
     private Playlist getPlaylistFromResultSetRow(ResultSet rs) throws SQLException
     {
-        //I extract the data from the current row in the resultset:
         int id = rs.getInt("Id");
         String name = rs.getString("Name");
 
 
-        //I create the playlist object and add it to my list of results:
         Playlist playlist = new Playlist(id, name);
         return playlist;
     }
