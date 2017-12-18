@@ -134,7 +134,12 @@ public class MainWindowController implements Initializable {
 
     }    
     
-
+    /**
+     * If a song is selected in SongsViewer on ActionEvent, the method loads & sets the stage to the EditSong.fxml file.
+     * 
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void eventEditSongBtn(ActionEvent event) throws IOException 
     {
@@ -149,7 +154,12 @@ public class MainWindowController implements Initializable {
         stage.setScene(new Scene(root)); 
         stage.show();        
     }
-
+    /**
+     * On ActionEvent, this method loads & sets the stage to the NewSong.fxml file.
+     * 
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void eventNewSongBtn(ActionEvent event) throws IOException
     {
@@ -161,7 +171,11 @@ public class MainWindowController implements Initializable {
         stage.setScene(new Scene(root1)); 
         stage.show();         
     }
-
+    /**
+     * On ActionEvent, this method loads & sets the stage to the NewPlaylist.fxml file.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     private void eventNewPlaylistBtn(ActionEvent event) throws IOException
     {
@@ -173,7 +187,12 @@ public class MainWindowController implements Initializable {
         stage.setScene(new Scene(root1)); 
         stage.show();  
     }
-
+    /**
+     * On ActionEvent, 
+     * 
+     * @param event
+     * @throws MalformedURLException
+     */
     @FXML
     private void eventPlayPausebtn(ActionEvent event) throws MalformedURLException  
     {
@@ -221,13 +240,23 @@ public class MainWindowController implements Initializable {
         
         
     }
-    
+    /**
+     * On ActionEvent, pauses the mediaplayer.
+     * 
+     * @param event 
+     */
     @FXML
     private void eventPausebtn(ActionEvent event)
     {
         mediaplayer.pause();
     }
-
+    
+    /**
+     * On MouseEvent, selects a song in the playlist.
+     * 
+     * @param event
+     * @throws MalformedURLException 
+     */
     @FXML
     private void eventMouseSelectInPlaylistclk(MouseEvent event) throws MalformedURLException 
     {
@@ -239,7 +268,12 @@ public class MainWindowController implements Initializable {
             fileName = selectedSong.getFileName();              
         }       
     }
-
+    
+    /**
+     * On MouseEvent, selects a song in the Songs list.
+     * 
+     * @param event 
+     */
     @FXML
     private void eventMouseSelectInSongsclk(MouseEvent event) 
     {
@@ -252,7 +286,12 @@ public class MainWindowController implements Initializable {
         }
     }
     
-    
+    /**
+     * On KeyEvent in FilterTxtField, gets items from SongsViewer and filters by Title, Artist or Category.
+     * and returns items Containing the observable value of the String value of FilterTxtField.
+     * 
+     * @param event  
+     */
     @FXML
     private void eventSearchSong(KeyEvent event) 
     {   
@@ -282,7 +321,12 @@ public class MainWindowController implements Initializable {
         });
         
     }
-
+    /**
+     * On ActionEvent, opens an alertbox for confirmation. 
+     * removes the selectedSong from SongsViewer and database if the button "OK" is clicked.
+     * 
+     * @param event 
+     */
     @FXML
     private void eventDeleteSongBtn(ActionEvent event)
     {
@@ -336,7 +380,13 @@ public class MainWindowController implements Initializable {
         
 
     }
-
+    /**
+     * On ActionEvent, if there is selected a song.
+     * adds the selected song to the selected playlist.
+     * 
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void eventAddSongbtn(ActionEvent event) throws IOException 
     {
@@ -380,7 +430,13 @@ public class MainWindowController implements Initializable {
         }
     }
     
-
+    /**
+     * on MouseEvent, chooses from playlists in PlaylistsViewer.and shows the Songs from Playlist in the viewPlaylists table.
+     * 
+     * @param event
+     * @throws IOException
+     * @throws SQLException 
+     */
     @FXML
     private void eventChoosePlaylistclk(MouseEvent event) throws IOException, SQLException 
     {
@@ -393,7 +449,14 @@ public class MainWindowController implements Initializable {
             
         }
     }
-
+    /**
+     * on ActionEvent, Opens an Alertbox for confirmation.
+     * if ButtonType "OK" is clicked, deletes the selectedPlaylist.
+     * 
+     * @param event
+     * @throws SQLException
+     * @throws IOException 
+     */
     @FXML
     private void eventDeletePlaylist(ActionEvent event) throws SQLException, IOException 
     {
@@ -413,7 +476,12 @@ public class MainWindowController implements Initializable {
             
         }
     }
-
+    /**
+     * On ActionEvent, if a Playlist is selected, loads & sets the new stage to the "EditPlaylist.fxml file.
+     * 
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void eventEditPlaylist(ActionEvent event) throws IOException 
     {
@@ -429,7 +497,14 @@ public class MainWindowController implements Initializable {
         stage.setScene(new Scene(root1)); 
         stage.show();
     }
-
+    /**
+     * On ActionEvent, opens an AlertBox for Confirmation.
+     * if ButtonType "OK" is clicked, deletes the selectedSong from the Playlist.
+     * 
+     * @param event
+     * @throws SQLException
+     * @throws IOException 
+     */
     @FXML
     private void eventRemoveSongFromPlaylist(ActionEvent event) throws SQLException, IOException 
     {
@@ -450,7 +525,14 @@ public class MainWindowController implements Initializable {
             
         }
     }
-
+    /**
+     * moves selectedSong down 1 spot in playlist
+     * On ActionEvent, if a Song in a playlist is selected.
+     * It calls upon the method "mp3.model.moveSongDown" for the selectedSong, in the selectedPlaylist.
+     * 
+     * @param event 
+     * 
+     */
     @FXML
     private void eventPushDownbtn(ActionEvent event) 
     {
@@ -458,7 +540,14 @@ public class MainWindowController implements Initializable {
        Song selectedSong = viewSongsInPlaylist.getSelectionModel().getSelectedItem();
        mp3model.moveSongDown(selectedSong, selectedPlaylist);
     }
-
+    
+    /**
+     * moves selectedSong up 1 spot in playlist.
+     * On ActionEvent, if a Song in a playlist is selected.
+     * It calls upon the method "mp3.model.moveSongUp" for the selectedSong, in the selectedPlaylist.
+     * 
+     * @param event 
+     */
     @FXML
     private void eventPushUpbtn(ActionEvent event) 
     {
@@ -467,7 +556,14 @@ public class MainWindowController implements Initializable {
        mp3model.moveSongUp(selectedSong, selectedPlaylist);
         
     }
-
+    /**
+     * Plays the next song in either lists.
+     * On ActionEvent, if selected tables is not empty.
+     * selectedSong is changed to the currentSong from index +1 in the selectedTable list.
+     * 
+     * @param event
+     * @throws MalformedURLException 
+     **/
     @FXML
     private void eventNextSongbtn(ActionEvent event) throws MalformedURLException 
     {
@@ -503,7 +599,14 @@ public class MainWindowController implements Initializable {
             }
         
     }
-
+    /**
+     * Plays the previous song in either lists.
+     * On ActionEvent, if selected tables is not empty.
+     * selectedSong is changed to the currentSong from index -1 in the selectedTable list.
+     * 
+     * @param event
+     * @throws MalformedURLException 
+     */
     @FXML
     private void eventPreviousSongbtn(ActionEvent event) throws MalformedURLException 
     {
