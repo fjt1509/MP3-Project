@@ -7,10 +7,6 @@ package mp3.be;
 
 import java.io.Serializable;
 
-/**
- *
- * @author frederik
- */
 public class Song implements Serializable {
     
     private final int id;
@@ -20,7 +16,15 @@ public class Song implements Serializable {
     private String time;
     private String fileName;
     
-    
+    /**
+     * 
+     * @param id
+     * @param title
+     * @param artist
+     * @param category
+     * @param time
+     * @param fileName 
+     */
     public Song(int id, String title, String artist, String category, String time, String fileName){
         this.id = id;
         this.title = title;
@@ -30,12 +34,18 @@ public class Song implements Serializable {
         this.fileName = fileName;
     
     }
-
+    /**
+     * 
+     * @return 
+     */
     public String getTime()
     {
         return time;
     }
-
+    /**
+     * 
+     * @param time 
+     */
     public void setTime(String time)
     {
         this.time = time;

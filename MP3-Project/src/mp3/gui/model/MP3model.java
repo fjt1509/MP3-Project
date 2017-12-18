@@ -82,14 +82,17 @@ public class MP3model
         return obsListPlaylists;
     }
     
-    
+    /**
+     * ObservableList that returns SongsInPlaylist
+     * @return 
+     */
     public ObservableList<Song> getAllSongsInPlaylist()
     {
         return obsListSongsInPlaylist;
     }
     
     /**
-     * This methods let us create a song
+     * This methods lets us create a song
      * @param title
      * @param artist
      * @param category
@@ -132,19 +135,39 @@ public class MP3model
         songmanager.remove(selectedSong);
         obsListSongs.remove(selectedSong);
     }
-
+    /**
+     * this method adds the selectedSong to the selectedPlaylist.
+     * 
+     * @param selectedSong
+     * @param selectedPlaylist
+     * @throws SQLException
+     * @throws IOException 
+     */
     public void addSongToPlaylist(Song selectedSong, Playlist selectedPlaylist) throws SQLException, IOException 
     {
         playlistmanager.addSongToPlaylist(selectedSong, selectedPlaylist, obsListSongsInPlaylist);
         obsListSongsInPlaylist.clear();
         getSongsforPlaylist(selectedPlaylist);
     }
-
+    /**
+     * this method adds all songs from the playlistmanager to the SongsInPlaylist listView.
+     * 
+     * @param selectedPlaylist
+     * @throws SQLException
+     * @throws IOException 
+     */
     public void getSongsforPlaylist(Playlist selectedPlaylist) throws SQLException, IOException 
     {
        obsListSongsInPlaylist.addAll(playlistmanager.getSongsforPlaylist(selectedPlaylist));      
     }
-
+    /**
+     * 
+     * @param id
+     * @param updatedTitle
+     * @param updatedArtist
+     * @param updatedCategory
+     * @throws SQLException 
+     */
     public void updateSong(int id, String updatedTitle, String updatedArtist, String updatedCategory) throws SQLException 
     {
         songmanager.updateSong(id, updatedTitle, updatedArtist, updatedCategory);
@@ -153,7 +176,13 @@ public class MP3model
         obsListSongsInPlaylist.clear();
         
     }
-
+    /**
+     * this method lets us delete the selectedPlaylist.
+     * 
+     * @param selectedPlaylist
+     * @throws SQLException
+     * @throws IOException 
+     */
     public void deletePlaylist(Playlist selectedPlaylist) throws SQLException, IOException 
     {
         playlistmanager.deletePlaylist(selectedPlaylist);
@@ -161,26 +190,46 @@ public class MP3model
         obsListSongsInPlaylist.clear();
         getSongsforPlaylist(selectedPlaylist);
     }
-
+    /**
+     * 
+     * @param id
+     * @param updatedPlaylistName
+     * @throws SQLException 
+     */
     public void updatePlaylist(int id, String updatedPlaylistName) throws SQLException  
     {
         playlistmanager.updatePlaylist(id, updatedPlaylistName);
         obsListPlaylists.clear();
         obsListPlaylists.addAll(playlistmanager.getAllPlaylists());
     }
-
+    /**
+     * this method lets us remove the selectedSong from the Playlist.
+     *  
+     * @param selectedPlaylist
+     * @param selectedSong
+     * @throws SQLException
+     * @throws IOException 
+     */
     public void removeSongFromPlaylist(Playlist selectedPlaylist, Song selectedSong) throws SQLException, IOException 
     {
         playlistmanager.removeSongFromPlaylist(selectedPlaylist, selectedSong);
         obsListSongsInPlaylist.clear();
         getSongsforPlaylist(selectedPlaylist);
     }
-
+    /**
+     * 
+     * @param selectedPlaylist 
+     */
     public void setSongsOrder(Playlist selectedPlaylist) 
     {
         songmanager.setSongsOrder(selectedPlaylist, obsListSongsInPlaylist);
     }
-
+    /**
+     * this method lets us set the selectedSongsOrder up 1 index in the listView.
+     * 
+     * @param selectedSong
+     * @param selectedPlaylist 
+     */
     public void moveSongUp(Song selectedSong, Playlist selectedPlaylist) 
     {
         int index = obsListSongsInPlaylist.indexOf(selectedSong);       
@@ -190,7 +239,12 @@ public class MP3model
         
         setSongsOrder(selectedPlaylist);     
     }
-
+    /**
+     * this method lets us set the selectedSongsOrder down 1 index in the listView.
+     * 
+     * @param selectedSong
+     * @param selectedPlaylist 
+     */
     public void moveSongDown(Song selectedSong, Playlist selectedPlaylist) 
     {
         int index = obsListSongsInPlaylist.indexOf(selectedSong);       
@@ -200,7 +254,13 @@ public class MP3model
         
         setSongsOrder(selectedPlaylist);         
     }
-    
+    /**
+     * 
+     * @param selectedFile
+     * @return
+     * @throws UnsupportedAudioFileException
+     * @throws IOException 
+     */
     public String getDurationOfMp3(File selectedFile) throws UnsupportedAudioFileException, IOException
     {
             String duration;
@@ -228,7 +288,14 @@ public class MP3model
             return duration;
             
     }
-    
+    /**
+     * 
+     * @param selectedFile
+     * @return
+     * @throws UnsupportedAudioFileException
+     * @throws IOException
+     * @throws LineUnavailableException 
+     */
     public String getDurationOfWav(File selectedFile) throws UnsupportedAudioFileException, IOException, LineUnavailableException
     {
         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(selectedFile);
