@@ -188,7 +188,8 @@ public class MainWindowController implements Initializable {
         stage.show();  
     }
     /**
-     * On ActionEvent, 
+     * On ActionEvent, plays the selected mediafile.
+     * 
      * 
      * @param event
      * @throws MalformedURLException
@@ -211,6 +212,7 @@ public class MainWindowController implements Initializable {
         isPlaying = true;
     
         lblTrackArtist.setText(song.getTitle() + " By: " +  song.getArtist());
+        
         
         volumeBar.setValue(mediaplayer.getVolume() * 100);
         volumeBar.valueProperty().addListener(new InvalidationListener() 

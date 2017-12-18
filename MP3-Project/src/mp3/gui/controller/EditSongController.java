@@ -53,6 +53,7 @@ public class EditSongController implements Initializable {
     
     
     /**
+     * 
      * Initializes the controller class.
      * @param selectedSong
      */    
@@ -74,7 +75,11 @@ public class EditSongController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) 
     {
     }    
-
+    /**
+     * This method saves the changes made to the Song.
+     * @param event
+     * @throws SQLException 
+     */
     @FXML
     private void eventSaveChangesbtn(ActionEvent event) throws SQLException
     {

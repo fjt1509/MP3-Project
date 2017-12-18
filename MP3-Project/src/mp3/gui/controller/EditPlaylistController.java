@@ -42,6 +42,11 @@ public class EditPlaylistController implements Initializable {
         // TODO
     }    
 
+    /**
+     * This Method allows us to save changes to the name of the Playlist we want to edit.
+     * @param event
+     * @throws SQLException 
+     */
     @FXML
     private void eventSaveChanges(ActionEvent event) throws SQLException 
     {
@@ -58,7 +63,7 @@ public class EditPlaylistController implements Initializable {
     {
         this.mp3model = mp3model;
     }
-
+    
     void infoTransfer(Playlist selectedPlaylist) 
     {
         id = selectedPlaylist.getId();

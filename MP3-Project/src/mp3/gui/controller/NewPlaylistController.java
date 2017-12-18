@@ -49,7 +49,7 @@ public class NewPlaylistController implements Initializable
     
 
     /**
-     * The "Save" button adds the new playlist to the list
+     * This method creates a new playlist when the "Save" button is clicked.
      * @param event
      * @throws SQLException
      * @throws SQLServerException
@@ -79,7 +79,7 @@ public class NewPlaylistController implements Initializable
     
     
     /**
-     * The "Cancel" button closes the window.
+     * The "Cancel" button closes the alertBox.
      * @param event 
      */
     @FXML
