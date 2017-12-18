@@ -114,7 +114,7 @@ public class PlaylistDAL
         return playlist;
     }
 
-    public void addSongToPlaylist(Song selectedSong, Playlist selectedPlaylist) throws SQLException 
+    public void addSongToPlaylist(Song selectedSong, Playlist selectedPlaylist, List<Song> songs) throws SQLException 
     {
         int songID = selectedSong.getId();
         int playlistID = selectedPlaylist.getId();
@@ -128,7 +128,8 @@ public class PlaylistDAL
             
             statement.setInt(1, playlistID);
             statement.setInt(2, songID);
-            statement.setInt(3, 1);
+            statement.setInt(3, songs.size()+1);
+
             
             statement.executeUpdate();
             
@@ -207,8 +208,6 @@ public class PlaylistDAL
 
     public void removeSongFromPlaylist(Playlist selectedPlaylist, Song selectedSong) 
     {
-                        System.out.println(selectedSong);
-
         try (Connection con = dbConnector.getConnection())
         {
             String sql = "DELETE FROM PlaylistSong WHERE playlistID = ? AND songID = ?;";

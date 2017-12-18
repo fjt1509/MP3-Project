@@ -8,29 +8,21 @@ package mp3.gui.model;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.sql.SQLException;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import static javafx.scene.input.DataFormat.URL;
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import mp3.be.Playlist;
 import mp3.be.Song;
-import mp3.bll.MP3Exception;
 import mp3.bll.PlaylistManager;
 import mp3.bll.SongManager;
-import mp3.dal.PlaylistDAL;
-import mp3.dal.SongDAL;
 import org.tritonus.share.sampled.file.TAudioFileFormat;
 
 /**
@@ -40,9 +32,9 @@ import org.tritonus.share.sampled.file.TAudioFileFormat;
 public class MP3model
 {
 
-    private final ObservableList<Song> SongsInView;
-    private final ObservableList<Playlist> PlaylistsInView;
-    private final ObservableList<Song> playlistSongView;
+    private final ObservableList<Song> obsListSongs;
+    private final ObservableList<Playlist> obsListPlaylists;
+    private final ObservableList<Song> obsListSongsInPlaylist;
 
     SongManager songmanager = new SongManager();   
     PlaylistManager playlistmanager = new PlaylistManager();
@@ -56,15 +48,15 @@ public class MP3model
      * @throws IOException
      * @throws SQLException 
      */
-    public MP3model() throws IOException, SQLException, MP3Exception
+    public MP3model() throws IOException, SQLException
     {
-        this.SongsInView = FXCollections.observableArrayList();
-        SongsInView.addAll(songmanager.getAllSongs());
+        this.obsListSongs = FXCollections.observableArrayList();
+        obsListSongs.addAll(songmanager.getAllSongs());
 
-        this.PlaylistsInView = FXCollections.observableArrayList();
-        PlaylistsInView.addAll(playlistmanager.getAllPlaylists());
+        this.obsListPlaylists = FXCollections.observableArrayList();
+        obsListPlaylists.addAll(playlistmanager.getAllPlaylists());
         
-        this.playlistSongView = FXCollections.observableArrayList();
+        this.obsListSongsInPlaylist = FXCollections.observableArrayList();
  
         
 
@@ -77,7 +69,7 @@ public class MP3model
      */
     public ObservableList<Song> getAllSongs()
     {
-        return SongsInView;
+        return obsListSongs;
     }
     
     
@@ -87,13 +79,13 @@ public class MP3model
      */
     public ObservableList<Playlist> getAllPlaylist()
     {
-        return PlaylistsInView;
+        return obsListPlaylists;
     }
     
     
     public ObservableList<Song> getAllSongsInPlaylist()
     {
-        return playlistSongView;
+        return obsListSongsInPlaylist;
     }
     
     /**
@@ -106,11 +98,11 @@ public class MP3model
      * @throws SQLException
      * @throws IOException 
      */
-    public void createSong(String title, String artist, String category, String time, String fileName) throws SQLServerException, SQLException, IOException, MP3Exception
+    public void createSong(String title, String artist, String category, String time, String fileName) throws SQLServerException, SQLException, IOException
     {
         songmanager.createSong(title, artist, category, time, fileName);
-        SongsInView.clear();
-        SongsInView.addAll(songmanager.getAllSongs());
+        obsListSongs.clear();
+        obsListSongs.addAll(songmanager.getAllSongs());
 
     }
 
@@ -122,11 +114,11 @@ public class MP3model
      * @throws SQLServerException
      * @throws IOException 
      */
-    public void createPlaylist(String playlistName) throws SQLException, SQLServerException, IOException, MP3Exception
+    public void createPlaylist(String playlistName) throws SQLException, IOException
     {
         playlistmanager.createPlaylist(playlistName);
-        PlaylistsInView.clear();
-        PlaylistsInView.addAll(playlistmanager.getAllPlaylists());
+        obsListPlaylists.clear();
+        obsListPlaylists.addAll(playlistmanager.getAllPlaylists());
     }
 
     
@@ -138,75 +130,73 @@ public class MP3model
     public void remove(Song selectedSong)
     {
         songmanager.remove(selectedSong);
-        SongsInView.remove(selectedSong);
+        obsListSongs.remove(selectedSong);
     }
 
     public void addSongToPlaylist(Song selectedSong, Playlist selectedPlaylist) throws SQLException, IOException 
     {
-        playlistmanager.addSongToPlaylist(selectedSong, selectedPlaylist);
-        playlistSongView.clear();
+        playlistmanager.addSongToPlaylist(selectedSong, selectedPlaylist, obsListSongsInPlaylist);
+        obsListSongsInPlaylist.clear();
         getSongsforPlaylist(selectedPlaylist);
     }
 
     public void getSongsforPlaylist(Playlist selectedPlaylist) throws SQLException, IOException 
     {
-       playlistSongView.addAll(playlistmanager.getSongsforPlaylist(selectedPlaylist));      
+       obsListSongsInPlaylist.addAll(playlistmanager.getSongsforPlaylist(selectedPlaylist));      
     }
 
-    public void updateSong(int id, String updatedTitle, String updatedArtist, String updatedCategory) throws SQLException, MP3Exception 
+    public void updateSong(int id, String updatedTitle, String updatedArtist, String updatedCategory) throws SQLException 
     {
         songmanager.updateSong(id, updatedTitle, updatedArtist, updatedCategory);
-        SongsInView.clear();
-        SongsInView.addAll(songmanager.getAllSongs());
-        playlistSongView.clear();
+        obsListSongs.clear();
+        obsListSongs.addAll(songmanager.getAllSongs());
+        obsListSongsInPlaylist.clear();
         
     }
 
     public void deletePlaylist(Playlist selectedPlaylist) throws SQLException, IOException 
     {
         playlistmanager.deletePlaylist(selectedPlaylist);
-        PlaylistsInView.remove(selectedPlaylist);
-        playlistSongView.clear();
+        obsListPlaylists.remove(selectedPlaylist);
+        obsListSongsInPlaylist.clear();
         getSongsforPlaylist(selectedPlaylist);
     }
 
-    public void updatePlaylist(int id, String updatedPlaylistName) throws MP3Exception 
+    public void updatePlaylist(int id, String updatedPlaylistName) throws SQLException  
     {
         playlistmanager.updatePlaylist(id, updatedPlaylistName);
-        PlaylistsInView.clear();
-        PlaylistsInView.addAll(playlistmanager.getAllPlaylists());
+        obsListPlaylists.clear();
+        obsListPlaylists.addAll(playlistmanager.getAllPlaylists());
     }
 
     public void removeSongFromPlaylist(Playlist selectedPlaylist, Song selectedSong) throws SQLException, IOException 
     {
-                System.out.println(selectedSong);
-
         playlistmanager.removeSongFromPlaylist(selectedPlaylist, selectedSong);
-        playlistSongView.clear();
+        obsListSongsInPlaylist.clear();
         getSongsforPlaylist(selectedPlaylist);
     }
 
     public void setSongsOrder(Playlist selectedPlaylist) 
     {
-        songmanager.setSongsOrder(selectedPlaylist, playlistSongView);
+        songmanager.setSongsOrder(selectedPlaylist, obsListSongsInPlaylist);
     }
 
     public void moveSongUp(Song selectedSong, Playlist selectedPlaylist) 
     {
-        int index = playlistSongView.indexOf(selectedSong);       
+        int index = obsListSongsInPlaylist.indexOf(selectedSong);       
         int nextObject = index-1;
         
-        Collections.swap(playlistSongView, index, nextObject);
+        Collections.swap(obsListSongsInPlaylist, index, nextObject);
         
         setSongsOrder(selectedPlaylist);     
     }
 
     public void moveSongDown(Song selectedSong, Playlist selectedPlaylist) 
     {
-        int index = playlistSongView.indexOf(selectedSong);       
+        int index = obsListSongsInPlaylist.indexOf(selectedSong);       
         int nextObject = index+1;
         
-        Collections.swap(playlistSongView, index, nextObject);
+        Collections.swap(obsListSongsInPlaylist, index, nextObject);
         
         setSongsOrder(selectedPlaylist);         
     }

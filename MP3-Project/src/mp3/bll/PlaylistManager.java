@@ -49,21 +49,17 @@ public class PlaylistManager
          * @return
          * @throws MP3Exception 
          */
-        public List<Playlist> getAllPlaylists() throws MP3Exception
+        public List<Playlist> getAllPlaylists() throws SQLException 
         {
-        try
-        {
-          return playlistDAL.getAllPlaylists();
-        } 
-        catch (SQLException ex)
-        {
-            throw new MP3Exception(ex);
-        }
-    }
 
-    public void addSongToPlaylist(Song selectedSong, Playlist selectedPlaylist) throws SQLException 
+          return playlistDAL.getAllPlaylists();
+        }
+ 
+    
+
+    public void addSongToPlaylist(Song selectedSong, Playlist selectedPlaylist, List<Song> songs) throws SQLException 
     {
-        playlistDAL.addSongToPlaylist(selectedSong, selectedPlaylist);
+        playlistDAL.addSongToPlaylist(selectedSong, selectedPlaylist, songs);
     }
 
     public List<Song> getSongsforPlaylist(Playlist selectedPlaylist) throws SQLException, IOException 
@@ -83,7 +79,6 @@ public class PlaylistManager
 
     public void removeSongFromPlaylist(Playlist selectedPlaylist, Song selectedSong)
     {
-                        System.out.println(selectedSong);
 
         playlistDAL.removeSongFromPlaylist(selectedPlaylist, selectedSong);
     }

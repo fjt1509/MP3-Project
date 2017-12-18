@@ -22,9 +22,6 @@
    </rowConstraints>
    <children>
       <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="709.0" prefWidth="935.0">
-         <top>
-            <Label text="Mytunes Audio Player" BorderPane.alignment="CENTER" />
-         </top>
          <bottom>
             <AnchorPane prefHeight="54.0" prefWidth="818.0" BorderPane.alignment="CENTER">
                <children>
@@ -51,12 +48,12 @@
          <center>
             <AnchorPane prefHeight="620.0" prefWidth="935.0" BorderPane.alignment="CENTER">
                <children>
-                  <TableView fx:id="PlaylistsViewer" layoutX="14.0" layoutY="112.0" onMouseClicked="#eventChoosePlaylistclk" prefHeight="514.0" prefWidth="162.0" style="-fx-border-color: BLACK;" stylesheets="@../../res/css/tableView.css">
+                  <TableView fx:id="viewPlaylists" layoutX="14.0" layoutY="112.0" onMouseClicked="#eventChoosePlaylistclk" prefHeight="514.0" prefWidth="162.0" style="-fx-border-color: BLACK;" stylesheets="@../../res/css/tableView.css">
                     <columns>
                       <TableColumn fx:id="tableColumnName" prefWidth="161.60001792907715" text="Name" />
                     </columns>
                   </TableView>
-                  <TableView fx:id="SongsViewer" layoutX="498.0" layoutY="112.0" onMouseClicked="#eventMouseSelectInSongsclk" prefHeight="514.0" prefWidth="422.0" style="-fx-border-color: BLACK;" stylesheets="@../../res/css/tableView.css">
+                  <TableView fx:id="viewSongs" layoutX="498.0" layoutY="112.0" onMouseClicked="#eventMouseSelectInSongsclk" prefHeight="514.0" prefWidth="422.0" style="-fx-border-color: BLACK;" stylesheets="@../../res/css/tableView.css">
                     <columns>
                       <TableColumn fx:id="tableColumnTitle" prefWidth="127.19992065429688" text="Title" />
                       <TableColumn fx:id="tableColumnArtist" prefWidth="128.7999267578125" text="Artist" />
@@ -65,14 +62,14 @@
                     </columns>
                   </TableView>
                   <TextField fx:id="FilterTxtField" layoutX="709.0" layoutY="82.0" onKeyReleased="#eventSearchSong" promptText="Filter" style="-fx-background-color: LIGHTGREY;" />
-                  <Slider fx:id="SliderBar" blockIncrement="1.0" layoutX="44.0" layoutY="58.0" />
+                  <Slider fx:id="volumeBar" blockIncrement="1.0" layoutX="44.0" layoutY="58.0" />
                   <Label layoutX="14.0" layoutY="95.0" text="Playlists" />
                   <Label layoutX="203.0" layoutY="95.0" text="Songs on Playlist" />
                   <Button layoutX="429.0" layoutY="344.0" mnemonicParsing="false" onAction="#eventAddSongbtn" prefHeight="38.0" prefWidth="57.0" text="⬅">
                      <font>
                         <Font size="23.0" />
                      </font></Button>
-                  <Button layoutX="870.0" layoutY="83.0" mnemonicParsing="false" text="Search">
+                  <Button layoutX="870.0" layoutY="83.0" mnemonicParsing="false" onAction="#eventClearSearchbtn" text="Clear">
                      <font>
                         <Font size="10.0" />
                      </font>
@@ -80,11 +77,9 @@
                   <Label layoutX="511.0" layoutY="95.0" text="Songs" />
                   <Button layoutX="63.0" layoutY="20.0" mnemonicParsing="false" onAction="#eventPlayPausebtn" text="Play" />
                   <Button layoutX="114.0" layoutY="20.0" mnemonicParsing="false" onAction="#eventPausebtn" text="Pause" />
-                  <Label fx:id="lblTrackTime" alignment="CENTER" layoutX="370.0" layoutY="63.0" prefHeight="18.0" prefWidth="176.0" text="title" textAlignment="CENTER" />
-                  <TableView fx:id="viewPlaylistSongs" layoutX="203.0" layoutY="113.0" onMouseClicked="#eventMouseSelectInPlaylistclk" prefHeight="511.0" prefWidth="203.0" style="-fx-border-color: BLACK;" stylesheets="@../../res/css/tableView.css">
+                  <TableView fx:id="viewSongsInPlaylist" layoutX="203.0" layoutY="113.0" onMouseClicked="#eventMouseSelectInPlaylistclk" prefHeight="511.0" prefWidth="203.0" style="-fx-border-color: BLACK;" stylesheets="@../../res/css/tableView.css">
                     <columns>
-                      <TableColumn fx:id="playlistSongColumnNr" prefWidth="36.800079345703125" text="Nr." />
-                      <TableColumn fx:id="playlistSongColumnSong" prefWidth="164.8000061035156" text="Song" />
+                      <TableColumn fx:id="playlistSongColumnSong" prefWidth="200.8000061035156" text="Song" />
                     </columns>
                   </TableView>
                   <Label fx:id="lblTrackArtist" alignment="CENTER" layoutX="278.0" layoutY="21.0" prefHeight="23.0" prefWidth="358.0" textAlignment="JUSTIFY">

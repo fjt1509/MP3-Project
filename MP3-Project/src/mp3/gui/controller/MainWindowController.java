@@ -5,6 +5,7 @@
  */
 package mp3.gui.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -17,7 +18,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
-import javafx.beans.property.ObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
@@ -28,27 +30,24 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Cell;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import javafx.util.Duration;
+import javafx.util.Callback;
+import javax.print.DocFlavor;
+import javax.swing.JOptionPane;
 import mp3.be.Playlist;
 import mp3.be.Song;
-import mp3.bll.MP3Exception;
 import mp3.gui.model.MP3model;
 
 /**
@@ -67,16 +66,16 @@ public class MainWindowController implements Initializable {
 
 
     @FXML
-    private TableView<Playlist> PlaylistsViewer;
+    private TableView<Playlist> viewPlaylists;
     @FXML
-    private TableView<Song> SongsViewer;
+    private TableView<Song> viewSongs;
     @FXML
-    private TableView<Song> viewPlaylistSongs;    
+    private TableView<Song> viewSongsInPlaylist;    
     
     @FXML
     private TextField FilterTxtField;
     @FXML
-    private Slider SliderBar;
+    private Slider volumeBar;
  
     @FXML
     private TableColumn<Song, String> tableColumnTitle;
@@ -90,30 +89,20 @@ public class MainWindowController implements Initializable {
     private TableColumn<Playlist, String> tableColumnName;
 
     @FXML
-    private TableColumn<Song, String> playlistSongColumnNr;
-    @FXML
     private TableColumn<Song, String> playlistSongColumnSong;
     
     @FXML
     private Label lblTrackArtist;
-    @FXML
-    private Label lblTrackTime;
     
-
-
-
-    
+  
     /**
      * The constructor for the class
      * @throws IOException
      * @throws SQLException 
      */
-    public MainWindowController() throws  IOException, SQLException, MP3Exception
-    {
-     
-      mp3model = new MP3model();
-      
-      
+    public MainWindowController() throws  IOException, SQLException
+    {    
+      mp3model = new MP3model();      
     }
     
     /**
@@ -125,31 +114,23 @@ public class MainWindowController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) 
     {
         
-        SongsViewer.setItems(mp3model.getAllSongs());       
+        viewSongs.setItems(mp3model.getAllSongs());       
         tableColumnTitle.setCellValueFactory (new PropertyValueFactory( "title"));
         tableColumnArtist.setCellValueFactory(new PropertyValueFactory("artist"));
         tableColumnCategory.setCellValueFactory(new PropertyValueFactory("category"));
         tableColumnTime.setCellValueFactory(new PropertyValueFactory("time"));
         
-
-        PlaylistsViewer.setItems(mp3model.getAllPlaylist());        
+        viewPlaylists.setItems(mp3model.getAllPlaylist());        
         tableColumnName.setCellValueFactory(new PropertyValueFactory("name"));
-        
-        
-        viewPlaylistSongs.setItems(mp3model.getAllSongsInPlaylist());
+           
+        viewSongsInPlaylist.setItems(mp3model.getAllSongsInPlaylist());
         playlistSongColumnSong.setCellValueFactory(new PropertyValueFactory("title"));
+        
       
+        volumeBar.setValue(100);
         
+        viewSongsInPlaylist.setPlaceholder(new Label("Choose a playlist"));
         
-        
-       
-        
-        SliderBar.setValue(100);
-        
-        viewPlaylistSongs.setPlaceholder(new Label("Choose a playlist"));
-        
-        
-
 
     }    
     
@@ -157,10 +138,8 @@ public class MainWindowController implements Initializable {
     @FXML
     private void eventEditSongBtn(ActionEvent event) throws IOException 
     {
-        Song selectedSong = SongsViewer.getSelectionModel().getSelectedItem();        
-        
+        Song selectedSong = viewSongs.getSelectionModel().getSelectedItem();        
 
-        
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mp3/gui/view/EditSong.fxml"));
         Parent root = (Parent) fxmlLoader.load();
         EditSongController esc = fxmlLoader.getController();
@@ -168,8 +147,7 @@ public class MainWindowController implements Initializable {
         esc.infoTransfer(selectedSong);
         Stage stage = new Stage();
         stage.setScene(new Scene(root)); 
-        stage.show(); 
-        
+        stage.show();        
     }
 
     @FXML
@@ -181,8 +159,7 @@ public class MainWindowController implements Initializable {
         nsc.setModel(mp3model);
         Stage stage = new Stage();
         stage.setScene(new Scene(root1)); 
-        stage.show();  
-        
+        stage.show();         
     }
 
     @FXML
@@ -198,7 +175,7 @@ public class MainWindowController implements Initializable {
     }
 
     @FXML
-    private void eventPlayPausebtn(ActionEvent event) throws MalformedURLException 
+    private void eventPlayPausebtn(ActionEvent event) throws MalformedURLException  
     {
         if(isPlaying)
         {
@@ -211,21 +188,18 @@ public class MainWindowController implements Initializable {
         musicFile.getDuration().toMinutes();
         mediaplayer = new MediaPlayer(musicFile);
         mediaplayer.play();
-   
-        
-        
-        
+    
         isPlaying = true;
     
         lblTrackArtist.setText(song.getTitle() + " By: " +  song.getArtist());
         
-        SliderBar.setValue(mediaplayer.getVolume() * 100);
-        SliderBar.valueProperty().addListener(new InvalidationListener() 
+        volumeBar.setValue(mediaplayer.getVolume() * 100);
+        volumeBar.valueProperty().addListener(new InvalidationListener() 
         {          
             @Override
             public void invalidated(Observable observable) 
             {
-                mediaplayer.setVolume(SliderBar.getValue() / 100);
+                mediaplayer.setVolume(volumeBar.getValue() / 100);
             }
         });
         
@@ -233,11 +207,10 @@ public class MainWindowController implements Initializable {
         {
             @Override public void run()
             {
-               ActionEvent i = null;
                 try 
                 {
                     lblTrackArtist.setText("");
-                    eventNextSongbtn(i);
+                    eventNextSongbtn(null);
                 } 
                 catch (MalformedURLException ex) 
                 {
@@ -258,31 +231,24 @@ public class MainWindowController implements Initializable {
     @FXML
     private void eventMouseSelectInPlaylistclk(MouseEvent event) throws MalformedURLException 
     {
-        SongsViewer.getSelectionModel().clearSelection();
-        if(!viewPlaylistSongs.getSelectionModel().isEmpty())
+        viewSongs.getSelectionModel().clearSelection();
+        if(!viewSongsInPlaylist.getSelectionModel().isEmpty())
         {    
-            Song selectedSong = viewPlaylistSongs.getSelectionModel().getSelectedItem();
+            Song selectedSong = viewSongsInPlaylist.getSelectionModel().getSelectedItem();
             song = selectedSong;
-            fileName = selectedSong.getFileName();
-            System.out.println(fileName);
-            
-                
-        }
-            
-        
-        
+            fileName = selectedSong.getFileName();              
+        }       
     }
 
     @FXML
     private void eventMouseSelectInSongsclk(MouseEvent event) 
     {
-        viewPlaylistSongs.getSelectionModel().clearSelection();
-        if(!SongsViewer.getSelectionModel().isEmpty())
+        viewSongsInPlaylist.getSelectionModel().clearSelection();
+        if(!viewSongs.getSelectionModel().isEmpty())
         {
-            Song selectedSong = SongsViewer.getSelectionModel().getSelectedItem();
+            Song selectedSong = viewSongs.getSelectionModel().getSelectedItem();
             song = selectedSong;
             fileName = selectedSong.getFileName();
-            System.out.println(fileName);  
         }
     }
     
@@ -290,7 +256,7 @@ public class MainWindowController implements Initializable {
     @FXML
     private void eventSearchSong(KeyEvent event) 
     {   
-        FilteredList filter = new FilteredList(SongsViewer.getItems(),e ->true);
+        FilteredList filter = new FilteredList(viewSongs.getItems(),e ->true);
         FilterTxtField.textProperty().addListener((observable, oldValue, newValue) -> {
             
             
@@ -311,8 +277,8 @@ public class MainWindowController implements Initializable {
                 return false;
             });
             SortedList sort= new SortedList(filter);
-            sort.comparatorProperty().bind(SongsViewer.comparatorProperty());
-            SongsViewer.setItems(sort);
+            sort.comparatorProperty().bind(viewSongs.comparatorProperty());
+            viewSongs.setItems(sort);
         });
         
     }
@@ -320,18 +286,49 @@ public class MainWindowController implements Initializable {
     @FXML
     private void eventDeleteSongBtn(ActionEvent event)
     {
-        
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Confirmation ");
         alert.setHeaderText("Delete confirmation");
-        alert.setContentText("Are you sure you want to delete this song? the song will also be removed from all playlists");
+        alert.setContentText("Are you sure you want to remove this song? the song will also be removed from all playlists");
         
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK)
         {
-            Song selectedSong = SongsViewer.getSelectionModel().getSelectedItem();
-            mp3model.remove(selectedSong);
+                Alert alert2 = new Alert(AlertType.CONFIRMATION);
+                alert2.setTitle("Confirmation ");
+                alert2.setHeaderText("Delete confirmation");
+                alert2.setContentText("Do you also wish to delete the file");
+        
+
+                Optional<ButtonType> result2 = alert2.showAndWait();
+                if (result2.get() == ButtonType.OK)
+                {
+                    Song selectedSong = viewSongs.getSelectionModel().getSelectedItem();
+                    mp3model.remove(selectedSong);                   
+                    File file = new File("./Songs/"+fileName);
+                    if(file.delete())
+                    {
+                        JOptionPane.showMessageDialog(null, "The file was succesfully deleted", "Yay, java", JOptionPane.PLAIN_MESSAGE);
+                    } else
+                    {
+                        Alert alert3 = new Alert(AlertType.ERROR);
+                        alert3.setTitle("Error Dialog");
+                        alert3.setHeaderText("Failed to deletede file");
+                        alert3.setContentText("The file " + fileName + " could not be deleted");
+
+                        alert3.showAndWait(); 
+                        
+                    }
+                     
+                    
+                } 
+                else 
+                {
+                    Song selectedSong = viewSongs.getSelectionModel().getSelectedItem();
+                    mp3model.remove(selectedSong);
+                }
+
         } else 
         {
             
@@ -343,8 +340,8 @@ public class MainWindowController implements Initializable {
     @FXML
     private void eventAddSongbtn(ActionEvent event) throws IOException 
     {
-        Song selectedSong = SongsViewer.getSelectionModel().getSelectedItem();
-        Playlist selectedPlaylist = PlaylistsViewer.getSelectionModel().getSelectedItem();
+        Song selectedSong = viewSongs.getSelectionModel().getSelectedItem();
+        Playlist selectedPlaylist = viewPlaylists.getSelectionModel().getSelectedItem();
         boolean isInPlaylist = false;
         
         if (selectedSong!=null && selectedPlaylist!=null)
@@ -387,10 +384,10 @@ public class MainWindowController implements Initializable {
     @FXML
     private void eventChoosePlaylistclk(MouseEvent event) throws IOException, SQLException 
     {
-        if(!PlaylistsViewer.getSelectionModel().isEmpty())
+        if(!viewPlaylists.getSelectionModel().isEmpty())
         {
-            viewPlaylistSongs.getItems().clear();
-            Playlist selectedPlaylist = PlaylistsViewer.getSelectionModel().getSelectedItem();
+            viewSongsInPlaylist.getItems().clear();
+            Playlist selectedPlaylist = viewPlaylists.getSelectionModel().getSelectedItem();
             mp3model.getSongsforPlaylist(selectedPlaylist);
             
             
@@ -409,7 +406,7 @@ public class MainWindowController implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK)
         {
-            Playlist selectedPlaylist = PlaylistsViewer.getSelectionModel().getSelectedItem();
+            Playlist selectedPlaylist = viewPlaylists.getSelectionModel().getSelectedItem();
             mp3model.deletePlaylist(selectedPlaylist);
         } else 
         {
@@ -420,7 +417,7 @@ public class MainWindowController implements Initializable {
     @FXML
     private void eventEditPlaylist(ActionEvent event) throws IOException 
     {
-        Playlist selectedPlaylist = PlaylistsViewer.getSelectionModel().getSelectedItem(); 
+        Playlist selectedPlaylist = viewPlaylists.getSelectionModel().getSelectedItem(); 
         
         
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mp3/gui/view/EditPlaylist.fxml"));
@@ -444,8 +441,8 @@ public class MainWindowController implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK)
         {
-            Playlist selectedPlaylist = PlaylistsViewer.getSelectionModel().getSelectedItem();
-            Song selectedSong = viewPlaylistSongs.getSelectionModel().getSelectedItem();
+            Playlist selectedPlaylist = viewPlaylists.getSelectionModel().getSelectedItem();
+            Song selectedSong = viewSongsInPlaylist.getSelectionModel().getSelectedItem();
             
         mp3model.removeSongFromPlaylist(selectedPlaylist, selectedSong);
         } else 
@@ -457,16 +454,16 @@ public class MainWindowController implements Initializable {
     @FXML
     private void eventPushDownbtn(ActionEvent event) 
     {
-       Playlist selectedPlaylist = PlaylistsViewer.getSelectionModel().getSelectedItem();
-       Song selectedSong = viewPlaylistSongs.getSelectionModel().getSelectedItem();
+       Playlist selectedPlaylist = viewPlaylists.getSelectionModel().getSelectedItem();
+       Song selectedSong = viewSongsInPlaylist.getSelectionModel().getSelectedItem();
        mp3model.moveSongDown(selectedSong, selectedPlaylist);
     }
 
     @FXML
     private void eventPushUpbtn(ActionEvent event) 
     {
-       Playlist selectedPlaylist = PlaylistsViewer.getSelectionModel().getSelectedItem();
-       Song selectedSong = viewPlaylistSongs.getSelectionModel().getSelectedItem();
+       Playlist selectedPlaylist = viewPlaylists.getSelectionModel().getSelectedItem();
+       Song selectedSong = viewSongsInPlaylist.getSelectionModel().getSelectedItem();
        mp3model.moveSongUp(selectedSong, selectedPlaylist);
         
     }
@@ -476,13 +473,13 @@ public class MainWindowController implements Initializable {
     {
         TableView<Song> selectedTable = null;
         
-        if(!viewPlaylistSongs.getSelectionModel().isEmpty())
+        if(!viewSongsInPlaylist.getSelectionModel().isEmpty())
         {
-            selectedTable = viewPlaylistSongs;
+            selectedTable = viewSongsInPlaylist;
         }
-        else if(!SongsViewer.getSelectionModel().isEmpty())
+        else if(!viewSongs.getSelectionModel().isEmpty())
         {
-            selectedTable = SongsViewer;
+            selectedTable = viewSongs;
         }
             if(selectedTable != null)
             {
@@ -496,9 +493,8 @@ public class MainWindowController implements Initializable {
                     song = nextSelectedSong;
                     fileName = nextSelectedSong.getFileName();
                     selectedTable.getSelectionModel().clearAndSelect(nextSong);
-   
-                    ActionEvent g = null;        
-                    eventPlayPausebtn(g);   
+                              
+                    eventPlayPausebtn(null);   
                 } 
                 else 
                 {
@@ -513,13 +509,13 @@ public class MainWindowController implements Initializable {
     {
         TableView<Song> selectedTable = null;
         
-        if(!viewPlaylistSongs.getSelectionModel().isEmpty())
+        if(!viewSongsInPlaylist.getSelectionModel().isEmpty())
         {
-            selectedTable = viewPlaylistSongs;
+            selectedTable = viewSongsInPlaylist;
         } 
-        else if(!SongsViewer.getSelectionModel().isEmpty())
+        else if(!viewSongs.getSelectionModel().isEmpty())
         {
-            selectedTable = SongsViewer;
+            selectedTable = viewSongs;
         }
         
             if(selectedTable != null)
@@ -546,6 +542,12 @@ public class MainWindowController implements Initializable {
             }
 
         }  
+
+    @FXML
+    private void eventClearSearchbtn(ActionEvent event) 
+    {
+        FilterTxtField.clear();
+    }
     
 
 

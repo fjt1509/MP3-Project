@@ -186,7 +186,7 @@ public class SongDAL
         }  
     }
 
-    public void setSongsOrder(Playlist selectedPlaylist, Song selectedSong, int numberInPlaylist) 
+    public void setSongsOrder(Playlist selectedPlaylist, Song selectedSong, int numberInPlaylist)  
     {
         try (Connection con = dbConnector.getConnection())
         {

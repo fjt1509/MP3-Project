@@ -33,7 +33,6 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import mp3.bll.MP3Exception;
 import mp3.gui.model.MP3model;
 import org.tritonus.share.sampled.file.TAudioFileFormat;
 
@@ -127,7 +126,7 @@ public class NewSongController implements Initializable
      * @throws IOException 
      */
     @FXML
-    private void eventSaveSongBtn(ActionEvent event) throws IOException, MP3Exception 
+    private void eventSaveSongBtn(ActionEvent event) throws IOException
     {
 
         

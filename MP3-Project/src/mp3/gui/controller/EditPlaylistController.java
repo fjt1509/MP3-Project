@@ -6,6 +6,7 @@
 package mp3.gui.controller;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,7 +15,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import mp3.be.Playlist;
-import mp3.bll.MP3Exception;
 import mp3.gui.model.MP3model;
 
 /**
@@ -42,7 +42,7 @@ public class EditPlaylistController implements Initializable {
     }    
 
     @FXML
-    private void eventSaveChanges(ActionEvent event) throws MP3Exception 
+    private void eventSaveChanges(ActionEvent event) throws SQLException 
     {
         
         String updatedPlaylistName = txtPlaylistName.getText();
