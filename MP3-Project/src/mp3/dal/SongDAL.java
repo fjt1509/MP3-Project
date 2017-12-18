@@ -34,7 +34,7 @@ public class SongDAL
     }
     
     /**
-     * Creates a songObject in the database
+     * Creates a song in the database
      * @param title
      * @param artist
      * @param category
@@ -116,6 +116,12 @@ public class SongDAL
         return song;
     }
     
+    /**
+     * This method get a song from the database by its ID
+     * @param id
+     * @return Song from result set row(rs)
+     * @throws SQLException 
+     */
     public Song getSongById(int id) throws SQLException
     {
         try (Connection con = dbConnector.getConnection())
@@ -140,7 +146,7 @@ public class SongDAL
     
     
     /**
-     * This method removes a song from the database
+     * This method removes a song from the database by ID
      * @param song 
      */
     public void remove(Song song) 
@@ -164,6 +170,15 @@ public class SongDAL
         }
     }
 
+    
+    /**
+     * This method updates the song tabel in the database
+     * @param id
+     * @param updatedTitle
+     * @param updatedArtist
+     * @param updatedCategory
+     * @throws SQLException 
+     */
     public void updateSong(int id, String updatedTitle, String updatedArtist, String updatedCategory) throws SQLException 
     {
         try (Connection con = dbConnector.getConnection())
@@ -182,6 +197,13 @@ public class SongDAL
         }  
     }
 
+    
+    /**
+     * This method sets songs in order by ID
+     * @param selectedPlaylist
+     * @param selectedSong
+     * @param numberInPlaylist 
+     */
     public void setSongsOrder(Playlist selectedPlaylist, Song selectedSong, int numberInPlaylist)  
     {
         try (Connection con = dbConnector.getConnection())

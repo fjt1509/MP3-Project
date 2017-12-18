@@ -32,7 +32,7 @@ public class SongManager
 
     
     /**
-     * Takes createSong from the DAL
+     * Retrives createSong from SongDAL
      * @param title
      * @param artist
      * @param category
@@ -49,7 +49,7 @@ public class SongManager
     
     
     /**
-     * Takes getAllSongs from the DAL
+     * retrives getAllSongs from SongDAL
      * @return
      * @throws MP3Exception 
      */
@@ -61,19 +61,34 @@ public class SongManager
 
 
     /**
-     * Takes remove from the DAL
+     * Retrives remove from SongDAL
      * @param song 
      */
     public void remove(Song song)
     {
         songDAL.remove(song);
     }
-
+    
+    
+    /**
+     * Retrives updateSong from SongDAL
+     * @param id
+     * @param updatedTitle
+     * @param updatedArtist
+     * @param updatedCategory
+     * @throws SQLException 
+     */
     public void updateSong(int id, String updatedTitle, String updatedArtist, String updatedCategory) throws SQLException
     {
         songDAL.updateSong(id, updatedTitle, updatedArtist, updatedCategory);
     }
 
+    
+    /**
+     * Retrives setSongOrder from SongDAL
+     * @param selectedPlaylist
+     * @param songs 
+     */
     public void setSongsOrder(Playlist selectedPlaylist, List<Song> songs) 
     {
         for (int i=0; i<songs.size(); i++)
@@ -83,6 +98,12 @@ public class SongManager
         }
     }
     
+    
+    /**
+     * This mehtod calculates from seconds to (minutes):(seconds)
+     * @param timeInSeconds
+     * @return 
+     */
     public String getFormattedTimeString(long timeInSeconds) 
     {
         
@@ -118,7 +139,12 @@ public class SongManager
         return timeStr;
  }
     
-    
+    /**
+     * This method places a zero infront of the amount of seconds so that the time shows "6:03" instead of "6:3"
+     *
+     * @param number
+     * @return 
+     */
     public String placeZeroIfNeeded(int number) 
     {
         return (number >=10)? Integer.toString(number):String.format("0%s",Integer.toString(number));

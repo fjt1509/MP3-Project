@@ -71,7 +71,7 @@ public class PlaylistDAL
     
     /**
      * Getting playlist from the database
-     * @return
+     * @returns allPlaylists
      * @throws SQLException 
      */
     public List<Playlist> getAllPlaylists() throws SQLException
@@ -96,7 +96,7 @@ public class PlaylistDAL
     /**
      * This method retrives all data from the database
      * @param rs
-     * @return
+     * @return playlist
      * @throws SQLException 
      */
     private Playlist getPlaylistFromResultSetRow(ResultSet rs) throws SQLException
@@ -109,6 +109,13 @@ public class PlaylistDAL
         return playlist;
     }
 
+    /**
+     * This method add a song to a playlist in the database
+     * @param selectedSong
+     * @param selectedPlaylist
+     * @param songs
+     * @throws SQLException 
+     */
     public void addSongToPlaylist(Song selectedSong, Playlist selectedPlaylist, List<Song> songs) throws SQLException 
     {
         int songID = selectedSong.getId();
@@ -131,7 +138,15 @@ public class PlaylistDAL
         }  
         
     }
-
+    
+    
+    /**
+     * This method retrives songs in a given playlist
+     * @param selectedPlaylist
+     * @returns allSongs
+     * @throws SQLException
+     * @throws IOException 
+     */
     public List<Song> getSongsforPlaylist(Playlist selectedPlaylist) throws SQLException, IOException 
     {
         int playlistID = selectedPlaylist.getId();
@@ -162,6 +177,11 @@ public class PlaylistDAL
         
     }
 
+    
+    /**
+     * This method deletes a playlist from the database
+     * @param selectedPlaylist 
+     */
     public void deletePlaylist(Playlist selectedPlaylist) 
     {
         try (Connection con = dbConnector.getConnection())
@@ -181,6 +201,11 @@ public class PlaylistDAL
         }
     }
 
+    /**
+     * This method updates the playlist in the database
+     * @param id
+     * @param updatedPlaylistName 
+     */
     public void updatePlaylist(int id, String updatedPlaylistName) 
     {
         try (Connection con = dbConnector.getConnection())
@@ -201,6 +226,12 @@ public class PlaylistDAL
         }
     }
 
+    
+    /**
+     * This method removes a song from a playlist in the database
+     * @param selectedPlaylist
+     * @param selectedSong 
+     */
     public void removeSongFromPlaylist(Playlist selectedPlaylist, Song selectedSong) 
     {
         try (Connection con = dbConnector.getConnection())

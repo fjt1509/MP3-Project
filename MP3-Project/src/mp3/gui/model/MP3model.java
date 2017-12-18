@@ -161,7 +161,7 @@ public class MP3model
        obsListSongsInPlaylist.addAll(playlistmanager.getSongsforPlaylist(selectedPlaylist));      
     }
     /**
-     * 
+     * this method updates the songlist
      * @param id
      * @param updatedTitle
      * @param updatedArtist
@@ -177,7 +177,7 @@ public class MP3model
         
     }
     /**
-     * this method lets us delete the selectedPlaylist.
+     * this method deletes the selectedPlaylist.
      * 
      * @param selectedPlaylist
      * @throws SQLException
@@ -191,7 +191,7 @@ public class MP3model
         getSongsforPlaylist(selectedPlaylist);
     }
     /**
-     * 
+     * This method updates the playlist
      * @param id
      * @param updatedPlaylistName
      * @throws SQLException 
@@ -203,7 +203,7 @@ public class MP3model
         obsListPlaylists.addAll(playlistmanager.getAllPlaylists());
     }
     /**
-     * this method lets us remove the selectedSong from the Playlist.
+     * this method removes the selectedSong from the Playlist.
      *  
      * @param selectedPlaylist
      * @param selectedSong
@@ -255,7 +255,7 @@ public class MP3model
         setSongsOrder(selectedPlaylist);         
     }
     /**
-     * 
+     * This method gets the duration of a .mp3 file
      * @param selectedFile
      * @return
      * @throws UnsupportedAudioFileException
@@ -289,7 +289,7 @@ public class MP3model
             
     }
     /**
-     * 
+     * This method gets the duration of a .wav file
      * @param selectedFile
      * @return
      * @throws UnsupportedAudioFileException

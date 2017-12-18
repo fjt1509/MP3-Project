@@ -29,8 +29,8 @@ public class DataBaseConnector
     }
         
     /**
-     * This method keeps the connection with the database
-     * @return
+     * This method gets the connection with the database
+     * @returns dataSource from DataBaseConnector
      * @throws SQLServerException 
      */    
     public Connection getConnection() throws SQLServerException
