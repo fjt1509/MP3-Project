@@ -18,8 +18,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
@@ -31,7 +29,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Cell;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
@@ -43,8 +40,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
-import javafx.util.Callback;
-import javax.print.DocFlavor;
 import javax.swing.JOptionPane;
 import mp3.be.Playlist;
 import mp3.be.Song;
@@ -143,6 +138,8 @@ public class MainWindowController implements Initializable {
     @FXML
     private void eventEditSongBtn(ActionEvent event) throws IOException 
     {
+        if(!viewSongs.getSelectionModel().isEmpty())
+        {
         Song selectedSong = viewSongs.getSelectionModel().getSelectedItem();        
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/mp3/gui/view/EditSong.fxml"));
@@ -152,7 +149,8 @@ public class MainWindowController implements Initializable {
         esc.infoTransfer(selectedSong);
         Stage stage = new Stage();
         stage.setScene(new Scene(root)); 
-        stage.show();        
+        stage.show();
+        }
     }
     /**
      * On ActionEvent, this method loads & sets the stage to the NewSong.fxml file.
@@ -188,8 +186,7 @@ public class MainWindowController implements Initializable {
         stage.show();  
     }
     /**
-     * On ActionEvent, plays the selected mediafile.
-     * 
+     * On ActionEvent, 
      * 
      * @param event
      * @throws MalformedURLException
@@ -212,7 +209,6 @@ public class MainWindowController implements Initializable {
         isPlaying = true;
     
         lblTrackArtist.setText(song.getTitle() + " By: " +  song.getArtist());
-        
         
         volumeBar.setValue(mediaplayer.getVolume() * 100);
         volumeBar.valueProperty().addListener(new InvalidationListener() 
@@ -332,6 +328,8 @@ public class MainWindowController implements Initializable {
     @FXML
     private void eventDeleteSongBtn(ActionEvent event)
     {
+        if(!viewSongs.getSelectionModel().isEmpty())
+        {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Confirmation ");
         alert.setHeaderText("Delete confirmation");
@@ -378,6 +376,7 @@ public class MainWindowController implements Initializable {
         } else 
         {
             
+        }
         }
         
 
@@ -462,6 +461,8 @@ public class MainWindowController implements Initializable {
     @FXML
     private void eventDeletePlaylist(ActionEvent event) throws SQLException, IOException 
     {
+        if(!viewPlaylists.getSelectionModel().isEmpty())
+        {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Confirmation ");
         alert.setHeaderText("Delete confirmation");
@@ -477,6 +478,7 @@ public class MainWindowController implements Initializable {
         {
             
         }
+        }
     }
     /**
      * On ActionEvent, if a Playlist is selected, loads & sets the new stage to the "EditPlaylist.fxml file.
@@ -487,6 +489,8 @@ public class MainWindowController implements Initializable {
     @FXML
     private void eventEditPlaylist(ActionEvent event) throws IOException 
     {
+        if(!viewPlaylists.getSelectionModel().isEmpty())
+        {
         Playlist selectedPlaylist = viewPlaylists.getSelectionModel().getSelectedItem(); 
         
         
@@ -498,6 +502,7 @@ public class MainWindowController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(new Scene(root1)); 
         stage.show();
+        }
     }
     /**
      * On ActionEvent, opens an AlertBox for Confirmation.
@@ -510,6 +515,8 @@ public class MainWindowController implements Initializable {
     @FXML
     private void eventRemoveSongFromPlaylist(ActionEvent event) throws SQLException, IOException 
     {
+        if(!viewSongsInPlaylist.getSelectionModel().isEmpty())
+        {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Confirmation ");
         alert.setHeaderText("Delete confirmation");
@@ -525,6 +532,7 @@ public class MainWindowController implements Initializable {
         } else 
         {
             
+        }
         }
     }
     /**
